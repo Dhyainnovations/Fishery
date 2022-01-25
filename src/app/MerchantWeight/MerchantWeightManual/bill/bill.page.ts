@@ -11,5 +11,5 @@ export class BillPage implements OnInit {
 
   ngOnInit() {
   }
-
+  currentDate = new Date();
 }

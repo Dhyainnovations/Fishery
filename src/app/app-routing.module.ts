@@ -51,6 +51,30 @@ const routes: Routes = [
     path: 'BillerManualdashboard',
     loadChildren: () => import('./BillerWeight/BillerWeightManual/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
+  {
+    path: 'BillerAutodashboard',
+    loadChildren: () => import('./BillerWeight/BillerWeightAuto/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'BillerAutoweighter',
+    loadChildren: () => import('./BillerWeight/BillerWeightAuto/weighter/weighter.module').then( m => m.WeighterPageModule)
+  },
+  {
+    path: 'BillerAutobill',
+    loadChildren: () => import('./BillerWeight/BillerWeightAuto/bill/bill.module').then( m => m.BillPageModule)
+  },
+  {
+    path: 'MerchantWeightAutodashboard',
+    loadChildren: () => import('./MerchantWeight/MerchantWeightAuto/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'MerchantWeightAutoweighter',
+    loadChildren: () => import('./MerchantWeight/MerchantWeightAuto/weighter/weighter.module').then( m => m.WeighterPageModule)
+  },
+  {
+    path: 'MerchantWeightAutobill',
+    loadChildren: () => import('./MerchantWeight/MerchantWeightAuto/bill/bill.module').then( m => m.BillPageModule)
+  },
 ];
 
 @NgModule({
