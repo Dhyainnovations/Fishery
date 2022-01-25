@@ -4,18 +4,18 @@
 
   <!-----Username-Input----->
   <div class="user-input-wrap px-4 mt-5">
-    <ion-input class="username px-3 py-1 rounded" placeholder="Enter User Name"></ion-input>
+    <ion-input [(ngModel)]="username" class="username px-3 py-1 rounded" placeholder="Enter User Name"></ion-input>
   </div>
 
   <!-----Password-Input----->
   <div class="user-password-wrap px-4 mt-5">
-    <ion-input class="password px-3 py-1 rounded" placeholder="Enter User Password"></ion-input>
+    <ion-input [(ngModel)]="password" class="password px-3 py-1 rounded" placeholder="Enter User Password"></ion-input>
   </div>
 
   <p class="forgot-password mt-3">Forgot Password ?</p>
 
 
   <!-----Login-Button----->
-  <ion-button color="tertiary" expand="block" class="px-4" (click)="NavigateToNExtPage()"><b>Login</b></ion-button>
+  <ion-button color="tertiary" expand="block" class="px-4" (click)="login()"><b>Login</b></ion-button>
 
 </ion-content>
