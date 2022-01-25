@@ -1,0 +1,7 @@
+{
+  "name": "Fishery",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

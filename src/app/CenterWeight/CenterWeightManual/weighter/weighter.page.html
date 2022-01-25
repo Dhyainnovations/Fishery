@@ -1,0 +1,108 @@
+<ion-content>
+  <!-----Title----->
+
+  <h2 class="text-center weighter"><b>WEIGHTER</b></h2>
+
+
+  <!-----Display Weight----->
+  <div class="weight-display-wrap text-center mt-4 px-2">
+    <div class="weight-display" style="font-size: 20px;">
+      <p> weight is <b>267.70</b> kgs</p>
+    </div>
+  </div>
+
+  <div class="container weighter-details-wrapper">
+    <div class="row">
+      <!-----Display Date----->
+      <div class="col-6 display-date">
+        <b>Date:<br></b>
+        <input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar mt-2">
+      </div>
+
+
+      <!-----Fish Type----->
+      <div class="col-6">
+        <p class="select-category"><b>Select Category:</b></p>
+        <select>
+          <option value="" disabled selected>Category</option>
+          <option value="goldfish">Gold Fish</option>
+          <option value="guppy">Guppy</option>
+          <option value="bluefish">Blue Fish</option>
+          <option value="tilapia">Tilapia</option>
+        </select>
+
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <!-----Fish Category----->
+      <div class="col-6">
+        <p class="select-category"><b>Select Type: </b></p>
+        <select>
+          <option value="" disabled selected>Fish Type</option>
+          <option value="first">1st</option>
+          <option value="second">2nd</option>
+          <option value="third">3rd</option>
+        </select>
+      </div>
+
+      <!-----FLocation----->
+      <div class="col-6">
+        <p class="select-category"><b>Select Location: </b></p>
+        <select>
+          <option value="" disabled selected>Location</option>
+          <option value="annur">Annur</option>
+          <option value="sirumugai">Sirumugai</option>
+        </select>
+      </div>
+    </div>
+
+
+    <!-----Submit Button---->
+    <div class="button-wrapper" class="px-5 mt-3">
+      <ion-button class="submit-button" color="transparent" expand="block" style="background-color: #6863CC;">
+        <b>SUBMIT</b>
+      </ion-button>
+
+    </div>
+
+  </div>
+
+
+  <!-----Table----->
+  <table class="table">
+    <thead style="background-color:#6863CC;" class="text-white">
+      <tr>
+        <th scope="col-3">Time</th>
+        <th scope="col-1">Weight<br>(kgs)</th>
+        <th scope="col-2">Location</th>
+        <th scope="col-2">Category</th>
+        <th scope="col-2">Type</th>
+        <th scope="col-2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">10.00</th>
+        <td>120</td>
+        <td>Annur</td>
+        <td>Tilapia</td>
+        <td>1st</td>
+        <td>
+          <ion-icon name="trash-outline" class="trash"></ion-icon>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">12.00</th>
+        <td>100</td>
+        <td>Sirumugai</td>
+        <td>Tilapia</td>
+        <td>2nd</td>
+        <td>
+          <ion-icon name="trash-outline" class="trash"></ion-icon>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</ion-content>

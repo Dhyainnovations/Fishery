@@ -1,0 +1,35 @@
+.company-name-wrap{
+    margin-top: 60px;
+  }
+  
+  .company-name{
+    color: #12B0E8 !important;
+    font-size: 35px;
+  }
+  
+  .company-description{
+    font-size: 25px;
+  }
+  
+  .fish-image{
+    margin-top: 20%;
+    width: 40%;
+    border-radius: 60%;
+    border:7px solid #fff;
+    box-shadow: 5px 5px 10px grey;
+  }
+  
+  .home-image{
+    text-align: center;
+    margin-top: 55px;
+    
+  }
+  
+  .calendar-outline{
+    cursor:pointer;
+  }
+  
+  ion-content.background{
+    --background: url(../../assets/home.png) 0 0/100% 100% no-repeat;
+    background: #fff;
+  }
