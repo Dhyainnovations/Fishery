@@ -1,15 +1,30 @@
-<ion-content>
+<ion-content class="background">
   <!-----Title----->
 
-  <h2 class="text-center weighter"><b>WEIGHTER</b></h2>
+<div class="row">
+  <div class="col-12 ion-text-right mt-4">
+    <img id="profile" height="50px" width="50px" src="https://www.seekpng.com/png/detail/428-4287240_no-avatar-user-circle-icon-png.png" alt="">
+  </div>
+  <div class="col-12 ion-text-center mt-5 ">
+    <h2>WEIGHTER</h2>
+  </div>
+  
+</div>
+
+  
+
+
 
 
   <!-----Display Weight----->
-  <div class="weight-display-wrap text-center mt-4 px-2">
-    <div class="weight-display" style="font-size: 20px;">
-      <p> weight is <b>267.70</b> kgs</p>
-    </div>
-  </div>
+   <div class="row">
+   <div class="col-12 ion-text-center">
+    <input [(ngModel)]="weight" type="text" placeholder="Enter the weight">
+   </div>
+   </div>
+     
+      <!-- <p> weight is <b>267.70</b> kgs</p> -->
+    
 
   <div class="container weighter-details-wrapper">
     <div class="row">
@@ -23,36 +38,31 @@
       <!-----Fish Type----->
       <div class="col-6">
         <p class="select-category"><b>Select Category:</b></p>
-        <select>
+          <select [(ngModel)]="category">
           <option value="" disabled selected>Category</option>
-          <option value="goldfish">Gold Fish</option>
-          <option value="guppy">Guppy</option>
-          <option value="bluefish">Blue Fish</option>
-          <option value="tilapia">Tilapia</option>
+          <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
         </select>
 
       </div>
     </div>
-
+ 
     <div class="row mt-3">
       <!-----Fish Category----->
-      <div class="col-6">
+      <div class="col-5">
         <p class="select-category"><b>Select Type: </b></p>
-        <select>
+        <select  [(ngModel)]="type">
           <option value="" disabled selected>Fish Type</option>
-          <option value="first">1st</option>
-          <option value="second">2nd</option>
-          <option value="third">3rd</option>
+          <option *ngFor="let type of typelist" [value]="type.type">{{type.type}}</option>
+         
         </select>
       </div>
 
       <!-----FLocation----->
-      <div class="col-6">
+      <div class="col-7">
         <p class="select-category"><b>Select Location: </b></p>
-        <select>
+        <select  [(ngModel)]="place">
           <option value="" disabled selected>Location</option>
-          <option value="annur">Annur</option>
-          <option value="sirumugai">Sirumugai</option>
+          <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option> 
         </select>
       </div>
     </div>
@@ -60,7 +70,7 @@
 
     <!-----Submit Button---->
     <div class="button-wrapper" class="px-5 mt-3">
-      <ion-button class="submit-button" color="transparent" expand="block" style="background-color: #6863CC;">
+      <ion-button (click)="submit()" class="submit-button" color="transparent" expand="block" style="background-color: #6863CC;">
         <b>SUBMIT</b>
       </ion-button>
 
@@ -78,31 +88,20 @@
         <th scope="col-2">Location</th>
         <th scope="col-2">Category</th>
         <th scope="col-2">Type</th>
-        <th scope="col-2"></th>
+        <th scope="col-2">Del</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let record of tableRecodrs ">
       <tr>
-        <th scope="row">10.00</th>
-        <td>120</td>
-        <td>Annur</td>
-        <td>Tilapia</td>
-        <td>1st</td>
+        <th scope="row">{{record.updatedAt | date: 'h:mm a'}}</th>
+        <td>{{record.quantity}}</td>
+        <td>{{record.quantity}}</td>
+        <td>{{record.place}}</td>
+        <td>{{record.quality}}</td>
         <td>
-          <ion-icon name="trash-outline" class="trash"></ion-icon>
+          <ion-icon (click)="delete(record.boxid)"  [value]="record.boxid" style="height:20px; width:25px" name="trash-outline" class="trash"></ion-icon>
         </td>
       </tr>
-      <tr>
-        <th scope="row">12.00</th>
-        <td>100</td>
-        <td>Sirumugai</td>
-        <td>Tilapia</td>
-        <td>2nd</td>
-        <td>
-          <ion-icon name="trash-outline" class="trash"></ion-icon>
-        </td>
-      </tr>
-
     </tbody>
   </table>
 </ion-content>

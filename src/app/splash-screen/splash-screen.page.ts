@@ -10,12 +10,24 @@ import { Router } from '@angular/router';
 })
 export class SplashScreenPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+    var userdetails = (localStorage.getItem("Fishery-username"));
+      
+      
+      setTimeout(()=>{
+        if(userdetails){
+          // this.router.navigate(['/centerweight-auto-dashboard'])
+        }else{
+          // this.router.navigate(['/'])
+        }
+        this.router.navigate(['/loginpage'])
+      },2200)
+    };
+  
+  
 
   ngOnInit() {
-    setTimeout(()=>{
-     this.router.navigate(['/login-page'])
-    },2200)
+    
   }
 
 }

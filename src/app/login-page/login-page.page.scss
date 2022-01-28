@@ -21,6 +21,23 @@
     font-size: 13px;
 }
 
+.login-btn{
+    background-color: #655fcb !important;
+    color:#fff;
+    width: 80%;
+    height:35px;
+}
+
+.seller{
+    font-family: 'Roboto', sans-serif;
+    font-size: 34px;
+    font-weight: 25px;
+    color: #655fcb;
+    text-shadow: 2px 2px 4px #ccc;
+    
+}
+
+
 
 ion-content.background{
     --background: url(../../assets/background.png) 0 0/100% 100% no-repeat;

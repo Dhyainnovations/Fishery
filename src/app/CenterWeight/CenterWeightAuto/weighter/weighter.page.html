@@ -1,11 +1,12 @@
-<ion-content class="background">
+<ion-content>
   <!-----Title----->
+
   <h2 class="text-center weighter"><b>WEIGHTER</b></h2>
 
 
   <!-----Display Weight----->
-  <div class="weight-display-wrap text-center mt-4 px-5">
-    <div class="weight-display">
+  <div class="weight-display-wrap text-center mt-4 px-2">
+    <div class="weight-display" style="font-size: 20px;">
       <p> weight is <b>267.70</b> kgs</p>
     </div>
   </div>
@@ -16,8 +17,6 @@
       <div class="col-6 display-date">
         <b>Date:<br></b>
         <input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar mt-2">
-
-
       </div>
 
 
@@ -26,10 +25,7 @@
         <p class="select-category"><b>Select Category:</b></p>
         <select>
           <option value="" disabled selected>Category</option>
-          <option value="goldfish">Gold Fish</option>
-          <option value="guppy">Guppy</option>
-          <option value="bluefish">Blue Fish</option>
-          <option value="tilapia">Tilapia</option>
+          <option *ngFor="let category of categorylist" [value]="category.id">{{category.category}}</option>
         </select>
 
       </div>
@@ -41,9 +37,8 @@
         <p class="select-category"><b>Select Type: </b></p>
         <select>
           <option value="" disabled selected>Fish Type</option>
-          <option value="first">1st</option>
-          <option value="second">2nd</option>
-          <option value="third">3rd</option>
+          <option *ngFor="let type of typelist" [value]="type.type">{{type.type}}</option>
+         
         </select>
       </div>
 
@@ -52,8 +47,7 @@
         <p class="select-category"><b>Select Location: </b></p>
         <select>
           <option value="" disabled selected>Location</option>
-          <option value="annur">Annur</option>
-          <option value="sirumugai">Sirumugai</option>
+          <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option> 
         </select>
       </div>
     </div>

@@ -1,6 +1,8 @@
 <ion-content  class="background">
   <!-----Title----->
   <h2 class="text-center welcome-back"><b>WELCOME BACK</b></h2>
+  <h4 class="text-center ">To</h4>
+  <h1  class=" seller text-center "><b>FISHERY</b></h1>
 
   <!-----Username-Input----->
   <div class="user-input-wrap px-4 mt-5">
@@ -12,10 +14,14 @@
     <ion-input [(ngModel)]="password" class="password px-3 py-1 rounded" placeholder="Enter User Password"></ion-input>
   </div>
 
-  <p class="forgot-password mt-3">Forgot Password ?</p>
+  <!-- <p class="forgot-password mt-3">Forgot Password ?</p> -->
 
 
   <!-----Login-Button----->
-  <ion-button color="tertiary" expand="block" class="px-4" (click)="login()"><b>Login</b></ion-button>
+  <div class="row">
+    <div class="col-12 ion-text-center">
+      <button class="login-btn  mt-5" (click)="login()"><b>Login</b></button>
+    </div>
+  </div>
 
 </ion-content>

@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
   },
   {
-    path: 'login-page',
+    path: 'loginpage',
     loadChildren: () => import('./login-page/login-page.module').then( m => m.LoginPagePageModule)
   },
   {
