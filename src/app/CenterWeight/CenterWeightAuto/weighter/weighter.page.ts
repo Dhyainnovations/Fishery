@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @Component({
   selector: 'app-weighter',
@@ -10,11 +11,17 @@ import { Router } from '@angular/router'
 })
 export class WeighterPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,private network: Network,) {
     route.params.subscribe(val => {
       this.getCategoryList()
       this.getTypeList()
-      this.getLocationList()
+      this.getLocationList();
+      window.addEventListener('offline', ()=>{
+        alert("Offline")
+      });
+      window.addEventListener('online', ()=>{
+        alert("Online")
+      });
     });
 
    }

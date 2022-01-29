@@ -7,71 +7,22 @@ import { environment } from '../../environments/environment';
 })
 export class HttpService {
 
-  constructor(private http: HttpClient) { }
-  get(serviceName: string) {
-    const userdetails: any = JSON.parse(atob(localStorage.getItem("24hrs-user-data")));
+  constructor(private http:HttpClient) { }
+
+  get(serviceName : string){
     const url = environment.baseUrl + serviceName;
-    const header = new HttpHeaders()
-      // .set("Access-Control-Allow-Origin", "*")
-      // .set("Access-Control-Allow-Methods", "GET,POST")
-      // .set('Accept','application/json')
-      // .set('Content-Type','application/json')
-      // .set("Access-Control-Allow-Headers", "Token, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
-      .set("Token", userdetails.token);
-    //   let httpOptions = {
-    //     headers: new HttpHeaders({
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Access-Control-Allow-Methods": "*",
-    //       "Access-Control-Allow-Headers":"Token, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-    //       'Authorization':userdetails.token,
-    //       "Content-Type": "application/json"
+    const headers = new HttpHeaders();
+    const options = { headers: headers, withCredentials : false};
 
-    //     })
-    // };
-
-    const options = { headers: header, withCredentials: true };
-    return this.http.get(url, { headers: header });
+    return this.http.get(url, options);
   }
 
-  post(serviceName: any, data: any): any {
-    const token: any = ((localStorage.getItem("token")));
-
-
+  post(serviceName : string, data : any):any{
     const url = environment.baseUrl + serviceName;
-    if (serviceName == '/user_login' || serviceName == '/user_register') {
-      const headers = new HttpHeaders()
-      const options = { headers: headers, withCredentials: false };
-      return this.http.post(url, JSON.stringify(data), { headers: headers });
-    } else {
-      const headers = new HttpHeaders().set("Token", token);
-      const options = { headers: headers, withCredentials: true };
-      return this.http.post(url, JSON.stringify(data), { headers: headers });
-    }
+    const headers = new HttpHeaders();
+    const options = { headers: headers, withCredentials : false};
+    console.log(data);
 
-
-
+    return this.http.post(url, JSON.stringify(data), options);
   }
-
-  postFormData(serviceName: any, data: any): any {
-    const token: any = ((localStorage.getItem("token")));
-    const url = environment.baseUrl + serviceName;
-
-    const headers = {
-      'enctype': 'multipart/form-data;',
-      'Content-Type': 'multipart/form-data;',
-      'Accept': 'plain/text',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-      'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token',
-      'Token': token
-    }
-
-    // const headers = new HttpHeaders().set("Token", token );
-    //  headers.set('Content-Type', 'multipart/form-data'); 
-    const options = { headers: headers, withCredentials: true };
-    return this.http.post(url, data, { headers: headers });
-
-  }
-
-
 }

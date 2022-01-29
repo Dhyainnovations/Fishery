@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'splash-screen',
+    redirectTo: 'loginpage',
     pathMatch: 'full'
   },
   {
@@ -19,9 +19,14 @@ const routes: Routes = [
     path: 'loginpage',
     loadChildren: () => import('./login-page/login-page.module').then( m => m.LoginPagePageModule)
   },
+ 
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+    path: 'admin-dashboard',
+    loadChildren: () => import('./admin/admindashboard/admindashboard.module').then( m => m.AdmindashboardPageModule)
+  },
+  {
+    path: 'admin-usercreation',
+    loadChildren: () => import('./admin/user-creation/user-creation.module').then( m => m.UserCreationPageModule)
   },
   {
     path: 'centerweight-auto-dashboard',
@@ -75,6 +80,9 @@ const routes: Routes = [
     path: 'MerchantWeightAutobill',
     loadChildren: () => import('./MerchantWeight/MerchantWeightAuto/bill/bill.module').then( m => m.BillPageModule)
   },
+ 
+
+
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @Component({
   selector: 'app-weighter',
@@ -11,20 +12,36 @@ import Swal from 'sweetalert2';
 })
 export class WeighterPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
-      this.records()
+      this.records();
+      window.addEventListener('offline', () => {
+        alert("Offline");
+        this.checkoffline = true;
+      });
+      window.addEventListener('online', () => {
+        alert("Online");
+        this.checkonline = true;
+        this.ifOnline();
+      });
+
+
+
     });
 
   }
 
   ngOnInit() {
+
   }
   currentDate = new Date();
 
+  checkoffline: any;
+  checkonline: any;
+  setpushdata: any = [];
   category: any;
   type: any;
   place: any;
@@ -36,6 +53,44 @@ export class WeighterPage implements OnInit {
 
   tableRecodrs: any = []
 
+
+
+  ifOnline() {
+    if (this.checkonline = true) {
+      var Getdata = localStorage.getItem("added-items");
+      var Decodedata = (JSON.parse((Getdata)));
+      for (var i = 0; i < Decodedata.length; i++) {
+
+        var localtype = Decodedata[i].type;
+        var localcategory = Decodedata[i].category;
+        var localplace = Decodedata[i].place;
+        var localquantity = Decodedata[i].quantity;
+        var localisDeleted = "0";
+        var localboxname = "box"
+
+
+        const data = {
+          type: localtype,
+          category: localcategory,
+          place: localplace,
+          quantity: localquantity,
+          isDeleted: localisDeleted,
+          boxname: localboxname
+        }
+        this.http.post('/manual_weight', data).subscribe((response: any) => {
+          this.locationlist = response.records;
+          console.log(response);
+
+        }, (error: any) => {
+          console.log(error);
+        }
+        );
+      }
+    }
+
+  }
+
+
   submit() {
     console.log(this.category, this.place, this.type);
     const data = {
@@ -46,6 +101,21 @@ export class WeighterPage implements OnInit {
       isDeleted: "0",
       boxname: "box"
     }
+
+    //----------If Offline----------//
+    if (this.checkoffline = true) {
+      this.setpushdata.push(data);
+      console.log(this.setpushdata);
+      var setdata = (JSON.stringify(this.setpushdata));
+      localStorage.setItem('added-items', setdata);
+    }
+
+
+
+
+
+
+
     this.http.post('/manual_weight', data).subscribe((response: any) => {
       console.log(response);
       if (response.success == "true") {
@@ -67,9 +137,9 @@ export class WeighterPage implements OnInit {
         })
 
         this.category = '';
-        this.type= '';
-        this.place= '';
-        this.weight = '' ;
+        this.type = '';
+        this.place = '';
+        this.weight = '';
         this.records()
       }
 
@@ -82,17 +152,17 @@ export class WeighterPage implements OnInit {
   }
 
 
-  delete(id){
+  delete(id) {
     console.log(id);
-    
+
     const data = {
-      boxid:id,
-      isDeleted:"1"
+      boxid: id,
+      isDeleted: "1"
     }
-    this.http.post('/delete_manual_weight',data).subscribe((response: any) => {
+    this.http.post('/delete_manual_weight', data).subscribe((response: any) => {
       this.tableRecodrs = response.records;
       console.log(response);
-      if(response.success == "true"){
+      if (response.success == "true") {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -109,7 +179,7 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Deleted successfully.'
         })
-      }else{
+      } else {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -131,7 +201,7 @@ export class WeighterPage implements OnInit {
     }, (error: any) => {
       console.log(error);
     }
-    ); 
+    );
   }
 
   records() {
@@ -149,7 +219,8 @@ export class WeighterPage implements OnInit {
 
   getCategoryList() {
     this.http.get('/list_category',).subscribe((response: any) => {
-      this.categorylist = response.records;
+      //this.categorylist = response.records;
+      this.categorylist = Array.from(new Set(response.records));
       console.log(response);
 
     }, (error: any) => {

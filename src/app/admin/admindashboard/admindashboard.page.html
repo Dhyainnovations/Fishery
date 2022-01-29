@@ -1,0 +1,105 @@
+<ion-content class="background">
+  <!-----Title----->
+  <h2 class="text-center weighter"><b>WEIGHTER</b></h2>
+
+
+  <!-----Display Weight----->
+  <div class="weight-display-wrap text-center mt-4 px-2">
+    <div class="weight-display" style="font-size: 16px;">
+      <p> Total Weight Today is <b>267.70</b> kgs</p>
+    </div>
+  </div>
+
+  <div class="container weighter-details-wrapper" style="margin-top: -5px;">
+    <div class="row">
+      <!-----Display Date----->
+      <h6 class="mt-2" style="color: #6863CC;"><b><u>Admin Actions</u></b></h6>
+      <div class="col-6 display-date">
+        <button class="btn btn-sm text-white" style="background-color: #6863CC;font-size:13px">Category Entry</button>
+      </div>
+      <div class="col-6 display-date">
+        <button class="btn btn-sm text-white" style="background-color: #6863CC;">User Creation</button>
+      </div>
+
+      <div>
+        <h6 class="mt-2 " style="color: #6863CC;"><b><u>Reporter</u></b></h6>
+      </div>
+      <div class="col-6 display-date" style="font-size:13px">
+        <b>Date:<br></b>
+        <input value="{{currentDate | date:'dd/MM/yyyy'}}" class="calendar mt-3">
+      </div>
+
+
+      <!-----Fish Type----->
+      <div class="col-6">
+        <p class="select-category" style="font-size:13px"><b>Select Category:</b></p>
+        <select style="font-size:13px">
+          <option value="" disabled selected>Category</option>
+          <option value="goldfish">Gold Fish</option>
+          <option value="guppy">Guppy</option>
+          <option value="bluefish">Blue Fish</option>
+          <option value="tilapia">Tilapia</option>
+        </select>
+
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <!-----Fish Category----->
+      <div class="col-6">
+        <p class="select-category" style="font-size:13px"><b>Select Location: </b></p>
+        <select style="font-size:13px">
+          <option value="" disabled selected>Fish Type</option>
+          <option value="first">1st</option>
+          <option value="second">2nd</option>
+          <option value="third" (click)="window.print();">3rd</option>
+        </select>
+      </div>
+
+      <!-----FLocation----->
+      <div class="col-6">
+        <p class="select-category" style="font-size:13px"><b>Location: </b></p>
+        <select class="p-1" style="font-size:13px">
+          <option value="" disabled selected>Location</option>
+          <option value="annur">Annur</option>
+          <option value="annur">Annur</option>
+        </select>
+      </div>
+    </div>
+
+
+    <!-----Submit Button---->
+    <div class="button-wrapper mt-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-6 offset-3"  style="height: 10px;font-size: 13px;">
+            <button class="submit-button px-4 py-2" color="transparent" style="background-color: #6863CC;">
+             EXPORT
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <p style="color: #6863CC;"><b><u>Bill Records</u></b></p>
+          <div class="col-6">
+            <p style="font-size:13px; color: #6863CC;"><b>Date :</b> </p>
+            <input value="{{currentDate | date:'dd/MM/yyyy'}}" class="calendar" style="font-size:13px">
+          </div>
+          <div class="col-6">
+            <p class="select-category" style="font-size:13px"><b>Select Location: </b></p>
+            <select style="font-size:13px">
+              <option value="" disabled selected>Fish Type</option>
+              <option value="first">1st</option>
+              <option value="second">2nd</option>
+              <option value="third">3rd</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-----Table----->
+
+</ion-content>
