@@ -41,6 +41,9 @@ export class LoginPagePage implements OnInit {
       console.log(response);
 
       if (response.success == "true") {
+
+       
+        
         this.orgid = response.orgid,
         this.username =  response.id,
         this.logintype = response.loginType,
@@ -52,6 +55,10 @@ export class LoginPagePage implements OnInit {
         localStorage.setItem("permission",this.permission)
 
         if (response.success == "true") {
+
+          this.username = ""
+          this.password = ""
+          
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',

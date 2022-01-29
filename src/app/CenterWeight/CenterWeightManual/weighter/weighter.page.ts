@@ -19,13 +19,15 @@ export class WeighterPage implements OnInit {
       this.getLocationList()
       this.records();
       window.addEventListener('offline', () => {
-        alert("Offline");
         this.checkoffline = true;
+        this.offlineAlart = true
+        this.onlineAlart = false;
       });
       window.addEventListener('online', () => {
-        alert("Online");
+        this.onlineAlart = true;
+        this.offlineAlart = false
         this.checkonline = true;
-        this.ifOnline();
+        this.offlineApiCall();
       });
 
 
@@ -53,10 +55,13 @@ export class WeighterPage implements OnInit {
 
   tableRecodrs: any = []
 
+  onlineAlart:any = true;
+  offlineAlart:any = false
 
 
-  ifOnline() {
+ offlineApiCall() {
     if (this.checkonline = true) {
+      
       var Getdata = localStorage.getItem("added-items");
       var Decodedata = (JSON.parse((Getdata)));
       for (var i = 0; i < Decodedata.length; i++) {
@@ -78,11 +83,16 @@ export class WeighterPage implements OnInit {
           boxname: localboxname
         }
         this.http.post('/manual_weight', data).subscribe((response: any) => {
-          this.locationlist = response.records;
+         
           console.log(response);
+
+          if(response.success == "true"){
+           
+          }
 
         }, (error: any) => {
           console.log(error);
+          
         }
         );
       }
@@ -91,7 +101,7 @@ export class WeighterPage implements OnInit {
   }
 
 
-  submit() {
+  onlineApiCal() {
     console.log(this.category, this.place, this.type);
     const data = {
       type: this.type,
@@ -109,11 +119,6 @@ export class WeighterPage implements OnInit {
       var setdata = (JSON.stringify(this.setpushdata));
       localStorage.setItem('added-items', setdata);
     }
-
-
-
-
-
 
 
     this.http.post('/manual_weight', data).subscribe((response: any) => {
@@ -153,12 +158,14 @@ export class WeighterPage implements OnInit {
 
 
   delete(id) {
+    alert(id)
     console.log(id);
 
     const data = {
       boxid: id,
       isDeleted: "1"
     }
+
     this.http.post('/delete_manual_weight', data).subscribe((response: any) => {
       this.tableRecodrs = response.records;
       console.log(response);
@@ -254,5 +261,13 @@ export class WeighterPage implements OnInit {
 
   }
 
+
+  logout(){
+    localStorage.removeItem("orgid",)
+    localStorage.removeItem("Fishery-username",)
+    localStorage.removeItem("logintype",)
+    localStorage.removeItem("permission",)
+    this.router.navigate(['/'])
+  }
 
 }

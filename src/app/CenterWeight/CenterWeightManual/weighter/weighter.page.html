@@ -1,4 +1,18 @@
 <ion-content class="background">
+
+  <div class=" row mt-4 mx-2 ">
+   
+    <div *ngIf="onlineAlart" class=" col-12 ion-text-right">
+      <lottie-player  src="https://assets9.lottiefiles.com/packages/lf20_VXcbWf.json" background="transparent"
+      speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
+    </div>
+    
+   <div *ngIf="offlineAlart" class="col-12 ion-text-right">
+    <lottie-player  src="https://assets7.lottiefiles.com/packages/lf20_VxV3TM.json" background="transparent"
+    speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
+   </div>
+
+  </div>
   <!-----Title----->
 
   <div class="row" style="margin-top: 55px;">
@@ -7,7 +21,7 @@
       <b style="font-size: 15px;">WEIGHTER</b>
     </div>
     <div class="col-4">
-      <select style="font-size: 12px;margin-top: 1px;">
+      <select  (change)="logout()"  style="font-size: 12px;margin-top: 1px;">
         <option value="" selected disabled> Admin</option>
         <option style="background-color: #6863CC;color: white;">Logout</option>
       </select>
@@ -35,7 +49,7 @@
 
 
       <!-----Fish Type----->
-      <div class="col-12">
+      <div class="col-6">
         <p class="select-category"><b><u>Select Category:</u></b></p>
         <select [(ngModel)]="category" style="width: 96%;">
           <option value="" disabled selected>Category</option>
@@ -47,7 +61,7 @@
 
     <div class="row mt-3">
       <!-----Fish Category----->
-      <div class="col-12">
+      <div class="col-6">
         <p class="select-category"><b><u>Select Type: </u></b></p>
         <select [(ngModel)]="type" style="width: 96%;">
           <option value="" disabled selected>Fish Type</option>
@@ -57,7 +71,7 @@
       </div>
 
       <!-----FLocation----->
-      <div class="col-12">
+      <div class="col-6">
         <p class="select-category"><b><u>Select Location: </u></b></p>
         <select [(ngModel)]="place" style="width: 96%;" >
           <option value="" disabled selected hidden>Location</option>
@@ -69,7 +83,7 @@
 
     <!-----Submit Button---->
     <div class="button-wrapper" class="px-5">
-      <ion-button (click)="submit()" class="submit-button" color="transparent" expand="block"
+      <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent" expand="block"
         style="background-color: #6863CC;">
         <b>SUBMIT</b>
       </ion-button>

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'loginpage',
+    redirectTo: 'splash-screen',
     pathMatch: 'full'
   },
   {
