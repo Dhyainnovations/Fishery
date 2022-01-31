@@ -24,10 +24,10 @@ export class LoginPagePage implements OnInit {
   logintype: any;
   permission: any;
 
-  LocalOrgid: any = (localStorage.getItem("orgid"));
-  LocaluserName: any = (localStorage.getItem("Fishery-username"));
-  Locallogintype: any = (localStorage.getItem("logintype"));
-  Localpermission: any = (localStorage.getItem("permission"));
+  LocalOrgid:any
+  LocaluserName:any
+  Locallogintype:any
+  Localpermission:any
 
   login() {
 
@@ -49,15 +49,18 @@ export class LoginPagePage implements OnInit {
           this.logintype = response.loginType,
           this.permission = response.permission,
 
-          localStorage.setItem("orgid", this.orgid)
+          console.log(this.orgid, this.logintype);
+
+
+        localStorage.setItem("orgid", this.orgid)
         localStorage.setItem("Fishery-username", this.username)
         localStorage.setItem("logintype", this.logintype)
         localStorage.setItem("permission", this.permission)
 
         if (response.success == "true") {
 
-          this.username = ""
-          this.password = ""
+          // this.username = ""
+          // this.password = ""
 
           const Toast = Swal.mixin({
             toast: true,
@@ -76,6 +79,11 @@ export class LoginPagePage implements OnInit {
             title: 'Signed in successfully'
           })
 
+
+          this.LocalOrgid = (localStorage.getItem("orgid"));
+          this.LocaluserName = (localStorage.getItem("Fishery-username"));
+          this.Locallogintype = (localStorage.getItem("logintype"));
+          this.Localpermission = (localStorage.getItem("permission"));
 
           console.log(this.Locallogintype);
           console.log(this.Localpermission);

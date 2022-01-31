@@ -142,9 +142,9 @@ export class WeighterPage implements OnInit {
           title: 'Submited successfully.'
         })
 
-        this.category = '';
-        this.type = '';
-        this.place = '';
+        this.category = null;
+        this.type = null;
+        this.place = null;
         this.weight = '';
         this.records()
       }
@@ -159,7 +159,6 @@ export class WeighterPage implements OnInit {
 
 
   delete(id) {
-    alert(id)
     console.log(id);
 
     const data = {
@@ -175,7 +174,7 @@ export class WeighterPage implements OnInit {
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 2000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -187,12 +186,15 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Deleted successfully.'
         })
+
+        this.records()
+
       } else {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 2000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -248,8 +250,17 @@ export class WeighterPage implements OnInit {
     }, 1500);
   }
 
-  NavigateToSettings() {
-    this.router.navigate(['/'])
+  value:any;
+
+  NavigateTo() {
+    console.log(this.value);
+    if(this.value == "settings"){
+      this.router.navigate(['/settings'])
+    }else{
+      this.logout()
+    }
+    
+   
   }
 
 

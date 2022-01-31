@@ -5,7 +5,7 @@
       </ion-refresher-content>
     </ion-refresher>
   </div>
-  <div class=" row mt-4 mx-2 ">
+  <div class=" row  mx-2 ">
 
     <div *ngIf="onlineAlart" class=" col-12 ion-text-right mt-3">
       <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_VXcbWf.json" background="transparent"
@@ -20,16 +20,16 @@
   </div>
   <!-----Title----->
 
-  <div class="row" style="margin-top: -25px;">
+  <div class="row mt-3">
 
     <div class="col-8 ion-text-right">
-      <b style="font-size: 15px;">WEIGHTER</b>
+      <b style="font-size: 25px;">WEIGHTER</b>
     </div>
     <div class="col-4">
-      <select (change)="logout()" style="font-size: 12px;margin-top: 1px;">
+      <select [(ngModel)]="value" (change)="NavigateTo()" style="font-size: 12px;margin-top: 1px;">
         <option value="" selected disabled> Admin</option>
-        <option style="background-color: #6863CC;color: white;" (click)="NavigateToSettings()">Settings</option>
-        <option style="background-color: #6863CC;color: white;">Logout</option>
+        <option value="settings" style="background-color: #6863CC;color: white;" >Settings</option>
+        <option value="logout" style="background-color: #6863CC;color: white;">Logout</option>
       </select>
     </div>
   </div>
@@ -99,8 +99,37 @@
   </div>
 
 
+  <div class="container" style="font-size: 12px;">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mt-3" *ngFor="let record of tableRecodrs">
+              <div class="row">
+              <div class="col-6">
+                <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'h:mm a'}}<br>
+                <b style="color: #6863CC;">Weight </b> : {{record.quantity}}<br>
+                <b style="color: #6863CC;">Type</b> : {{record.type}}
+              </div>
+
+              <div class="col-6">
+                <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
+                <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
+                
+              </div>
+              <div class="col-12 ion-text-right" >
+                <!-- <ion-icon (click)="delete(record.boxid)" [value]="record.boxid" style="height:20px; width:25px"
+                  name="trash-outline" class="trash"></ion-icon> -->
+                  <lottie-player (click)="delete(record.boxid)" [value]="record.boxid" src="https://assets9.lottiefiles.com/packages/lf20_VmD8Sl.json" background="transparent"
+                  speed="1.5" style="width:20%;text-align: center; margin: auto" loop autoplay></lottie-player>
+              </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-----Table----->
-  <table class="table">
+  <!-- <table class="table">
     <thead style="background-color:#6863CC;" class="text-white">
       <tr>
         <th scope="col-3">Time</th>
@@ -115,14 +144,16 @@
       <tr>
         <th scope="row">{{record.updatedAt | date: 'h:mm a'}}</th>
         <td>{{record.quantity}}</td>
-        <td>{{record.quantity}}</td>
         <td>{{record.place}}</td>
-        <td>{{record.quality}}</td>
+        <td>{{record.category}}</td>
+        <td>{{record.type}}</td>
         <td>
           <ion-icon (click)="delete(record.boxid)" [value]="record.boxid" style="height:20px; width:25px"
             name="trash-outline" class="trash"></ion-icon>
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+
 </ion-content>

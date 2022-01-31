@@ -9,19 +9,7 @@ select {
     margin-right : 15px !important;
 }
 
-ion-content {
-    background-color: #fff !important;
-    // background: linear-gradient(to bottom, darkturquoise
-    // 0%, #d1f2e7
-    // 100%) !important;
-    --offset-bottom : auto !important;
-    --overflow      : hidden;
-    overflow        : auto;
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
-}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -45,3 +33,29 @@ td, th {
     border: 0.10px solid rgba(0, 0, 0, 0.281);
     word-break: break-all;
 }
+
+.card{
+    padding: 5px;
+    border:1px solid #fff;
+    box-shadow:3px 3px 16px 4px #ccc;
+    margin-left: 8px !important;
+    margin-right:6px !important;
+    margin: 10px;
+    width: 100%;
+    background-color: #fff !important;
+    border-radius: 2px;
+  }
+
+//   ion-content {
+//     background-color: #fff !important;
+//     // background: linear-gradient(to bottom, darkturquoise
+//     // 0%, #d1f2e7
+//     // 100%) !important;
+//     --offset-bottom : auto !important;
+//     --overflow      : hidden;
+//     overflow        : auto;
+
+//     &::-webkit-scrollbar {
+//         display: none;
+//     }
+// }
