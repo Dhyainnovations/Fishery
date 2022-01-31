@@ -14,6 +14,7 @@ export class WeighterPage implements OnInit {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
+
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
@@ -28,17 +29,17 @@ export class WeighterPage implements OnInit {
         this.offlineAlart = false
         this.checkonline = true;
         this.offlineApiCall();
+
       });
-
-
-
-    });
+});
 
   }
 
   ngOnInit() {
+   
 
   }
+
   currentDate = new Date();
 
   checkoffline: any;
@@ -54,14 +55,14 @@ export class WeighterPage implements OnInit {
   typelist: any = []
 
   tableRecodrs: any = []
+  buttonDisabled: boolean;
+  onlineAlart: any = true;
+  offlineAlart: any = false
+ 
 
-  onlineAlart:any = true;
-  offlineAlart:any = false
-
-
- offlineApiCall() {
+  offlineApiCall() {
     if (this.checkonline = true) {
-      
+
       var Getdata = localStorage.getItem("added-items");
       var Decodedata = (JSON.parse((Getdata)));
       for (var i = 0; i < Decodedata.length; i++) {
@@ -83,16 +84,16 @@ export class WeighterPage implements OnInit {
           boxname: localboxname
         }
         this.http.post('/manual_weight', data).subscribe((response: any) => {
-         
+
           console.log(response);
 
-          if(response.success == "true"){
-           
+          if (response.success == "true") {
+
           }
 
         }, (error: any) => {
           console.log(error);
-          
+
         }
         );
       }
@@ -258,11 +259,18 @@ export class WeighterPage implements OnInit {
       console.log(error);
     }
     );
-
   }
 
 
-  logout(){
+
+  NavigateToSettings() {
+    this.router.navigate(['/'])
+  }
+
+
+
+
+  logout() {
     localStorage.removeItem("orgid",)
     localStorage.removeItem("Fishery-username",)
     localStorage.removeItem("logintype",)

@@ -1,38 +1,40 @@
 <ion-content class="background">
 
   <div class=" row mt-4 mx-2 ">
-   
-    <div *ngIf="onlineAlart" class=" col-12 ion-text-right">
-      <lottie-player  src="https://assets9.lottiefiles.com/packages/lf20_VXcbWf.json" background="transparent"
-      speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
+
+    <div *ngIf="onlineAlart" class=" col-12 ion-text-right mt-3">
+      <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_VXcbWf.json" background="transparent"
+        speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
     </div>
-    
-   <div *ngIf="offlineAlart" class="col-12 ion-text-right">
-    <lottie-player  src="https://assets7.lottiefiles.com/packages/lf20_VxV3TM.json" background="transparent"
-    speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
-   </div>
+
+    <div *ngIf="offlineAlart" class="col-12 ion-text-right mt-3">
+      <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_VxV3TM.json" background="transparent"
+        speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
+    </div>
 
   </div>
   <!-----Title----->
 
-  <div class="row" style="margin-top: 55px;">
+  <div class="row" style="margin-top: -25px;">
 
     <div class="col-8 ion-text-right">
       <b style="font-size: 15px;">WEIGHTER</b>
     </div>
     <div class="col-4">
-      <select  (change)="logout()"  style="font-size: 12px;margin-top: 1px;">
+      <select (change)="logout()" style="font-size: 12px;margin-top: 1px;">
         <option value="" selected disabled> Admin</option>
+        <option style="background-color: #6863CC;color: white;" (click)="NavigateToSettings()">Settings</option>
         <option style="background-color: #6863CC;color: white;">Logout</option>
       </select>
     </div>
   </div>
 
 
- <!-----Display Weight----->
+  <!-----Display Weight----->
   <div class="row">
-    <div class="col-12 ion-text-center mt-5">
-      <input [(ngModel)]="weight" type="text" placeholder="ENTER THE WEIGHT" class="text-center" style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 14px;padding: 10px;">
+    <div class="col-12 ion-text-center mt-4">
+      <input [(ngModel)]="weight" type="number" placeholder="ENTER THE WEIGHT" class="text-center"
+        style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 14px;padding: 10px;">
     </div>
   </div>
 
@@ -42,16 +44,16 @@
   <div class="container weighter-details-wrapper">
     <div class="row">
       <!-----Display Date----->
-      <div class="col-12 display-date">
-
-        <b><input value="Date: {{currentDate | date:'dd-MM-yyyy'}}" class="calendar"></b>
+      <div class="col-6 display-date">
+        <b>Date: </b>
+        <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar mt-2"></b>
       </div>
 
 
       <!-----Fish Type----->
       <div class="col-6">
         <p class="select-category"><b><u>Select Category:</u></b></p>
-        <select [(ngModel)]="category" style="width: 96%;">
+        <select [(ngModel)]="category" style="width: 96%;" >
           <option value="" disabled selected>Category</option>
           <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
         </select>
@@ -63,7 +65,7 @@
       <!-----Fish Category----->
       <div class="col-6">
         <p class="select-category"><b><u>Select Type: </u></b></p>
-        <select [(ngModel)]="type" style="width: 96%;">
+        <select [(ngModel)]="type" style="width: 96%;" >
           <option value="" disabled selected>Fish Type</option>
           <option *ngFor="let type of typelist" [value]="type.type">{{type.type}}</option>
 
@@ -72,7 +74,7 @@
 
       <!-----FLocation----->
       <div class="col-6">
-        <p class="select-category"><b><u>Select Location: </u></b></p>
+        <p class="select-category" ><b><u>Select Location: </u></b></p>
         <select [(ngModel)]="place" style="width: 96%;" >
           <option value="" disabled selected hidden>Location</option>
           <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
@@ -82,9 +84,9 @@
 
 
     <!-----Submit Button---->
-    <div class="button-wrapper" class="px-5">
+    <div class="button-wrapper" class="px-5 mt-4">
       <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent" expand="block"
-        style="background-color: #6863CC;">
+        style="background-color: #6863CC;" [disabled]="!place || !type || !category || !weight || !onlineAlart">
         <b>SUBMIT</b>
       </ion-button>
 
