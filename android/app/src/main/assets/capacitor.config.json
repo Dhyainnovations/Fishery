@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Fishery",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'splash-screen',
+    redirectTo: 'settings',
     pathMatch: 'full'
   },
   {
@@ -79,6 +79,10 @@ const routes: Routes = [
   {
     path: 'MerchantWeightAutobill',
     loadChildren: () => import('./MerchantWeight/MerchantWeightAuto/bill/bill.module').then( m => m.BillPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
  
 
