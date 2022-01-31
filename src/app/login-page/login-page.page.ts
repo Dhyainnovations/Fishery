@@ -42,23 +42,23 @@ export class LoginPagePage implements OnInit {
 
       if (response.success == "true") {
 
-       
-        
+
+
         this.orgid = response.orgid,
-        this.username =  response.id,
-        this.logintype = response.loginType,
-        this.permission = response.permission,
-        
-        localStorage.setItem("orgid",this.orgid)
-        localStorage.setItem("Fishery-username",this.username)
-        localStorage.setItem("logintype",this.logintype)
-        localStorage.setItem("permission",this.permission)
+          this.username = response.id,
+          this.logintype = response.loginType,
+          this.permission = response.permission,
+
+          localStorage.setItem("orgid", this.orgid)
+        localStorage.setItem("Fishery-username", this.username)
+        localStorage.setItem("logintype", this.logintype)
+        localStorage.setItem("permission", this.permission)
 
         if (response.success == "true") {
 
           this.username = ""
           this.password = ""
-          
+
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -79,9 +79,33 @@ export class LoginPagePage implements OnInit {
 
           console.log(this.Locallogintype);
           console.log(this.Localpermission);
-          
-          
-         
+
+          //----------- Category Local Storage --------------//
+          this.http.get('/list_category',).subscribe((response: any) => {
+            var SetCategory = (JSON.stringify(response.records));
+            localStorage.setItem('SetCategory', SetCategory);
+          }, (error: any) => {
+            console.log(error);
+          }
+          );
+
+          //----------- Type Local Storage --------------//
+          this.http.get('/list_type',).subscribe((response: any) => {
+            var SetType = (JSON.stringify(response.records));
+            localStorage.setItem('SetType', SetType);
+          }, (error: any) => {
+            console.log(error);
+          }
+          );
+
+          //----------- Location Local Storage --------------//
+          this.http.get('/list_location',).subscribe((response: any) => {
+            var SetLocation = (JSON.stringify(response.records));
+            localStorage.setItem('SetLocation', SetLocation);
+          }, (error: any) => {
+            console.log(error);
+          });
+
 
           //----------- Login type checking --------------//
 

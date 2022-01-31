@@ -31,12 +31,12 @@ export class WeighterPage implements OnInit {
         this.offlineApiCall();
 
       });
-});
+    });
 
   }
 
   ngOnInit() {
-   
+
 
   }
 
@@ -58,7 +58,7 @@ export class WeighterPage implements OnInit {
   buttonDisabled: boolean;
   onlineAlart: any = true;
   offlineAlart: any = false
- 
+
 
   offlineApiCall() {
     if (this.checkonline = true) {
@@ -226,42 +226,27 @@ export class WeighterPage implements OnInit {
 
 
   getCategoryList() {
-    this.http.get('/list_category',).subscribe((response: any) => {
-      //this.categorylist = response.records;
-      this.categorylist = Array.from(new Set(response.records));
-      console.log(response);
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
-
+    var GetCategory = localStorage.getItem('SetCategory');
+    this.categorylist = (JSON.parse((GetCategory)));
+    //console.log(DisplayCategory);
   }
 
   getTypeList() {
-    this.http.get('/list_type',).subscribe((response: any) => {
-      this.typelist = response.records;
-      console.log(response);
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
+    var GetType = localStorage.getItem('SetType');
+    this.typelist = (JSON.parse((GetType)));
 
   }
 
   getLocationList() {
-    this.http.get('/list_location',).subscribe((response: any) => {
-      this.locationlist = response.records;
-      console.log(response);
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
+    var GetLocation = localStorage.getItem('SetLocation');
+    this.locationlist = (JSON.parse((GetLocation)));
   }
 
-
+  dosomething(event) {
+    setTimeout(() => {
+      event.target.complete();
+    }, 1500);
+  }
 
   NavigateToSettings() {
     this.router.navigate(['/'])
