@@ -1,5 +1,10 @@
 <ion-content class="background">
-
+  <div class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  </div>
   <div class=" row mt-4 mx-2 ">
 
     <div *ngIf="onlineAlart" class=" col-12 ion-text-right mt-3">
@@ -53,7 +58,7 @@
       <!-----Fish Type----->
       <div class="col-6">
         <p class="select-category"><b><u>Select Category:</u></b></p>
-        <select [(ngModel)]="category" style="width: 96%;" >
+        <select [(ngModel)]="category" style="width: 96%;">
           <option value="" disabled selected>Category</option>
           <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
         </select>
@@ -65,17 +70,16 @@
       <!-----Fish Category----->
       <div class="col-6">
         <p class="select-category"><b><u>Select Type: </u></b></p>
-        <select [(ngModel)]="type" style="width: 96%;" >
+        <select [(ngModel)]="type" style="width: 96%;">
           <option value="" disabled selected>Fish Type</option>
           <option *ngFor="let type of typelist" [value]="type.type">{{type.type}}</option>
-
         </select>
       </div>
 
       <!-----FLocation----->
       <div class="col-6">
-        <p class="select-category" ><b><u>Select Location: </u></b></p>
-        <select [(ngModel)]="place" style="width: 96%;" >
+        <p class="select-category"><b><u>Select Location: </u></b></p>
+        <select [(ngModel)]="place" style="width: 96%;">
           <option value="" disabled selected hidden>Location</option>
           <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
         </select>
@@ -100,7 +104,7 @@
     <thead style="background-color:#6863CC;" class="text-white">
       <tr>
         <th scope="col-3">Time</th>
-        <th scope="col-1">Weight<br>(kgs)</th>
+        <th scope="col-1">Weight</th>
         <th scope="col-2">Location</th>
         <th scope="col-2">Category</th>
         <th scope="col-2">Type</th>
