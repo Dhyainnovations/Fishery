@@ -15,6 +15,8 @@ export class WeighterPage implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
 
+      this.dropdownVisible = false
+
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
@@ -37,16 +39,14 @@ export class WeighterPage implements OnInit {
 
   ngOnInit() {
 
-    this.http.get('/list_type_manual').subscribe((response: any) => {
-      console.log(response);
-      if (response.success == "true") {
-      }
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
+    this.user = localStorage.getItem("logintype",)
+    console.log(this.user);
+    
 
   }
+
+  user:any;
+  dropdownVisible:any = false;
 
   currentDate = new Date();
 
@@ -66,6 +66,10 @@ export class WeighterPage implements OnInit {
   buttonDisabled: boolean;
   onlineAlart: any = true;
   offlineAlart: any = false
+
+
+  
+  
 
 
   offlineApiCall() {
@@ -295,28 +299,39 @@ export class WeighterPage implements OnInit {
     }, 1500);
   }
 
-  value: any;
+  // value: any;
 
-  NavigateTo() {
-    console.log(this.value);
-    if (this.value == "settings") {
-      this.router.navigate(['/settings'])
-    } else {
-      this.logout()
-    }
+  // NavigateTo() {
+  //   console.log(this.value);
+  //   if (this.value == "settings") {
+  //     this.router.navigate(['/settings'])
+  //   } else {
+  //     this.logout()
+  //   }
 
 
+  // }
+
+  checkboxsts:any = false
+
+  dropdownOpen(){
+    this.checkboxsts = true
+    console.log(this.checkboxsts);
+    
+  }
+
+  setting(){
+    this.router.navigate(['/settings'])
   }
 
 
-
-
   logout() {
+    this.dropdownVisible = false
     localStorage.removeItem("orgid",)
     localStorage.removeItem("Fishery-username",)
     localStorage.removeItem("logintype",)
     localStorage.removeItem("permission",)
-    this.router.navigate(['/'])
+    this.router.navigate(['/loginpage'])
   }
 
 }

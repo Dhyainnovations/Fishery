@@ -59,8 +59,8 @@ export class LoginPagePage implements OnInit {
 
         if (response.success == "true") {
 
-          // this.username = ""
-          // this.password = ""
+          this.username = ""
+          this.password = ""
 
           const Toast = Swal.mixin({
             toast: true,
@@ -134,7 +134,7 @@ export class LoginPagePage implements OnInit {
             //---------- Auto or Manual Checking -----------//
 
             if (this.Localpermission == "MANUAL") {
-              this.router.navigate(['/centerweight-manual-weighter'])
+              this.router.navigate(['/center-weight-manual-record'])
             }
 
             if (this.Localpermission == "AUTO") {

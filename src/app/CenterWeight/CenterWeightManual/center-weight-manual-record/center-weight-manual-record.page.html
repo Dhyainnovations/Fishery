@@ -1,0 +1,77 @@
+
+
+<ion-content class="background">
+
+
+  
+
+  <div class="row mt-5">
+    <div class="col-12 ion-text-center">
+      <button (click)="navigateToNextPage()" class="navigate-btn  mt-5" (click)="login()"><b>Start Weighing</b></button>
+    </div>
+
+    <div class="col-12 ion-text-center mt-3" >
+     <p>Today's Total Weight = <span>{{totalweight}}KG</span></p>
+    </div>
+
+
+
+      <!-----Table----->
+  <table class="table">
+    <thead style="background-color:#6863CC;" class="text-white">
+      <tr>
+        <th scope="col-3">S.No</th>
+        <th scope="col-2">Location</th>
+        <th scope="col-2">Total Weight</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let record of tableRecodrs   let i=index; "  >
+      <tr>
+        <td>{{i+1}} </td>
+        <td>{{record.location}}</td>
+        <td>{{record.location_total_weight}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
+
+  <!-----card----->
+
+  <h4 class="mx-3">Last Entry:</h4>
+
+  <div style="font-size: 12px;">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mt-3" *ngFor="let record of cardRecords">
+          <div class="row">
+            <div class="col-5">
+              <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'h:mm a'}}<br>
+              <b style="color: #6863CC;">Weight </b> : {{record.quantity}}<br>
+              <b style="color: #6863CC;">Type</b> : {{record.type}}
+            </div>
+
+            <div class="col-5">
+              <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
+              <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
+
+            </div>
+            <div class="col-2 ion-text-left mt-2">
+                  <div class="dot">
+                    <svg (click)="delete(record.boxid)" [value]="record.boxid" style="margin: 10px;" xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="#fff" class="bi bi-trash3" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M6.5 1a.5.5 0 0 0-.5.5v1h4v-1a.5.5 0 0 0-.5-.5h-3ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1H3.042l.846 10.58a1 1 0 0 0 .997.92h6.23a1 1 0 0 0 .997-.92l.846-10.58Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                    </svg>
+                  </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  
+</ion-content>
