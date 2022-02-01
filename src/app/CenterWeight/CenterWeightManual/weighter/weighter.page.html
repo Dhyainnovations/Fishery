@@ -28,8 +28,8 @@
     <div class="col-4">
       <select [(ngModel)]="value" (change)="NavigateTo()" style="font-size: 12px;margin-top: 1px;">
         <option value="" selected disabled> Admin</option>
-        <option value="settings" style="background-color: #6863CC;color: white;" >Settings</option>
-        <option value="logout" style="background-color: #6863CC;color: white;">Logout</option>
+        <option value="settings" style="background-color: #9592d4;color: white;">Settings</option>
+        <option value="logout" style="background-color: #9592d4;color: white;">Logout</option>
       </select>
     </div>
   </div>
@@ -50,39 +50,44 @@
     <div class="row">
       <!-----Display Date----->
       <div class="col-6 display-date">
-        <b>Date: </b>
+        <b style="font-size: 13px;">Date: </b>
         <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar mt-2"></b>
       </div>
 
 
       <!-----Fish Type----->
       <div class="col-6">
-        <p class="select-category"><b><u>Select Category:</u></b></p>
-        <select [(ngModel)]="category" style="width: 96%;">
-          <option value="" disabled selected>Category</option>
-          <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
-        </select>
-
+        <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
+          <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
+          <select [(ngModel)]="category" placeholder="category" name="category" >
+            <option value="" disabled selected>Category</option>
+            <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
+          </select>
+        </form>
       </div>
     </div>
 
     <div class="row mt-3">
       <!-----Fish Category----->
       <div class="col-6">
-        <p class="select-category"><b><u>Select Type: </u></b></p>
-        <select [(ngModel)]="type" style="width: 96%;">
-          <option value="" disabled selected>Fish Type</option>
-          <option *ngFor="let type of typelist" [value]="type.type">{{type.type}}</option>
-        </select>
+        <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
+          <p class="select-category" style="font-size: 13px;"><b><u>Select Type: </u></b></p>
+          <select [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;" >
+            <option value="" disabled selected>Fish Type</option>
+            <option *ngFor="let type of StoreTypeData" [value]="type" >{{type}}</option>
+          </select>
+        </form>
       </div>
 
       <!-----FLocation----->
       <div class="col-6">
-        <p class="select-category"><b><u>Select Location: </u></b></p>
-        <select [(ngModel)]="place" style="width: 96%;">
-          <option value="" disabled selected hidden>Location</option>
-          <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
-        </select>
+        <form (change)="SelectLocation(Selectlocation.value)" #Selectlocation="ngForm">
+          <p class="select-category" style="font-size: 13px;"><b><u>Select Location: </u></b></p>
+          <select [(ngModel)]="place" placeholder="place" name="place" style="width: 96%;">
+            <option value="" disabled selected hidden>Location</option>
+            <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
+          </select>
+        </form>
       </div>
     </div>
 
@@ -90,7 +95,7 @@
     <!-----Submit Button---->
     <div class="button-wrapper" class="px-5 mt-4">
       <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent" expand="block"
-        style="background-color: #6863CC;" [disabled]="!place || !type || !category || !weight || !onlineAlart">
+        style="background-color: #6863CC;" [disabled]="!place || !type || !category || !weight || !onlineAlart ">
         <b>SUBMIT</b>
       </ion-button>
 
@@ -99,29 +104,30 @@
   </div>
 
 
-  <div class="container" style="font-size: 12px;">
+  <div style="font-size: 12px;">
     <div class="row">
       <div class="col-12">
         <div class="card mt-3" *ngFor="let record of tableRecodrs">
-              <div class="row">
-              <div class="col-6">
-                <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'h:mm a'}}<br>
-                <b style="color: #6863CC;">Weight </b> : {{record.quantity}}<br>
-                <b style="color: #6863CC;">Type</b> : {{record.type}}
-              </div>
-
-              <div class="col-6">
-                <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
-                <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
-                
-              </div>
-              <div class="col-12 ion-text-right" >
-                <!-- <ion-icon (click)="delete(record.boxid)" [value]="record.boxid" style="height:20px; width:25px"
-                  name="trash-outline" class="trash"></ion-icon> -->
-                  <lottie-player (click)="delete(record.boxid)" [value]="record.boxid" src="https://assets9.lottiefiles.com/packages/lf20_VmD8Sl.json" background="transparent"
-                  speed="1.5" style="width:20%;text-align: center; margin: auto" loop autoplay></lottie-player>
-              </div>
+          <div class="row">
+            <div class="col-6">
+              <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'h:mm a'}}<br>
+              <b style="color: #6863CC;">Weight </b> : {{record.quantity}}<br>
+              <b style="color: #6863CC;">Type</b> : {{record.type}}
             </div>
+
+            <div class="col-6">
+              <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
+              <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
+
+            </div>
+            <div class="col-12 ion-text-right">
+              <!-- <ion-icon (click)="delete(record.boxid)" [value]="record.boxid" style="height:20px; width:25px"
+                  name="trash-outline" class="trash"></ion-icon> -->
+              <lottie-player (click)="delete(record.boxid)" [value]="record.boxid"
+                src="https://assets9.lottiefiles.com/packages/lf20_VmD8Sl.json" background="transparent" speed="1.5"
+                style="width:20%;text-align: center; margin: auto" loop autoplay></lottie-player>
+            </div>
+          </div>
         </div>
 
       </div>

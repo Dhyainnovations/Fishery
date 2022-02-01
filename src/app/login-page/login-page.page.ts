@@ -24,10 +24,10 @@ export class LoginPagePage implements OnInit {
   logintype: any;
   permission: any;
 
-  LocalOrgid:any
-  LocaluserName:any
-  Locallogintype:any
-  Localpermission:any
+  LocalOrgid: any
+  LocaluserName: any
+  Locallogintype: any
+  Localpermission: any
 
   login() {
 
@@ -113,6 +113,18 @@ export class LoginPagePage implements OnInit {
           }, (error: any) => {
             console.log(error);
           });
+
+
+          //----------- Set Type Based On Category Local Storage --------------//
+
+          this.http.get('/list_type_manual').subscribe((response: any) => {
+            var SetTypeBasedOnCategory = (JSON.stringify(response.records));
+            localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
+
+          }, (error: any) => {
+            console.log(error);
+          }
+          );
 
 
           //----------- Login type checking --------------//

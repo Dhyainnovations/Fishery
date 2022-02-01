@@ -37,6 +37,14 @@ export class WeighterPage implements OnInit {
 
   ngOnInit() {
 
+    this.http.get('/list_type_manual').subscribe((response: any) => {
+      console.log(response);
+      if (response.success == "true") {
+      }
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
 
   }
 
@@ -84,21 +92,16 @@ export class WeighterPage implements OnInit {
           boxname: localboxname
         }
         this.http.post('/manual_weight', data).subscribe((response: any) => {
-
           console.log(response);
-
           if (response.success == "true") {
-
           }
-
         }, (error: any) => {
           console.log(error);
-
         }
         );
+
       }
     }
-
   }
 
 
@@ -157,6 +160,48 @@ export class WeighterPage implements OnInit {
 
   }
 
+
+  SelectType(data) {
+    const formdata = new FormData();
+    formdata.append("type", data.type);
+    this.type = data.type;
+  }
+
+  SelectLocation(data) {
+    const formdata = new FormData();
+    formdata.append("place", data.place);
+    this.place = data.place;
+  }
+
+  StoreTypeBasedOnCategory = [];
+  StoreTypeData = [];
+  SelectCategory(data) {
+    this.StoreTypeData = [];
+    const formdata = new FormData();
+    formdata.append("category", data.category);
+    console.log(data.category);
+    this.category = data.category;
+
+    var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
+    this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
+      for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
+        const listTypeBasedOnCategory = {
+          Categorypush: this.StoreTypeBasedOnCategory[i].category,
+          Typepush: this.StoreTypeBasedOnCategory[i].type
+        }
+        //console.log(listTypeBasedOnCategory);
+        if (this.category == listTypeBasedOnCategory.Categorypush) {
+        
+          this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
+          console.log(this.StoreTypeData);
+
+        }
+
+      }
+      console.log(this.StoreTypeData);
+
+   
+  }
 
   delete(id) {
     console.log(id);
@@ -250,17 +295,17 @@ export class WeighterPage implements OnInit {
     }, 1500);
   }
 
-  value:any;
+  value: any;
 
   NavigateTo() {
     console.log(this.value);
-    if(this.value == "settings"){
+    if (this.value == "settings") {
       this.router.navigate(['/settings'])
-    }else{
+    } else {
       this.logout()
     }
-    
-   
+
+
   }
 
 
