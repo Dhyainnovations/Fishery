@@ -1,95 +1,124 @@
 <ion-content class="background">
+  <div class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  </div>
+  <div class=" row  mx-2 ">
+
+    <div *ngIf="onlineAlart" class=" col-12 ion-text-right mt-3">
+      <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_VXcbWf.json" background="transparent"
+        speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
+    </div>
+
+    <div *ngIf="offlineAlart" class="col-12 ion-text-right mt-3">
+      <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_VxV3TM.json" background="transparent"
+        speed="1.5" style="width:30%;;" loop autoplay></lottie-player>
+    </div>
+
+  </div>
   <!-----Title----->
-  <h2 class="text-center weighter"><b>WEIGHTER</b></h2>
+
+  <div class="row mt-3">
+
+    <div class="col-8 ion-text-right">
+      <b style="font-size: 25px;">WEIGHTER</b>
+    </div>
+    <div class="col-4">
+      <select [(ngModel)]="value" (change)="NavigateTo()" style="font-size: 12px;margin-top: 1px;">
+        <option value="" selected disabled> Admin</option>
+        <option value="settings" style="background-color: #9592d4;color: white;">Settings</option>
+        <option value="logout" style="background-color: #9592d4;color: white;">Logout</option>
+      </select>
+    </div>
+  </div>
 
 
   <!-----Display Weight----->
-  <div class="weight-display-wrap text-center mt-4 px-2">
-    <div class="weight-display" style="font-size: 20px;">
-      <p> weight is <b>267.70</b> kgs</p>
+  <div class="row">
+    <div class="col-12 ion-text-center mt-4">
+      <input [(ngModel)]="weight" type="number" placeholder="ENTER THE WEIGHT" class="text-center"
+        style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 14px;padding: 10px;">
     </div>
   </div>
+
+  <!-- <p> weight is <b>267.70</b> kgs</p> -->
+
 
   <div class="container weighter-details-wrapper">
     <div class="row">
       <!-----Display Date----->
-      <div class="col-6 display-date" style="margin-top: -20px;">
-
+      <div class="col-6 display-date">
+        <b style="font-size: 13px;">Date: </b>
+        <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar"></b>
       </div>
 
-      <div class="col-6 display-date" style="margin-top: -40px;">
-        <b>Location : Annur </b>
-      </div>
-
-      <div class="col-6 display-date mt-3">
-        <b>Date:<br></b>
-        <input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar mt-3">
+      <div class="col-6 display-date">
+        <b style="font-size: 13px;">Location: </b><br>
+        <b>Annur</b>
       </div>
 
 
       <!-----Fish Type----->
       <div class="col-6 mt-3">
-        <p class="select-category"><b>Select Category:</b></p>
-        <select>
-          <option value="" disabled selected>Category</option>
-          <option value="goldfish">Gold Fish</option>
-          <option value="guppy">Guppy</option>
-          <option value="bluefish">Blue Fish</option>
-          <option value="tilapia">Tilapia</option>
-        </select>
-
+        <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
+          <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
+          <select [(ngModel)]="category" placeholder="category" name="category">
+            <option value="" disabled selected>Category</option>
+            <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
+          </select>
+        </form>
       </div>
-    </div>
 
-    <div class="row mt-3">
+
+
       <!-----Fish Category----->
-      <div class="col-6">
-        <p class="select-category"><b>Select Type: </b></p>
-        <select>
-          <option value="" disabled selected>Fish Type</option>
-          <option value="first">1st</option>
-          <option value="second">2nd</option>
-          <option value="third" (click)="window.print();">3rd</option>
-        </select>
+      <div class="col-6 mt-3">
+        <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
+          <p class="select-category" style="font-size: 13px;"><b><u>Select Type: </u></b></p>
+          <select [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;">
+            <option value="" disabled selected>Fish Type</option>
+            <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
+          </select>
+        </form>
       </div>
 
-      <!-----FLocation----->
-      <div class="col-6">
-        <p class="select-category"><b>Select Price: </b></p>
-        <select style="background-color: #6863CC;color: white;" class="p-1">
-          <option value="" disabled selected>Price</option>
-          <option value="vip1">VIP 1</option>
-          <option value="vip2">VIP 2</option>
-        </select>
+   
+
+      <div class="col-12 mt-3">
+        <form (change)="SelectPrice(Selectprice.value)" #Selectprice="ngForm">
+          <p class="select-category"><b><u>Select Price: </u></b></p>
+          <select [(ngModel)]="price" placeholder="price" name="price"
+            style="width: 96%;background-color: #6863CC;color: white;font-size: 13px;padding: 2px;">
+            <option value="" disabled selected hidden>Price</option>
+            <option [value]="vip1">VIP 1</option>
+            <option [value]="vip1">VIP 2</option>
+            <option [value]="vip1">VIP 3</option>
+          </select>
+        </form>
       </div>
+
     </div>
-
-
-    <!-----Submit Button---->
     <div class="button-wrapper mt-4">
       <div class="container">
         <div class="row">
           <div class="col-4" style="height: 10px;font-size: 12px;">
             <button class="submit-button px-4 py-2" color="transparent" style="background-color: #6863CC;">
-              SUBMIT
+              ADD ITEM
             </button>
           </div>
           <div class="col-4">
             <div style="height: 10px; font-size: 12px;margin-left: 30px;">
-              <button class="submit-button px-4 py-1"  style="background-color: #6863CC;">
+              <button class="submit-button px-4 py-1" style="background-color: #6863CC;">
                 GENERATE BILL
               </button>
             </div>
           </div>
-
         </div>
       </div>
 
     </div>
-
   </div>
-
-
-  <!-----Table----->
 
 </ion-content>
