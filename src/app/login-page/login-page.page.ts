@@ -10,7 +10,9 @@ import Swal from 'sweetalert2';
 })
 export class LoginPagePage implements OnInit {
 
-  constructor(private router: Router, private http: HttpService) { }
+  constructor(private router: Router, private http: HttpService) {
+    
+   }
 
   ngOnInit() {
 

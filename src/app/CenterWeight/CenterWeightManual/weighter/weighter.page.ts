@@ -15,6 +15,7 @@ export class WeighterPage implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
 
+
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
@@ -36,6 +37,8 @@ export class WeighterPage implements OnInit {
   }
 
   ngOnInit() {
+    const start = Date.now();
+    console.log(start);
 
     this.http.get('/list_type_manual').subscribe((response: any) => {
       console.log(response);
@@ -57,7 +60,7 @@ export class WeighterPage implements OnInit {
   type: any;
   place: any;
   weight: any;
-
+  mdy: any;
   categorylist: any = []
   locationlist: any = []
   typelist: any = []
@@ -94,6 +97,7 @@ export class WeighterPage implements OnInit {
         this.http.post('/manual_weight', data).subscribe((response: any) => {
           console.log(response);
           if (response.success == "true") {
+
           }
         }, (error: any) => {
           console.log(error);
@@ -107,13 +111,29 @@ export class WeighterPage implements OnInit {
 
   onlineApiCal() {
     console.log(this.category, this.place, this.type);
+    var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
+
+    // Now we can access our time at date[1], and monthdayyear @ date[0]
+    var time = date[1];
+    this.mdy = date[0];
+
+    // We then parse  the mdy into parts
+    this.mdy = this.mdy.split('/');
+    var month = parseInt(this.mdy[0]);
+    var day = parseInt(this.mdy[1]);
+    var year = parseInt(this.mdy[2]);
+
+    // Putting it all together
+    var formattedDate = year + '-' + month + '-' + day + ' ' + time;
+    //console.log(formattedDate);
     const data = {
       type: this.type,
       category: this.category,
       place: this.place,
       quantity: this.weight,
       isDeleted: "0",
-      boxname: "box"
+      boxname: "box",
+      updatedAt: formattedDate
     }
 
     //----------If Offline----------//
@@ -145,10 +165,7 @@ export class WeighterPage implements OnInit {
           title: 'Submited successfully.'
         })
 
-        this.category = null;
-        this.type = null;
-        this.place = null;
-        this.weight = '';
+        this.weight = "";
         this.records()
       }
 
@@ -184,23 +201,23 @@ export class WeighterPage implements OnInit {
 
     var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
     this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
-      for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
-        const listTypeBasedOnCategory = {
-          Categorypush: this.StoreTypeBasedOnCategory[i].category,
-          Typepush: this.StoreTypeBasedOnCategory[i].type
-        }
-        //console.log(listTypeBasedOnCategory);
-        if (this.category == listTypeBasedOnCategory.Categorypush) {
-        
-          this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
-          console.log(this.StoreTypeData);
+    for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
+      const listTypeBasedOnCategory = {
+        Categorypush: this.StoreTypeBasedOnCategory[i].category,
+        Typepush: this.StoreTypeBasedOnCategory[i].type
+      }
+      //console.log(listTypeBasedOnCategory);
+      if (this.category == listTypeBasedOnCategory.Categorypush) {
 
-        }
+        this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
+        console.log(this.StoreTypeData);
 
       }
-      console.log(this.StoreTypeData);
 
-   
+    }
+    console.log(this.StoreTypeData);
+
+
   }
 
   delete(id) {

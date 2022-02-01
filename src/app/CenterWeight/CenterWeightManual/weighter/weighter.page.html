@@ -26,7 +26,7 @@
       <b style="font-size: 25px;">WEIGHTER</b>
     </div>
     <div class="col-4">
-      <select [(ngModel)]="value" (change)="NavigateTo()" style="font-size: 12px;margin-top: 1px;">
+      <select  (change)="NavigateTo()" style="font-size: 12px;margin-top: 1px;">
         <option value="" selected disabled> Admin</option>
         <option value="settings" style="background-color: #9592d4;color: white;">Settings</option>
         <option value="logout" style="background-color: #9592d4;color: white;">Logout</option>
@@ -39,7 +39,7 @@
   <div class="row">
     <div class="col-12 ion-text-center mt-4">
       <input [(ngModel)]="weight" type="number" placeholder="ENTER THE WEIGHT" class="text-center"
-        style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 14px;padding: 10px;">
+        style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 16px;padding: 5px;margin-left: 10px;margin-right: 10px">
     </div>
   </div>
 
@@ -110,8 +110,9 @@
         <div class="card mt-3" *ngFor="let record of tableRecodrs">
           <div class="row">
             <div class="col-6">
-              <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'h:mm a'}}<br>
-              <b style="color: #6863CC;">Weight </b> : {{record.quantity}}<br>
+              <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'dd/MM/yyyy'}}<br>
+              <b style="color: #6863CC;"></b>  {{record.updatedAt | date: 'h:mm a'}}<br>
+              <b style="color: #6863CC;">Weight </b> : {{record.quantity}} Kg<br>
               <b style="color: #6863CC;">Type</b> : {{record.type}}
             </div>
 
