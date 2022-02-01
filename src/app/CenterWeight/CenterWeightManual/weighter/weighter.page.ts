@@ -15,10 +15,7 @@ export class WeighterPage implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
 
-<<<<<<< HEAD
       this.dropdownVisible = false
-=======
->>>>>>> refs/remotes/origin/main
 
       this.getCategoryList()
       this.getTypeList()
