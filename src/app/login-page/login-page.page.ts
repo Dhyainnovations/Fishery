@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../shared/http.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,13 +11,19 @@ import Swal from 'sweetalert2';
 })
 export class LoginPagePage implements OnInit {
 
-  constructor(private router: Router, private http: HttpService) {
-    
-   }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
+    route.params.subscribe(val => {
+
+     
+      
+    });
+
+  }
 
   ngOnInit() {
 
   }
+  
 
   username: any;
   password: any;
@@ -129,7 +136,7 @@ export class LoginPagePage implements OnInit {
           );
 
 
-          //----------- Login type checking --------------//
+           //-------center login check----------//
 
           if (this.Locallogintype == "ROLE_WSHO") {
 
@@ -145,12 +152,16 @@ export class LoginPagePage implements OnInit {
 
           }
 
+
+
+           //-------biller login check----------//
+
           if (this.Locallogintype == "ROLE_LOCALSALE") {
 
             //---------- Auto or Manual Checking -----------//
 
             if (this.Localpermission == "MANUAL") {
-              this.router.navigate(['/BillerManualdashboard'])
+              this.router.navigate(['/biller-weight-manual-record'])
             }
 
             // if (this.userdetails.permission == "AUTO") {
@@ -158,34 +169,14 @@ export class LoginPagePage implements OnInit {
             // }
           }
 
+          //-------admin login check----------//
+
+          if (this.Locallogintype == "ROLE_ADMIN") {
+            this.router.navigate(['/admin-dashboard'])
+          }
 
 
 
-
-          // if (this.userdetails.logintype == "ROLE_ADMIN") {
-          //   this.router.navigate(['/admin'])
-          // }
-
-          // if (this.userdetails.logintype == "ROLE_WSHO") {
-          //   this.router.navigate(['/admin'])
-          // }
-
-          // if (this.userdetails.logintype == "ROLE_LOCALSALE") {
-
-          // }
-
-          // if (this.userdetails.logintype == "ROLE_MERCHANT") {
-
-          //   //---------- Auto or Manual Checking -----------//
-
-          //   if (this.userdetails.permission == "MANUAL") {
-          //     this.router.navigate(['/Merchantweight-manual-dashboard'])
-          //   }
-
-          //   if (this.userdetails.permission == "AUTO") {
-          //     this.router.navigate(['/Merchantweight-manual-dashboard'])
-          //   }
-          // }
 
 
 

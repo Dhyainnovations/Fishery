@@ -5,7 +5,7 @@
 
   <div class="row mt-5">
     <div class="col-12 ion-text-center">
-      <button (click)="navigateToNextPage()" class="navigate-btn  mt-5" (click)="login()"><b>Start Weighing</b></button>
+      <button (click)="navigateToNextPage()" class="navigate-btn  mt-5" (click)="login()"><b>Start Billing</b></button>
     </div>
 
     <div class="col-12 ion-text-center mt-3">
@@ -44,7 +44,7 @@
           style="width:65%;margin:auto" loop autoplay></lottie-player>
           <h4 class="ion-text-center">No Records</h4>
       </div>
-      
+     
     </div>
   </div>
 
@@ -71,8 +71,8 @@
 
             </div>
             <div class="col-2 ion-text-left mt-2">
-              <div (click)="delete(record.boxid)" [value]="record.boxid" class="dot">
-                <svg  style="margin: 10px;"
+              <div class="dot">
+                <svg (click)="delete(record.boxid)" [value]="record.boxid" style="margin: 10px;"
                   xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="#fff" class="bi bi-trash3"
                   viewBox="0 0 16 16">
                   <path fill-rule="evenodd"

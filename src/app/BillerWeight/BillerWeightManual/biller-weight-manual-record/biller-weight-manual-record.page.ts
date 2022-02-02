@@ -4,13 +4,12 @@ import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
-
 @Component({
-  selector: 'app-center-weight-manual-record',
-  templateUrl: './center-weight-manual-record.page.html',
-  styleUrls: ['./center-weight-manual-record.page.scss'],
+  selector: 'app-biller-weight-manual-record',
+  templateUrl: './biller-weight-manual-record.page.html',
+  styleUrls: ['./biller-weight-manual-record.page.scss'],
 })
-export class CenterWeightManualRecordPage implements OnInit {
+export class BillerWeightManualRecordPage implements OnInit {
 
   constructor(public navCtrl: NavController ,private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
@@ -73,7 +72,7 @@ export class CenterWeightManualRecordPage implements OnInit {
 
 
   navigateToNextPage() {
-    this.router.navigate(['/centerweight-manual-weighter'])
+    this.router.navigate(['/BillerManualdashboard'])
   }
 
 
@@ -133,3 +132,4 @@ export class CenterWeightManualRecordPage implements OnInit {
     );
   }
 }
+

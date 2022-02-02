@@ -41,7 +41,7 @@ export class WeighterPage implements OnInit {
     const start = Date.now();
     console.log(start);
 
-    this.user = localStorage.getItem("logintype",)
+    this.user = localStorage.getItem("Fishery-username",)
     console.log(this.user);
     
 
@@ -71,7 +71,9 @@ export class WeighterPage implements OnInit {
 
 
   
-  
+  backToPrivios(){
+    this.router.navigate(['/center-weight-manual-record'])
+  }
 
 
   offlineApiCall() {
@@ -130,7 +132,8 @@ export class WeighterPage implements OnInit {
     var formattedDate = year + '-' + month + '-' + day + ' ' + time;
     //console.log(formattedDate);
     const data = {
-      type: this.type,
+      quality :this.type,
+      type: "center",
       category: this.category,
       place: this.place,
       quantity: this.weight,
@@ -204,6 +207,7 @@ export class WeighterPage implements OnInit {
 
     var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
     this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
+    
     for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
       const listTypeBasedOnCategory = {
         Categorypush: this.StoreTypeBasedOnCategory[i].category,

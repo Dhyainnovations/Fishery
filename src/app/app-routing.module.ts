@@ -88,6 +88,10 @@ const routes: Routes = [
     path: 'center-weight-manual-record',
     loadChildren: () => import('./CenterWeight/CenterWeightManual/center-weight-manual-record/center-weight-manual-record.module').then( m => m.CenterWeightManualRecordPageModule)
   },
+  {
+    path: 'biller-weight-manual-record',
+    loadChildren: () => import('./BillerWeight/BillerWeightManual/biller-weight-manual-record/biller-weight-manual-record.module').then( m => m.BillerWeightManualRecordPageModule)
+  },
  
 
 

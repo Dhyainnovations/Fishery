@@ -1,13 +1,13 @@
 <ion-content class="background">
   <!-----Title----->
-  <h2 class="text-center weighter"><b>BILL</b></h2>
+  <h1 class="text-center weighter"><b style="font-size: 20px;">BILL</b></h1>
   <div class="container">
     <div class="row mt-5">
       <div class="col-6">
-        <p>Merchant Id : <br>A89BV9</p>
+        <p>Merchant Name : <span>{{name}}</span></p>
       </div>
       <div class="col-6">
-        <p>Location : Annur</p>
+        <p>Location : <span>{{location}}</span></p>
         <input value="Date : {{currentDate | date:'dd-MM-yyyy'}}" class="calendar">
       </div>
     </div>
@@ -50,12 +50,23 @@
     </tbody>
   </table>
 
-  <div class="text-center m-2" style="background-color: #6863CC;color: white;border-radius: 5px;">
-    <p>Total Price Is Rs.1,789</p>
+  <div class="text-center mt-4" style="background-color: #6863CC;color: white;border-radius: 2px;margin: 10px;">
+    <p style="font-size: 20px;">Total Price Is Rs.1,789</p>
   </div>
 
-  <div style="text-align: end;margin-right: 30px;">
-    <button class="btn btn-sm text-white" style="background-color:#6863CC ;">Print</button>
+
+  <div class="row ion-text-center mt-5">
+    <div class="col-6">
+      <div >
+        <button (click)="backToPrivious()" class="btn btn-sm text-white" style="background-color:#6863CC ;">Back</button>
+      </div>
+    </div>
+    <div class="col-6">
+      <div>
+        <button class="btn btn-sm text-white" style="background-color:#6863CC ;">Print</button>
+      </div>
+    </div>
   </div>
+  
 
 </ion-content>
