@@ -90,10 +90,31 @@ export class DashboardPage implements OnInit {
     console.log(this.ID);
   };
 
+
+
+  cost = "";
   SelectType(data) {
     const formdata = new FormData();
     formdata.append("type", data.type);
-    this.price = data.type;
+    const getPrice = {
+      category: this.category,
+      quality: data.type,
+    }
+    console.log(getPrice);
+    this.http.post('/price', getPrice).subscribe((response: any) => {
+      console.log(response);
+      this.cost = (response.records.price);
+      // for (var i = 0; i < response.records.length; i++) {
+      //   this.cost.push(response.records[i].price);
+      //   console.log(this.cost);
+      //   var LocalPrice = (JSON.stringify(this.cost));
+      //   localStorage.setItem('LocalPrice', LocalPrice);
+      // }
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
   }
 
 
@@ -140,7 +161,6 @@ export class DashboardPage implements OnInit {
       }
       //console.log(listTypeBasedOnCategory);
       if (this.category == listTypeBasedOnCategory.Categorypush) {
-
         this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
         console.log(this.StoreTypeData);
 
@@ -224,29 +244,10 @@ export class DashboardPage implements OnInit {
   SetBillerAddItem = [];
 
 
-  cost = [];
+
   addItem() {
-    var localcategory = this.category;
-    var localquality = this.type;
-    const getPrice = {
-      category: localcategory,
-      quality: localquality,
-    }
-    console.log(getPrice);
-    this.http.post('/price', getPrice).subscribe((response: any) => {
-      console.log(response);
-      for (var i = 0; i < response.records.length; i++) {
-        this.cost.push(response.records[i].price);
-        console.log(this.cost);
-        var LocalPrice = (JSON.stringify(this.cost));
-        localStorage.setItem('LocalPrice', LocalPrice);
-      }
 
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
-
+    this.generateId();
 
     const data = {
       category: this.category,
@@ -256,7 +257,8 @@ export class DashboardPage implements OnInit {
       counter: this.counter,
       userid: this.userId,
       isDeleted: "0",
-      purchaseddate: this.currentDate
+      purchaseddate: this.currentDate,
+      cost: this.cost
     }
 
     console.log(data);
@@ -306,6 +308,23 @@ export class DashboardPage implements OnInit {
     localStorage.removeItem("logintype",)
     localStorage.removeItem("permission",)
     this.router.navigate(['/loginpage'])
+  }
+
+  deleteID = [];
+  deleteRecord(id) {
+
+    console.log(id);
+
+    this.deleteID = JSON.parse(localStorage.getItem("SetBillerAddItem"))
+    console.log(this.deleteID);
+
+    for (var i = 0; i <= this.deleteID.length; i++) {
+      if (this.deleteID[i].id !== id) {
+        this.SetBillerAddItem.push(this.deleteID[i]);
+      }
+    }
+    var SetBillerAddItem = (JSON.stringify(this.SetBillerAddItem));
+    localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
   }
 
 }

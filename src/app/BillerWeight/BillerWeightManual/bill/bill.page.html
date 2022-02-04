@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col-6">
-        <p>Merchant Name : <span>{{name}}</span></p>
+        <p>Biller Name : <span>{{name}}</span></p>
       </div>
       <div class="col-6">
         <p>Date : 
@@ -17,8 +17,8 @@
   <table class="table">
     <thead>
       <tr style="background-color: #6863CC;color: white;">
-        <th scope="col">Quality/th>
         <th scope="col">Category</th>
+        <th scope="col">Quality</th>      
         <th scope="col">Weight</th>
         <th scope="col">Cost/Kg</th>
         <th scope="col">Total Cost</th>
@@ -26,8 +26,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of GetBillDataFromLocalStorageData">
-        <td>{{data.quality}}</td>
         <td>{{data.category}}</td>
+        <td>{{data.quality}}</td>       
         <td>{{data.weight}}</td>
         <td>{{data.price}}</td>
         <td>{{data.totalcost}}</td>

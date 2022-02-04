@@ -57,7 +57,7 @@
       <!-----Display Date----->
       <div class="col-6 display-date">
         <b style="font-size: 13px;">Date: </b>
-        <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar" disabled></b>
+        <b>{{currentDate | date:'dd-MM-yyyy'}}</b>
       </div>
 
       <div class="col-6 display-date">
@@ -117,26 +117,46 @@
         <div class="row">
           <div class="col-6">
             <button (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
-              style="background-color: #6863CC;font-size: 13px;color: white;"
-              [disabled]="!weight || !counter || !category || !type" >
+              style="font-size: 13px;color: white;" [disabled]="!weight || !counter || !category || !type">
               ADD<br> ITEM
             </button>
           </div>
           <div class="col-6">
             <div style="height: 10px;">
               <button (click)="generateBill()" class="submit-button px-2 py-2" color="transparent"
-                style="background-color: #6863CC;font-size: 13px;"
-                [disabled]="!weight || !counter || !category || !type ">
+                style="font-size: 13px;" [disabled]="!weight || !counter || !category || !type ">
                 GENERATE BILL
               </button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
-    
+
+    <div style="font-size: 12px;">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mt-3" *ngFor="let record of SetBillerAddItem">
+            <div class="row">
+              <div class="col-6">
+                <b style="color: #6863CC;"> Time </b> : {{record.purchaseddate | date: 'dd/MM/yyyy'}}<br>
+                <b style="color: #6863CC;"></b> {{record.purchaseddate | date: 'h:mm a'}}<br>
+                <b style="color: #6863CC;">Type</b> : {{record.quality}} <br>
+              </div>
+
+              <div class="col-6">
+                <b style="color: #6863CC;">Weight </b> : {{record.weight}}Kg <br>
+                <b style="color: #6863CC;">Price </b> : Rs.{{record.cost}} <br>
+                <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
+                <button class="btn btn-sm"  [value]="record.id" (click)="deleteRecord(record.id)">Delete</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 
 </ion-content>
