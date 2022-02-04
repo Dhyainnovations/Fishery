@@ -15,6 +15,7 @@ import { WeighterPage } from './weighter.page';
     IonicModule,
     WeighterPageRoutingModule
   ],
-  declarations: [WeighterPage]
+  declarations: [WeighterPage],
+  
 })
 export class WeighterPageModule {}

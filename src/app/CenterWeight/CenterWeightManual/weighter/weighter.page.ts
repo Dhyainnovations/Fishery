@@ -4,6 +4,8 @@ import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-weighter',
@@ -12,8 +14,13 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class WeighterPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
+  constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
+
+      this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+
+      console.log(this.currentDateTime);
+
 
       this.dropdownVisible = false
       this.onlineApiCal();
@@ -27,6 +34,7 @@ export class WeighterPage implements OnInit {
         this.onlineAlart = false;
       });
       window.addEventListener('online', () => {
+        this.refresh()
         this.onlineAlart = true;
         this.offlineAlart = false
         this.checkonline = true;
@@ -37,21 +45,25 @@ export class WeighterPage implements OnInit {
 
   }
 
+
   ngOnInit() {
+
+
     const start = Date.now();
     console.log(start);
 
     this.user = localStorage.getItem("Fishery-username",)
     console.log(this.user);
-    
+
 
   }
 
-  user:any;
-  dropdownVisible:any = false;
+  user: any;
+  dropdownVisible: any = false;
 
   currentDate = new Date();
 
+  currentDateTime: any;
   checkoffline: any;
   checkonline: any;
   setpushdata: any = [];
@@ -70,8 +82,8 @@ export class WeighterPage implements OnInit {
   offlineAlart: any = false
 
 
-  
-  backToPrivios(){
+
+  backToPrivios() {
     this.router.navigate(['/center-weight-manual-record'])
   }
 
@@ -113,13 +125,22 @@ export class WeighterPage implements OnInit {
     }
   }
 
+  tdyDate: any;
 
   onlineApiCal() {
     console.log(this.category, this.place, this.type);
     var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
+    this.tdyDate = date;
+    console.log(date);
+
 
     // Now we can access our time at date[1], and monthdayyear @ date[0]
     var time = date[1];
+    var time_status = date[2];
+    console.log(time_status);
+
+
+
     this.mdy = date[0];
 
     // We then parse  the mdy into parts
@@ -127,21 +148,22 @@ export class WeighterPage implements OnInit {
     var month = parseInt(this.mdy[0]);
     var day = parseInt(this.mdy[1]);
     var year = parseInt(this.mdy[2]);
+    console.log(time_status);
 
     // Putting it all together
     var formattedDate = year + '-' + month + '-' + day + ' ' + time;
-    console.log(formattedDate);
-    
+    console.log();
+
     //console.log(formattedDate);
     const data = {
-      quality :this.type,
+      quality: this.type,
       type: "center",
       category: this.category,
       place: this.place,
       quantity: this.weight,
       isDeleted: "0",
       boxname: "box",
-      updatedAt: formattedDate
+      updatedAt: this.currentDateTime
     }
 
     //----------If Offline----------//
@@ -160,7 +182,7 @@ export class WeighterPage implements OnInit {
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -209,7 +231,7 @@ export class WeighterPage implements OnInit {
 
     var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
     this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
-    
+
     for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
       const listTypeBasedOnCategory = {
         Categorypush: this.StoreTypeBasedOnCategory[i].category,
@@ -318,6 +340,9 @@ export class WeighterPage implements OnInit {
   dosomething(event) {
     setTimeout(() => {
       event.target.complete();
+
+      this.refresh()
+
     }, 1500);
   }
 
@@ -334,18 +359,59 @@ export class WeighterPage implements OnInit {
 
   // }
 
-  checkboxsts:any = false
+  checkboxsts: any = false
 
-  dropdownOpen(){
+  dropdownOpen() {
     this.checkboxsts = true
     console.log(this.checkboxsts);
-    
+
   }
 
-  setting(){
+  setting() {
     this.router.navigate(['/settings'])
   }
 
+
+
+  refresh() {
+    //----------- Category Local Storage --------------//
+    this.http.get('/list_category',).subscribe((response: any) => {
+      var SetCategory = (JSON.stringify(response.records));
+      localStorage.setItem('SetCategory', SetCategory);
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+
+    //----------- Type Local Storage --------------//
+    this.http.get('/list_type',).subscribe((response: any) => {
+      var SetType = (JSON.stringify(response.records));
+      localStorage.setItem('SetType', SetType);
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+
+    //----------- Location Local Storage --------------//
+    this.http.get('/list_location',).subscribe((response: any) => {
+      var SetLocation = (JSON.stringify(response.records));
+      localStorage.setItem('SetLocation', SetLocation);
+    }, (error: any) => {
+      console.log(error);
+    });
+
+
+    //----------- Set Type Based On Category Local Storage --------------//
+
+    // this.http.get('/list_type_manual').subscribe((response: any) => {
+    //   var SetTypeBasedOnCategory = (JSON.stringify(response.records));
+    //   localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
+
+    // }, (error: any) => {
+    //   console.log(error);
+    // }
+    // );
+  }
 
   logout() {
     this.dropdownVisible = false
@@ -355,5 +421,8 @@ export class WeighterPage implements OnInit {
     localStorage.removeItem("permission",)
     this.router.navigate(['/loginpage'])
   }
+
+
+
 
 }

@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -14,7 +15,7 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [HttpClientModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule],
-  providers: [Network,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  providers: [Network,DatePipe,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   
  ],
   bootstrap: [AppComponent],

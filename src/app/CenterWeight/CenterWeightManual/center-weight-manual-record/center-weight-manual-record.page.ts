@@ -4,6 +4,9 @@ import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 
 @Component({
   selector: 'app-center-weight-manual-record',
@@ -12,30 +15,62 @@ import { NavController } from '@ionic/angular';
 })
 export class CenterWeightManualRecordPage implements OnInit {
 
-  constructor(public navCtrl: NavController ,private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor(private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
+      this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
       this.totalWeight()
       this.locationBasedWeightRecords()
       this.records()
+
+      window.addEventListener('offline', () => {
+        this.checkoffline = true;
+        this.offlineAlart = true
+        this.onlineAlart = false;
+       
+      });
+      window.addEventListener('online', () => {
+        
+        this.onlineAlart = true;
+        this.offlineAlart = false
+        this.checkonline = true;
+
+      });
     });
   }
 
+  disableSts: any = false;
+  checkoffline: any;
+  checkonline: any;
+  buttonDisabled: boolean;
+  onlineAlart: any = true;
+  offlineAlart: any = false
+
+
   ngOnInit() {
-
+    this.locationBasedWeightRecords()
   }
+  currentDateTime: any
+  totalweight: any = '';
+  tableRecodrs: any = []
+  cardRecords: any = []
 
-  totalweight:any = '' ;
-  tableRecodrs:any = []
-  cardRecords:any = []
+  isVisible: any = false
+  lastEntryisVisible: any = false
 
-  isVisible:any = false
 
+
+  dosomething(event) {
+    setTimeout(() => {
+      event.target.complete();
+
+    }, 1500);
+  }
 
   totalWeight() {
     this.http.get('/list_total_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
 
-      if(response.records.total_weight == null){
+      if (response.records.total_weight == null) {
         this.totalweight = 0;
       }
 
@@ -50,10 +85,9 @@ export class CenterWeightManualRecordPage implements OnInit {
     this.http.get('/location_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
       console.log(response);
-      
+
 
     }, (error: any) => {
-      this.isVisible = true
       console.log(error);
     }
     );
@@ -63,10 +97,21 @@ export class CenterWeightManualRecordPage implements OnInit {
   records() {
     this.http.get('/list_manual_weight',).subscribe((response: any) => {
       this.cardRecords = response.records;
-      console.log(response);
+      if (this.cardRecords == "No manual weight found.") {
+        this.cardRecords = [];
+        this.isVisible = true
+        this.lastEntryisVisible = false
+      } else {
 
+        this.isVisible = false
+        this.lastEntryisVisible = true
+      }
     }, (error: any) => {
       console.log(error);
+      this.cardRecords = [];
+      this.isVisible = true
+      this.lastEntryisVisible = false
+
     }
     );
   }
@@ -87,13 +132,15 @@ export class CenterWeightManualRecordPage implements OnInit {
 
     this.http.post('/delete_manual_weight', data).subscribe((response: any) => {
       this.tableRecodrs = response.records;
+      this.locationBasedWeightRecords()
       console.log(response);
       if (response.success == "true") {
+
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1500,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -107,13 +154,14 @@ export class CenterWeightManualRecordPage implements OnInit {
         })
 
         this.records()
+        this.totalWeight()
 
       } else {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1500,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -129,6 +177,7 @@ export class CenterWeightManualRecordPage implements OnInit {
 
     }, (error: any) => {
       console.log(error);
+
     }
     );
   }

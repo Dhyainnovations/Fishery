@@ -7,19 +7,19 @@
   </div>
   <div class="row">
 
-    <div class="col-6  ">
-      <lottie-player (click)="backToPrivios()" src="https://assets3.lottiefiles.com/packages/lf20_mfm2v4hs.json"
-        background="transparent" speed="1.5" style="width:55%;" loop autoplay></lottie-player>
+    <div class="col-6 mt-4 ">
+      <ion-icon style="margin-left:20px;width: 45px; height:25px" (click)="backToPrivios()" name="arrow-back">
+      </ion-icon>
     </div>
 
-    <div *ngIf="onlineAlart" class="col-6 ion-text-right ">
+    <div *ngIf="onlineAlart" class="col-6 ion-text-right mt-2">
       <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
         speed="1.5" style="width:50%; margin-left: 50%;" loop autoplay></lottie-player>
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
     </div>
 
     <div *ngIf="offlineAlart" class="col-6 ion-text-right ">
-      <!-- <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_VxV3TM.json" background="transparent"
-        speed="1.5" style="width:30%;" loop autoplay></lottie-player> -->
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Offline</p> -->
       <img style="width:50%; margin-left: 50%; border-radius: 55%;" src="assets/offline.gif" alt="">
     </div>
 
@@ -28,7 +28,7 @@
 
   <div class="row ">
 
-    <div style="margin-top:-40px" class="col-12 ion-text-center">
+    <div style="margin-top:-45px" class="col-12 ion-text-center">
       <b style="font-size: 25px;">WEIGHTER</b>
     </div>
 
@@ -36,7 +36,7 @@
       <input id="t1" type="checkbox">
       <label for="t1">{{user}}</label>
       <ul>
-        <li><a (click)="setting()">Settings</a></li>
+        <!-- <li><a (click)="setting()">Settings</a></li> -->
         <li><a (click)="logout()">Logout</a></li>
       </ul>
     </div>
@@ -63,7 +63,7 @@
       <!-----Display Date----->
       <div class="col-6 display-date">
         <b style="font-size: 13px;">Date: </b>
-        <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar mt-2"></b>
+        <p> <b>{{currentDate | date:'dd-MM-yyyy'}}</b> </p>
       </div>
 
 
@@ -123,15 +123,15 @@
         <div class="card mt-3" *ngFor="let record of tableRecodrs">
           <div class="row">
             <div class="col-5">
-              <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'dd/MM/yyyy'}}<br>
-              <b style="color: #6863CC;"></b> {{record.updatedAt | date: 'h:mm a'}}<br>
+              <b style="color: #6863CC;"> <span>Date:{{currentDate | date:'dd-MM-yyyy'}}<br> </span> Time </b> :
+              {{record.time}}<br>
               <b style="color: #6863CC;">Type</b> : {{record.quality}} <br>
               <b style="color: #6863CC;">Weight </b> : {{record.quantity}}Kg <br>
             </div>
 
             <div class="col-5">
               <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
-              <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
+              <b style="color: #6863CC;">Category</b> : {{record.category}}
 
             </div>
             <div class="col-2 ion-text-left mt-2">
