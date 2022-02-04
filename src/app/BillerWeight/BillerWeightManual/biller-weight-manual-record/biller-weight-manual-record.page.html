@@ -1,9 +1,6 @@
-<ion-content class="background">
-
-
-
-
-  <div class="row mt-5">
+<ion-content>
+<img src="assets/bacground.png">
+  <div class="row" style="margin-top: -85px;">
     <div class="col-12 ion-text-center">
       <button (click)="navigateToNextPage()" class="navigate-btn  mt-5" ><b>Start Billing</b></button>
     </div>
@@ -25,15 +22,15 @@
       <thead style="background-color:#6863CC;" class="text-white">
         <tr>
           <th scope="col-3">S.No</th>
-          <th scope="col-2">Location</th>
-          <th scope="col-2">Total Weight</th>
+          <th scope="col-2">Quality</th>
+          <th scope="col-2">Weight</th>
         </tr>
       </thead>
-      <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+      <tbody *ngFor="let record of displaydeatilsTable  let i=index; ">
         <tr>
           <td>{{i+1}} </td>
-          <td>{{record.location}}</td>
-          <td>{{record.location_total_weight}}</td>
+          <td>{{record.quality}}</td>
+          <td>{{record.weight}}</td>
         </tr>
       </tbody>
     </table>
@@ -57,18 +54,17 @@
   <div style="font-size: 12px;">
     <div class="row mb-5" >
       <div class="col-12">
-        <div class="card mt-3" *ngFor="let record of cardRecords">
+        <div class="card mt-3" *ngFor="let record of displaydeatilsTable">
           <div class="row">
             <div class="col-5">
-              <b style="color: #6863CC;"> Time </b> : {{record.updatedAt | date: 'h:mm a'}}<br>
-              <b style="color: #6863CC;">Weight </b> : {{record.quantity}}<br>
-              <b style="color: #6863CC;">Type</b> : {{record.type}}
+              <b style="color: #6863CC;"> Date </b> : {{record.date }}<br>
+              <b style="color: #6863CC;"> Time </b> : {{record.time }}<br>
+             
             </div>
 
             <div class="col-5">
-              <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
-              <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
-
+              <b style="color: #6863CC;">Weight </b> : {{record.billitems.weight}}<br>
+              <b style="color: #6863CC;">Type</b> : {{record.billitems.quality}}
             </div>
             <div class="col-2 ion-text-left mt-2">
               <div class="dot">

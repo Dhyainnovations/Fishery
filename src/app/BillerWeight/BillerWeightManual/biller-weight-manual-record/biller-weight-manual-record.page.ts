@@ -14,9 +14,8 @@ export class BillerWeightManualRecordPage implements OnInit {
   constructor(public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.totalWeight()
-      this.locationBasedWeightRecords()
       this.records();
-     
+      this.list_manual_bill();
     });
   }
 
@@ -32,32 +31,37 @@ export class BillerWeightManualRecordPage implements OnInit {
 
 
   totalWeight() {
-    this.http.get('/list_total_weight',).subscribe((response: any) => {
+    this.http.get('/list_total_bill_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
-
-      if (response.records.total_weight == null) {
-        this.totalweight = 0;
-      }
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
-  }
-
-
-  locationBasedWeightRecords() {
-    this.http.get('/location_weight',).subscribe((response: any) => {
-      this.tableRecodrs = response.records;
       console.log(response);
 
 
     }, (error: any) => {
-      this.isVisible = true
       console.log(error);
     }
     );
   }
+
+
+
+  
+  displaydeatilsTable = [];
+  list_manual_bill() {
+    this.http.get('/list_manual_bill',).subscribe((response: any) => {
+      console.log(response);
+      for (var i = 0; i < response.records.length; i++) {
+        this.displaydeatilsTable.push(response.records[i])
+      }
+
+      console.log(this.displaydeatilsTable);
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  }
+
+
+
 
 
   records() {
