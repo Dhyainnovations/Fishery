@@ -11,11 +11,12 @@ import { NavController } from '@ionic/angular';
 })
 export class BillerWeightManualRecordPage implements OnInit {
 
-  constructor(public navCtrl: NavController ,private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor(public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.totalWeight()
       this.locationBasedWeightRecords()
-      this.records()
+      this.records();
+     
     });
   }
 
@@ -23,18 +24,18 @@ export class BillerWeightManualRecordPage implements OnInit {
 
   }
 
-  totalweight:any = '' ;
-  tableRecodrs:any = []
-  cardRecords:any = []
+  totalweight: any = '';
+  tableRecodrs: any = []
+  cardRecords: any = []
 
-  isVisible:any = false
+  isVisible: any = false
 
 
   totalWeight() {
     this.http.get('/list_total_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
 
-      if(response.records.total_weight == null){
+      if (response.records.total_weight == null) {
         this.totalweight = 0;
       }
 
@@ -49,7 +50,7 @@ export class BillerWeightManualRecordPage implements OnInit {
     this.http.get('/location_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
       console.log(response);
-      
+
 
     }, (error: any) => {
       this.isVisible = true
@@ -131,5 +132,6 @@ export class BillerWeightManualRecordPage implements OnInit {
     }
     );
   }
+
 }
 

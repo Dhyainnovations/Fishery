@@ -16,7 +16,7 @@ export class WeighterPage implements OnInit {
     route.params.subscribe(val => {
 
       this.dropdownVisible = false
-
+      this.onlineApiCal();
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
@@ -130,6 +130,8 @@ export class WeighterPage implements OnInit {
 
     // Putting it all together
     var formattedDate = year + '-' + month + '-' + day + ' ' + time;
+    console.log(formattedDate);
+    
     //console.log(formattedDate);
     const data = {
       quality :this.type,

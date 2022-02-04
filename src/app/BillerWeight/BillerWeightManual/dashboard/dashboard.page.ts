@@ -17,8 +17,7 @@ export class DashboardPage implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
       this.dropdownVisible = false
-      this.getCategoryList()
-      this.getTypeList()
+
       window.addEventListener('offline', () => {
         this.checkoffline = true;
         this.offlineAlart = true
@@ -47,15 +46,17 @@ export class DashboardPage implements OnInit {
       console.log(error);
     }
     );
-
+    this.getList();
+    this.getCategoryList();
+    this.getQualityList();
   }
 
- 
 
-  user:any;
 
+  user: any;
+  isDisabled: boolean = true;
   currentDate = new Date();
-  userId:any;
+  userId: any;
   checkoffline: any;
   checkonline: any;
   setpushdata: any = [];
@@ -63,11 +64,11 @@ export class DashboardPage implements OnInit {
   quality: any;
   price: any;
   weight: any;
-  counter:any;
-  ID:any;
-  counterNo:any
+  counter: any;
+  ID: any;
+  counterNo: any
+  type: any;
 
-  categorylist: any = []
 
   typelist: any = []
 
@@ -77,15 +78,15 @@ export class DashboardPage implements OnInit {
   offlineAlart: any = false
   dropdownVisible: any = false
 
-  backToPrivios(){
+  backToPrivios() {
     this.router.navigate(['/biller-weight-manual-record'])
   }
 
-  generateId(){
+  generateId() {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
-   this.ID = '_' + Math.random().toString(36).substr(2, 25);
+    this.ID = '_' + Math.random().toString(36).substr(2, 25);
     console.log(this.ID);
   };
 
@@ -94,7 +95,7 @@ export class DashboardPage implements OnInit {
     formdata.append("type", data.type);
     this.price = data.type;
   }
-  
+
 
   SelectPrice(data) {
     const formdata = new FormData();
@@ -122,7 +123,7 @@ export class DashboardPage implements OnInit {
   StoreTypeBasedOnCategory = [];
   StoreTypeData = [];
 
-  
+
   SelectCategory(data) {
     this.StoreTypeData = [];
     const formdata = new FormData();
@@ -152,27 +153,53 @@ export class DashboardPage implements OnInit {
   }
 
 
-  checkboxsts:any = false
+  checkboxsts: any = false
 
-  dropdownOpen(){
+  dropdownOpen() {
     this.checkboxsts = true
     console.log(this.checkboxsts);
-    
+
   }
 
 
+
+
+  listQualityCategory = [];
+  getList() {
+    this.http.get('/list_price').subscribe((response: any) => {
+      console.log(response);
+      this.listQualityCategory = response.records;
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  }
+
+  categorylist = [];
   getCategoryList() {
-    var GetCategory = localStorage.getItem('SetCategory');
-    this.categorylist = (JSON.parse((GetCategory)));
-    //console.log(DisplayCategory);
+    this.http.get('/list_category',).subscribe((response: any) => {
+      this.categorylist = response.records;
+      console.log(this.categorylist);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
   }
 
-  getTypeList() {
-    var GetType = localStorage.getItem('SetType');
-    this.typelist = (JSON.parse((GetType)));
 
+
+  qualityList = [];
+  getQualityList() {
+    this.http.get('/list_type',).subscribe((response: any) => {
+      this.qualityList = response.records;
+      console.log(this.qualityList);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
   }
-
 
 
   dosomething(event) {
@@ -194,36 +221,81 @@ export class DashboardPage implements OnInit {
 
   }
 
+  SetBillerAddItem = [];
 
-  addItem(){
 
-    const data = {
-
-      id : this.ID,
-      price :"45",
-      quality : this.quality,
-      weight : this.weight,
-      totalamount : "4578",
-      counter : this.counter,
-      userid : this.userId,
-      isDeleted : "0",
-      purchaseddate : this.currentDate
+  cost = [];
+  addItem() {
+    var localcategory = this.category;
+    var localquality = this.type;
+    const getPrice = {
+      category: localcategory,
+      quality: localquality,
     }
-
-    console.log(data);
-    
-    this.http.post('/manual_bill', data).subscribe((response: any) => {
+    console.log(getPrice);
+    this.http.post('/price', getPrice).subscribe((response: any) => {
       console.log(response);
-      if (response.success == "true") {
-        this.weight = ''
+      for (var i = 0; i < response.records.length; i++) {
+        this.cost.push(response.records[i].price);
+        console.log(this.cost);
+        var LocalPrice = (JSON.stringify(this.cost));
+        localStorage.setItem('LocalPrice', LocalPrice);
       }
+
     }, (error: any) => {
       console.log(error);
     }
     );
+
+
+    const data = {
+      category: this.category,
+      id: this.ID,
+      quality: this.type,
+      weight: this.weight,
+      counter: this.counter,
+      userid: this.userId,
+      isDeleted: "0",
+      purchaseddate: this.currentDate
+    }
+
+    console.log(data);
+
+    //   this.http.post('/manual_bill', data).subscribe((response: any) => {
+    //     console.log(response);
+    //     if (response.success == "true") {
+    //       this.weight = ''
+    //     }
+    //   }, (error: any) => {
+    //     console.log(error);
+    //   }
+    //   );
+    this.SetBillerAddItem.push(data);
+    console.log(this.SetBillerAddItem);
+    var SetBillerAddItem = (JSON.stringify(this.SetBillerAddItem));
+    localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
+
+
+    //toast
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Item Added Successfully'
+    })
   }
 
-  generateBill(){
+  generateBill() {
     this.router.navigate(['/BillerManualbill'])
   }
 

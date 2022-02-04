@@ -1,14 +1,15 @@
-<ion-content class="background">
+<ion-content>
   <!-----Title----->
-  <h1 class="text-center weighter"><b style="font-size: 20px;">BILL</b></h1>
+  <img src="assets/bacground.png">
+  <h1 class="text-center weighter" style="margin-top: -75px;"><b style="font-size: 20px;">BILL</b></h1>
   <div class="container">
     <div class="row mt-5">
       <div class="col-6">
         <p>Merchant Name : <span>{{name}}</span></p>
       </div>
       <div class="col-6">
-        <p>Location : <span>{{location}}</span></p>
-        <input value="Date : {{currentDate | date:'dd-MM-yyyy'}}" class="calendar">
+        <p>Date : 
+        <input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar" disabled></p>
       </div>
     </div>
   </div>
@@ -16,57 +17,42 @@
   <table class="table">
     <thead>
       <tr style="background-color: #6863CC;color: white;">
-        <th scope="col">Type</th>
+        <th scope="col">Quality/th>
         <th scope="col">Category</th>
-        <th scope="col">Total Weight</th>
+        <th scope="col">Weight</th>
         <th scope="col">Cost/Kg</th>
         <th scope="col">Total Cost</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1st</td>
-        <td>Tilipia</td>
-        <td>4129.8</td>
-        <td>364</td>
-        <td>5900</td>
-      </tr>
-      <tr>
-
-        <td>1st</td>
-        <td>Tilipia</td>
-        <td>4129.8</td>
-        <td>364</td>
-        <td>5900</td>
-      </tr>
-      <tr>
-
-        <td>1st</td>
-        <td>Tilipia</td>
-        <td>4129.8</td>
-        <td>364</td>
-        <td>5900</td>
+      <tr *ngFor="let data of GetBillDataFromLocalStorageData">
+        <td>{{data.quality}}</td>
+        <td>{{data.category}}</td>
+        <td>{{data.weight}}</td>
+        <td>{{data.price}}</td>
+        <td>{{data.totalcost}}</td>
       </tr>
     </tbody>
   </table>
 
   <div class="text-center mt-4" style="background-color: #6863CC;color: white;border-radius: 2px;margin: 10px;">
-    <p style="font-size: 20px;">Total Price Is Rs.1,789</p>
+    <p style="font-size: 20px;">Total Price Is Rs.{{totalsum}}</p>
   </div>
 
 
   <div class="row ion-text-center mt-5">
     <div class="col-6">
-      <div >
-        <button (click)="backToPrivious()" class="btn btn-sm text-white" style="background-color:#6863CC ;">Back</button>
+      <div>
+        <button (click)="backToPrivious()" class="btn btn-sm text-white"
+          style="background-color:#6863CC ;">Back</button>
       </div>
     </div>
     <div class="col-6">
       <div>
-        <button class="btn btn-sm text-white" style="background-color:#6863CC ;">Print</button>
+        <button class="btn btn-sm text-white" style="background-color:#6863CC ;" (click)=" printBill()">Print</button>
       </div>
     </div>
   </div>
-  
+
 
 </ion-content>

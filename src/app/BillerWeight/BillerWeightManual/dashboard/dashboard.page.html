@@ -1,11 +1,7 @@
-<ion-content class="background">
-  <div class="ion-padding">
-    <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
-      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
-      </ion-refresher-content>
-    </ion-refresher>
-  </div>
-  <div class="row">
+<ion-content>
+  <img src="assets/bacground.png">
+
+  <div class="row" style="margin-top: -95px;">
 
     <div class="col-6  ">
       <lottie-player (click)="backToPrivios()" src="https://assets3.lottiefiles.com/packages/lf20_mfm2v4hs.json"
@@ -32,10 +28,10 @@
       <b style="font-size: 25px;">BILLER</b>
     </div>
 
-    <div  class=" col-6 dropdown toggle mt-2">
+    <div class=" col-6 dropdown toggle mt-2">
       <input id="t1" type="checkbox">
       <label for="t1">{{user}}</label>
-      <ul >
+      <ul>
         <!-- <li><a (click)="setting()">Settings</a></li> -->
         <li><a (click)="logout()">Logout</a></li>
       </ul>
@@ -61,18 +57,17 @@
       <!-----Display Date----->
       <div class="col-6 display-date">
         <b style="font-size: 13px;">Date: </b>
-        <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar"></b>
+        <b><input value="{{currentDate | date:'dd-MM-yyyy'}}" class="calendar" disabled></b>
       </div>
 
       <div class="col-6 display-date">
-        <b style="font-size: 13px;">Location: <span><b>Annur</b></span> </b>
+
         <form (change)="SelectPrice(Selectcounter.value)" #Selectcounter="ngForm">
 
           <div class="row">
-            <div class="col-7">
+            <div class="col-12">
               <p class="select-category"><b><u>Select Counter: </u></b></p>
-            </div>
-            <div class="col-5">
+
               <select [(ngModel)]="counter" placeholder="counter" name="counter"
                 style="width: 100%;background-color: #6863CC;color: white;font-size: 13px;padding: 2px;">
                 <option value="" disabled selected hidden>Price</option>
@@ -106,7 +101,7 @@
       <div class="col-6 mt-3">
         <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
           <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
-          <select [(ngModel)]="quality" placeholder="type" name="type" style="width: 96%;">
+          <select [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;">
             <option value="" disabled selected>Fish Type</option>
             <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
           </select>
@@ -120,15 +115,18 @@
     <div class="button-wrapper mt-5">
       <div class="container">
         <div class="row">
-          <div class="col-6" style="font-size: 12px;">
-            <button (click)="addItem()" class="submit-button px-4 py-2" color="transparent"
-              style="background-color: #6863CC;">
-              ADD ITEM
+          <div class="col-6">
+            <button (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
+              style="background-color: #6863CC;font-size: 13px;color: white;"
+              [disabled]="!weight || !counter || !category || !type" >
+              ADD<br> ITEM
             </button>
           </div>
           <div class="col-6">
-            <div style="height: 10px; font-size: 12px;">
-              <button  (click)="generateBill()" class="submit-button px-4 py-1" style="background-color: #6863CC;">
+            <div style="height: 10px;">
+              <button (click)="generateBill()" class="submit-button px-2 py-2" color="transparent"
+                style="background-color: #6863CC;font-size: 13px;"
+                [disabled]="!weight || !counter || !category || !type ">
                 GENERATE BILL
               </button>
             </div>
@@ -137,6 +135,8 @@
       </div>
 
     </div>
+
+    
   </div>
 
 </ion-content>
