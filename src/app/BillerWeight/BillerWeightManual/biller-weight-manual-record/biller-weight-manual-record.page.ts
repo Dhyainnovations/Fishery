@@ -20,10 +20,7 @@ export class BillerWeightManualRecordPage implements OnInit {
       this.records();
       this.list_manual_bill();
 
-      this.todayBillList()
-
-
-      window.addEventListener('offline', () => {
+     window.addEventListener('offline', () => {
         this.checkoffline = true;
         this.offlineAlart = true
         this.onlineAlart = false;

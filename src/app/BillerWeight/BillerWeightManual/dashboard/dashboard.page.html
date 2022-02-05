@@ -3,7 +3,8 @@
 
   <div style="margin-top: -145px;" class="row">
     <div class="col-6 mt-4 ">
-      <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()" name="arrow-back">
+      <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()"
+        name="arrow-back">
       </ion-icon>
     </div>
 
@@ -122,7 +123,7 @@
           <div class="col-6">
             <div style="height: 10px;">
               <button (click)="generateBill()" class="submit-button px-2 py-2" color="transparent"
-                style="font-size: 13px;" [disabled]="!counter || !category ">
+                style="font-size: 13px;" [disabled]="CheckGenerateBillButton">
                 GENERATE BILL
               </button>
             </div>
@@ -147,11 +148,11 @@
                 <b style="color: #6863CC;">Weight </b> : {{record.weight}}Kg <br>
                 <b style="color: #6863CC;">Price </b> : Rs.{{record.cost}} <br>
                 <b style="color: #6863CC;">Category</b> : {{record.category}}<br>
-                
+
               </div>
               <div class="col-2">
                 <div class="dot mt-3">
-                  <svg (click)="delete(record.bilid)" [value]="record.bilid" style="margin: 10px;"
+                  <svg (click)="delete(record.id)" [value]="record.id" style="margin: 10px;"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="#fff" class="bi bi-trash3"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"

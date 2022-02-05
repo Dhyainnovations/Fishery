@@ -17,7 +17,7 @@ export class PrintBillPage implements OnInit {
   currentDate = new Date();
 
   backToPrivious() {
-    this.router.navigate(['/BillerManualbill'])
+    this.router.navigate(['/BillerManualdashboard'])
   }
 
   printbill() {

@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(public datepipe: DatePipe,private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
+  constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
 
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
@@ -32,12 +32,16 @@ export class DashboardPage implements OnInit {
         this.checkonline = true;
       });
 
-      this.generateId()
+      this.generateId();
+
     });
 
   }
 
   ngOnInit() {
+
+
+
 
     this.userId = localStorage.getItem("orgid",)
     this.user = localStorage.getItem("Fishery-username",)
@@ -55,7 +59,7 @@ export class DashboardPage implements OnInit {
 
   currentDateTime: any;
 
-  currentDate:any = new Date()
+  currentDate: any = new Date()
   user: any;
   isDisabled: boolean = true;
   userId: any;
@@ -146,14 +150,14 @@ export class DashboardPage implements OnInit {
       console.log(error);
 
       this.qualityList = [];
-    
+
     }
 
     )
   }
 
   cost = "";
-  
+
   SelectType(data) {
     const formdata = new FormData();
     formdata.append("type", data.type);
@@ -230,14 +234,12 @@ export class DashboardPage implements OnInit {
 
   }
 
+
+  CheckGenerateBillButton = true;
   SetBillerAddItem = [];
-
-
-
   addItem() {
-
+    this.CheckGenerateBillButton = false;
     this.generateId();
-
     const data = {
       category: this.category,
       id: this.ID,
@@ -251,19 +253,6 @@ export class DashboardPage implements OnInit {
     }
 
     console.log(data);
-    
-    
-
-
-    //   this.http.post('/manual_bill', data).subscribe((response: any) => {
-    //     console.log(response);
-    //     if (response.success == "true") {
-    //       this.weight = ''
-    //     }
-    //   }, (error: any) => {
-    //     console.log(error);
-    //   }
-    //   );
     this.SetBillerAddItem.push(data);
     var SetBillerAddItem = (JSON.stringify(this.SetBillerAddItem));
     localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
@@ -295,6 +284,8 @@ export class DashboardPage implements OnInit {
   }
 
 
+
+
   logout() {
     localStorage.removeItem("orgid",)
     localStorage.removeItem("Fishery-username",)
@@ -303,41 +294,31 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/loginpage'])
   }
 
+
   deleteID = [];
-  deleteRecord(id) {
-
-    this.deleteID = JSON.parse(localStorage.getItem("SetBillerAddItem"))
-
+  DisplayAfterDelete = [];
+  delete(id) {
+    console.log(id);
+    this.deleteID = JSON.parse(localStorage.getItem("SetBillerAddItem"));
     console.log(this.deleteID);
 
     for (var i = 0; i <= this.deleteID.length; i++) {
-      if (this.deleteID[i] != id) {
-        console.log([i]);
-
-        // this.deleteID.slice(this.deleteID[i], 1);
-
-        SetBillerAddItemAfterDelFilter = {
-          category: this.deleteID[i].category,
-          id: this.deleteID[i].id,
-          quality: this.deleteID[i].quality,
-          weight: this.deleteID[i].weight,
-          counter: this.deleteID[i].counter,
-          userid: this.deleteID[i].userid,
-          isDeleted: "0",
-          purchaseddate: this.deleteID[i].purchaseddate,
-          cost: this.deleteID[i].cost
-        }
-
-        
-
-
-        
+      console.log(this.deleteID[i].id);
+      if (this.deleteID[i].id !== id) {
+        console.log(this.deleteID[i]);
+        this.DisplayAfterDelete.push(this.deleteID[i]);
+        console.log(this.DisplayAfterDelete);
       }
+      var SetBillerAddItem = (JSON.stringify(this.DisplayAfterDelete));
+      localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
+      this.SetBillerAddItem = this.DisplayAfterDelete;
     }
-    var SetBillerAddItemAfterDelFilter: any = [];
-    var SetBillerAddItemAfterDel = (JSON.stringify(SetBillerAddItemAfterDelFilter));
-    localStorage.setItem('SetBillerAddItem', SetBillerAddItemAfterDel);
-    SetBillerAddItemAfterDelFilter.push(SetBillerAddItemAfterDelFilter);
+
   }
+
+
+
+
+
 
 }
