@@ -19,7 +19,6 @@ export class WeighterPage implements OnInit {
 
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
 
-      console.log(this.currentDateTime);
 
 
       this.dropdownVisible = false
@@ -61,7 +60,7 @@ export class WeighterPage implements OnInit {
   user: any;
   dropdownVisible: any = false;
 
-  currentDate = new Date();
+  // currentDate = new Date();
 
   currentDateTime: any;
   checkoffline: any;
@@ -151,7 +150,7 @@ export class WeighterPage implements OnInit {
     console.log(time_status);
 
     // Putting it all together
-    var formattedDate = year + '-' + month + '-' + day + ' ' + time;
+    // var formattedDate = year + '-' + month + '-' + day + ' ' + time;
     console.log();
 
     //console.log(formattedDate);
@@ -165,6 +164,10 @@ export class WeighterPage implements OnInit {
       boxname: "box",
       updatedAt: this.currentDateTime
     }
+
+
+    
+    
 
     //----------If Offline----------//
     if (this.checkoffline = true) {

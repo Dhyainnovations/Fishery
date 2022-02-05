@@ -21,7 +21,7 @@ export class HttpService {
     const url = environment.baseUrl + serviceName;
     const headers = new HttpHeaders();
     const options = { headers: headers, withCredentials : false};
-    console.log(data);
+    // console.log(data);
 
     return this.http.post(url, JSON.stringify(data), options);
   }

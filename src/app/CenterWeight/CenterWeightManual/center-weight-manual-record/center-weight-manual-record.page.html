@@ -79,7 +79,7 @@
         <div class="card mt-3" *ngFor="let record of cardRecords">
           <div class="row">
             <div class="col-5">
-              <b style="color: #6863CC;"> <span>Date:{{currentDateTime | date:'dd-MM-yyyy'}} </span><br>  Time </b> : {{record.time}} <br>
+              <b style="color: #6863CC;"> <span>Date:{{record.updatedAt| date:'dd-MM-yyyy'}} </span><br>  Time </b> : {{record.time}} <br>
               <b style="color: #6863CC;">Weight </b> : {{record.quantity}}Kg<br>
               <b style="color: #6863CC;">Type</b> : {{record.type}}
             </div>

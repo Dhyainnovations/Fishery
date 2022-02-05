@@ -4,6 +4,8 @@ import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 @Component({
   selector: 'app-biller-weight-manual-record',
   templateUrl: './biller-weight-manual-record.page.html',
@@ -11,11 +13,29 @@ import { NavController } from '@ionic/angular';
 })
 export class BillerWeightManualRecordPage implements OnInit {
 
-  constructor(public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor(private network: Network,public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.totalWeight()
+      this.totalAmount()
       this.records();
       this.list_manual_bill();
+
+      this.todayBillList()
+
+
+      window.addEventListener('offline', () => {
+        this.checkoffline = true;
+        this.offlineAlart = true
+        this.onlineAlart = false;
+       
+      });
+      window.addEventListener('online', () => {
+        
+        this.onlineAlart = true;
+        this.offlineAlart = false
+        this.checkonline = true;
+
+      });
     });
   }
 
@@ -23,37 +43,55 @@ export class BillerWeightManualRecordPage implements OnInit {
 
   }
 
+  checkoffline: any;
+  checkonline: any;
+  buttonDisabled: boolean;
+  onlineAlart: any = true;
+  offlineAlart: any = false
+
   totalweight: any = '';
   tableRecodrs: any = []
   cardRecords: any = []
 
   isVisible: any = false
+  lastEntryisVisible: any = false
 
+
+
+  dosomething(event) {
+    setTimeout(() => {
+      event.target.complete();
+
+    }, 1500);
+  }
+  
 
   totalWeight() {
-    this.http.get('/list_total_bill_weight',).subscribe((response: any) => {
+    this.http.get('/list_total_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
       console.log(response);
 
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
-  }
-
-
-
-  
-  displaydeatilsTable = [];
-  list_manual_bill() {
-    this.http.get('/list_manual_bill',).subscribe((response: any) => {
-      console.log(response);
-      for (var i = 0; i < response.records.length; i++) {
-        this.displaydeatilsTable.push(response.records[i])
+      if (response.records.total_weight == null) {
+        this.totalweight = 0;
       }
 
-      console.log(this.displaydeatilsTable);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  }
+
+  totalCost: any;
+  totalAmount() {
+    this.http.get('/total_amount',).subscribe((response: any) => {
+      this.totalCost = response.records.total_amount;
+      console.log(response);
+      if (response.records.total_amount == null) {
+        this.totalCost = 0;
+      }
+
+
     }, (error: any) => {
       console.log(error);
     }
@@ -61,7 +99,36 @@ export class BillerWeightManualRecordPage implements OnInit {
   }
 
 
+  displayCardDetails = [];
 
+  list_manual_bill() {
+    this.http.get('/list_manual_bill',).subscribe((response: any) => {
+      this.lastEntryisVisible = true
+      this.displayCardDetails = response.records
+      console.log(this.displayCardDetails);
+
+
+    }, (error: any) => {
+      console.log(error);
+      this.lastEntryisVisible = false
+      this.isVisible = true
+
+    }
+    );
+  }
+
+  manualBillList:any = []
+
+  todayBillList() {
+    this.http.get('/list_today_manual_bill',).subscribe((response: any) => {
+      this.manualBillList = response.records;
+      console.log(response);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  }
 
 
   records() {
@@ -85,12 +152,12 @@ export class BillerWeightManualRecordPage implements OnInit {
     console.log(id);
 
     const data = {
-      boxid: id,
+      bilid: id,
       isDeleted: "1"
     }
 
-    this.http.post('/delete_manual_weight', data).subscribe((response: any) => {
-      this.tableRecodrs = response.records;
+    this.http.post('/delete_manual_bill', data).subscribe((response: any) => {
+     
       console.log(response);
       if (response.success == "true") {
         const Toast = Swal.mixin({
@@ -110,7 +177,7 @@ export class BillerWeightManualRecordPage implements OnInit {
           title: 'Deleted successfully.'
         })
 
-        this.records()
+        this.list_manual_bill()
 
       } else {
         const Toast = Swal.mixin({

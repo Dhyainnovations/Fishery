@@ -5,6 +5,7 @@ import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -14,8 +15,10 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
+  constructor(public datepipe: DatePipe,private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
+
+      this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
       this.dropdownVisible = false
 
       window.addEventListener('offline', () => {
@@ -48,14 +51,13 @@ export class DashboardPage implements OnInit {
     );
     this.getList();
     this.getCategoryList();
-    this.getQualityList();
   }
 
+  currentDateTime: any;
 
-
+  currentDate:any = new Date()
   user: any;
   isDisabled: boolean = true;
-  currentDate = new Date();
   userId: any;
   checkoffline: any;
   checkonline: any;
@@ -71,7 +73,7 @@ export class DashboardPage implements OnInit {
 
 
   typelist: any = []
-
+  qualityList = [];
   tableRecodrs: any = []
   buttonDisabled: boolean;
   onlineAlart: any = true;
@@ -87,12 +89,71 @@ export class DashboardPage implements OnInit {
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
     this.ID = '_' + Math.random().toString(36).substr(2, 25);
-    console.log(this.ID);
   };
 
 
 
+
+
+
+  SelectCounter(data) {
+    const formdata = new FormData();
+    formdata.append("price", data.price);
+    this.counterNo = data.price;
+
+    // for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
+    //   const listTypeBasedOnCategory = {
+    //     Categorypush: this.StoreTypeBasedOnCategory[i].category,
+    //     Typepush: this.StoreTypeBasedOnCategory[i].type
+    //   }
+    //   //console.log(listTypeBasedOnCategory);
+    //   if (this.category == listTypeBasedOnCategory.Categorypush) {
+
+    //     this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
+
+    //   }
+
+    // }
+  }
+
+
+  StoreTypeBasedOnCategory = [];
+  StoreTypeData = [];
+
+
+  SelectCategory(data) {
+    this.StoreTypeData = [];
+    const formdata = new FormData();
+    formdata.append("category", data.category);
+    data = {
+      category: data.category
+    }
+
+    this.http.post('/read_type', data).subscribe((response: any) => {
+      console.log(response);
+
+      this.qualityList = response.records;
+
+
+      // for (var i = 0; i < response.records.length; i++) {
+      //   this.cost.push(response.records[i].price);
+      //   console.log(this.cost);
+      //   var LocalPrice = (JSON.stringify(this.cost));
+      //   localStorage.setItem('LocalPrice', LocalPrice);
+      // }
+
+    }, (error: any) => {
+      console.log(error);
+
+      this.qualityList = [];
+    
+    }
+
+    )
+  }
+
   cost = "";
+  
   SelectType(data) {
     const formdata = new FormData();
     formdata.append("type", data.type);
@@ -100,9 +161,7 @@ export class DashboardPage implements OnInit {
       category: this.category,
       quality: data.type,
     }
-    console.log(getPrice);
     this.http.post('/price', getPrice).subscribe((response: any) => {
-      console.log(response);
       this.cost = (response.records.price);
       // for (var i = 0; i < response.records.length; i++) {
       //   this.cost.push(response.records[i].price);
@@ -118,66 +177,10 @@ export class DashboardPage implements OnInit {
   }
 
 
-  SelectPrice(data) {
-    const formdata = new FormData();
-    formdata.append("price", data.price);
-    this.counterNo = data.price;
-
-    for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
-      const listTypeBasedOnCategory = {
-        Categorypush: this.StoreTypeBasedOnCategory[i].category,
-        Typepush: this.StoreTypeBasedOnCategory[i].type
-      }
-      //console.log(listTypeBasedOnCategory);
-      if (this.category == listTypeBasedOnCategory.Categorypush) {
-
-        this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
-        console.log(this.StoreTypeData);
-
-      }
-
-    }
-    console.log(this.StoreTypeData);
-  }
-
-
-  StoreTypeBasedOnCategory = [];
-  StoreTypeData = [];
-
-
-  SelectCategory(data) {
-    this.StoreTypeData = [];
-    const formdata = new FormData();
-    formdata.append("category", data.category);
-    console.log(data.category);
-    this.category = data.category;
-
-    var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
-    this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
-    for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
-      const listTypeBasedOnCategory = {
-        Categorypush: this.StoreTypeBasedOnCategory[i].category,
-        Typepush: this.StoreTypeBasedOnCategory[i].type
-      }
-      //console.log(listTypeBasedOnCategory);
-      if (this.category == listTypeBasedOnCategory.Categorypush) {
-        this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
-        console.log(this.StoreTypeData);
-
-      }
-
-    }
-    console.log(this.StoreTypeData);
-
-
-  }
-
-
   checkboxsts: any = false
 
   dropdownOpen() {
     this.checkboxsts = true
-    console.log(this.checkboxsts);
 
   }
 
@@ -187,7 +190,6 @@ export class DashboardPage implements OnInit {
   listQualityCategory = [];
   getList() {
     this.http.get('/list_price').subscribe((response: any) => {
-      console.log(response);
       this.listQualityCategory = response.records;
     }, (error: any) => {
       console.log(error);
@@ -199,7 +201,6 @@ export class DashboardPage implements OnInit {
   getCategoryList() {
     this.http.get('/list_category',).subscribe((response: any) => {
       this.categorylist = response.records;
-      console.log(this.categorylist);
 
     }, (error: any) => {
       console.log(error);
@@ -209,17 +210,6 @@ export class DashboardPage implements OnInit {
 
 
 
-  qualityList = [];
-  getQualityList() {
-    this.http.get('/list_type',).subscribe((response: any) => {
-      this.qualityList = response.records;
-      console.log(this.qualityList);
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
-  }
 
 
   dosomething(event) {
@@ -231,7 +221,6 @@ export class DashboardPage implements OnInit {
   value: any;
 
   NavigateTo() {
-    console.log(this.value);
     if (this.value == "settings") {
       this.router.navigate(['/settings'])
     } else {
@@ -257,11 +246,14 @@ export class DashboardPage implements OnInit {
       counter: this.counter,
       userid: this.userId,
       isDeleted: "0",
-      purchaseddate: this.currentDate,
+      purchaseddate: this.currentDateTime,
       cost: this.cost
     }
 
     console.log(data);
+    
+    
+
 
     //   this.http.post('/manual_bill', data).subscribe((response: any) => {
     //     console.log(response);
@@ -273,7 +265,6 @@ export class DashboardPage implements OnInit {
     //   }
     //   );
     this.SetBillerAddItem.push(data);
-    console.log(this.SetBillerAddItem);
     var SetBillerAddItem = (JSON.stringify(this.SetBillerAddItem));
     localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
 
@@ -295,6 +286,8 @@ export class DashboardPage implements OnInit {
       icon: 'success',
       title: 'Item Added Successfully'
     })
+
+    this.weight = ''
   }
 
   generateBill() {
@@ -313,18 +306,38 @@ export class DashboardPage implements OnInit {
   deleteID = [];
   deleteRecord(id) {
 
-    console.log(id);
-
     this.deleteID = JSON.parse(localStorage.getItem("SetBillerAddItem"))
+
     console.log(this.deleteID);
 
     for (var i = 0; i <= this.deleteID.length; i++) {
-      if (this.deleteID[i].id !== id) {
-        this.SetBillerAddItem.push(this.deleteID[i]);
+      if (this.deleteID[i] != id) {
+        console.log([i]);
+
+        // this.deleteID.slice(this.deleteID[i], 1);
+
+        SetBillerAddItemAfterDelFilter = {
+          category: this.deleteID[i].category,
+          id: this.deleteID[i].id,
+          quality: this.deleteID[i].quality,
+          weight: this.deleteID[i].weight,
+          counter: this.deleteID[i].counter,
+          userid: this.deleteID[i].userid,
+          isDeleted: "0",
+          purchaseddate: this.deleteID[i].purchaseddate,
+          cost: this.deleteID[i].cost
+        }
+
+        
+
+
+        
       }
     }
-    var SetBillerAddItem = (JSON.stringify(this.SetBillerAddItem));
-    localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
+    var SetBillerAddItemAfterDelFilter: any = [];
+    var SetBillerAddItemAfterDel = (JSON.stringify(SetBillerAddItemAfterDelFilter));
+    localStorage.setItem('SetBillerAddItem', SetBillerAddItemAfterDel);
+    SetBillerAddItemAfterDelFilter.push(SetBillerAddItemAfterDelFilter);
   }
 
 }
