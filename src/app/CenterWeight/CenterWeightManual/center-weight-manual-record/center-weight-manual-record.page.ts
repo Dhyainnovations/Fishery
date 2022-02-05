@@ -62,7 +62,7 @@ export class CenterWeightManualRecordPage implements OnInit {
   dosomething(event) {
     setTimeout(() => {
       event.target.complete();
-
+      this.totalWeight()
     }, 1500);
   }
 
