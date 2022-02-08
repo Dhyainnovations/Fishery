@@ -129,6 +129,8 @@ export class LoginPagePage implements OnInit {
           this.http.get('/list_type_manual').subscribe((response: any) => {
             var SetTypeBasedOnCategory = (JSON.stringify(response.records));
             localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
+            console.log(response);
+            
 
           }, (error: any) => {
             console.log(error);
