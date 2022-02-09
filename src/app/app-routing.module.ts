@@ -92,10 +92,7 @@ const routes: Routes = [
     path: 'biller-weight-manual-record',
     loadChildren: () => import('./BillerWeight/BillerWeightManual/biller-weight-manual-record/biller-weight-manual-record.module').then( m => m.BillerWeightManualRecordPageModule)
   },
-  {
-    path: 'billerweight-manual-print-bill',
-    loadChildren: () => import('./BillerWeight/BillerWeightManual/print-bill/print-bill.module').then( m => m.PrintBillPageModule)
-  },
+ 
 
  
 

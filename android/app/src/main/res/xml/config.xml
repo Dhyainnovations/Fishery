@@ -6,6 +6,10 @@
     <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager"/>
   </feature>
 
+  <feature name="Printer">
+    <param name="android-package" value="de.appplant.cordova.plugin.printer.Printer"/>
+  </feature>
+
   <feature name="Device">
     <param name="android-package" value="org.apache.cordova.device.Device"/>
   </feature>

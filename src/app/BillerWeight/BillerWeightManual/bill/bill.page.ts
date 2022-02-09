@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
+import { Printer, PrintOptions } from '@awesome-cordova-plugins/printer/ngx';
+
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.page.html',
@@ -10,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class BillPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private printer: Printer) {
     route.params.subscribe(val => {
       this.GetBillDataFromLocalStorage();
 
@@ -33,43 +35,13 @@ export class BillPage implements OnInit {
   }
 
 
-  // SelectPriceBasedOnQualityAndCategory() {
-  //   console.log(this.GetBillDataFromLocalStorageData);
-  //   for (var i = 0; i <= this.GetBillDataFromLocalStorageData.length; i++) {
 
-  //     var localcategory = this.GetBillDataFromLocalStorageData[i].quality;
-  //     var localquality = this.GetBillDataFromLocalStorageData[i].category;
-  //     const data = {
-  //       quality: localcategory,
-  //       category: localquality,
-  //     }
-
-
-  //     console.log(data);
-
-  //     this.http.post('/price', data).subscribe((response: any) => {
-  //       console.log(response);
-  //       for (var i = 0; i <= response.records.length; i++) {
-  //         console.log(response.records[i].price);
-  //         this.price.push(response.records[i].price);
-  //       }
-
-
-
-  //     }, (error: any) => {
-  //       console.log(error);
-  //     }
-  //     );
-
-  //   }
-
-
-  // }
   purchaseddate: any;
   counter: any;
   userid: any;
   passBillItems: any = []
   printBill() {
+    this.billWeight();
     const data = {
       billitems: this.passBillItems,
       totalamount: this.totalsum,
@@ -78,6 +50,7 @@ export class BillPage implements OnInit {
       isDeleted: "0",
       purchaseddate: this.purchaseddate,
     }
+
     this.http.post('/manual_bill', data).subscribe((response: any) => {
       console.log(response);
 
@@ -106,6 +79,7 @@ export class BillPage implements OnInit {
       var localquality = DecodeBillerData[i].quality;
       var localuserid = DecodeBillerData[i].userid;
       var localweight = DecodeBillerData[i].weight;
+
       const SendData = {
         category: localcategory,
         counter: localcounter,
@@ -124,10 +98,26 @@ export class BillPage implements OnInit {
         quality: localquality,
         weight: localweight,
       }
+
+      this.billWeightData = {
+        id: localid,
+        price: localprice,
+        weight: localweight,
+        quality: localquality,
+        totalamount: localprice * localweight,
+        counter: localcounter,
+        userid: localid,
+        isDeleted: localisDeleted,
+        purchaseddate: localpurchaseddate,
+      }
+
       this.price.push(SendData.totalcost);
       var sum = this.price.reduce((a, b) => {
         return a + b;
       });
+
+
+
       console.log(sum);
       this.totalsum = sum;
       this.userid = SendData.id;
@@ -136,6 +126,27 @@ export class BillPage implements OnInit {
       this.passBillItems.push(SendPushData);
       this.GetBillDataFromLocalStorageData.push(SendData);
       console.log(this.GetBillDataFromLocalStorageData);
+    }
+  }
+
+
+  billWeightData: any = {}
+  billWeight() {
+    this.http.post('/bill_weight', this.billWeightData).subscribe((response: any) => {
+      console.log(response);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  }
+
+  print() {
+    try {
+      var input = document.getElementById('print-section');
+      this.printer.print(input);
+    } catch (err) {
+      alert('Unsuccessful');
     }
   }
 }

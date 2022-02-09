@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
@@ -304,14 +303,16 @@ export class DashboardPage implements OnInit {
 
     for (var i = 0; i <= this.deleteID.length; i++) {
       console.log(this.deleteID[i].id);
-      if (this.deleteID[i].id !== id) {
+      if (this.deleteID[i].id == id) {
         console.log(this.deleteID[i]);
-        this.DisplayAfterDelete.push(this.deleteID[i]);
-        console.log(this.DisplayAfterDelete);
+        this.deleteID.splice(this.deleteID.findIndex(a => this.deleteID[i] === id), 1)
+        console.log(this.deleteID);
+        localStorage.removeItem("SetBillerAddItem");
+        var SetBillerAddItem = (JSON.stringify(this.deleteID));
+        localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
+        this.SetBillerAddItem = this.deleteID;
       }
-      var SetBillerAddItem = (JSON.stringify(this.DisplayAfterDelete));
-      localStorage.setItem('SetBillerAddItem', SetBillerAddItem);
-      this.SetBillerAddItem = this.DisplayAfterDelete;
+
     }
 
   }
