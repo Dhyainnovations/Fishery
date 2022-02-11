@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
-import { Printer, PrintOptions } from '@awesome-cordova-plugins/printer/ngx';
+
 
 @Component({
   selector: 'app-bill',
@@ -12,7 +12,7 @@ import { Printer, PrintOptions } from '@awesome-cordova-plugins/printer/ngx';
 })
 export class BillPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private printer: Printer) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.GetBillDataFromLocalStorage();
 
@@ -141,12 +141,5 @@ export class BillPage implements OnInit {
     );
   }
 
-  print() {
-    try {
-      var input = document.getElementById('print-section');
-      this.printer.print(input);
-    } catch (err) {
-      alert('Unsuccessful');
-    }
-  }
+ 
 }
