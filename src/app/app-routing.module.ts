@@ -92,11 +92,11 @@ const routes: Routes = [
     path: 'biller-weight-manual-record',
     loadChildren: () => import('./BillerWeight/BillerWeightManual/biller-weight-manual-record/biller-weight-manual-record.module').then( m => m.BillerWeightManualRecordPageModule)
   },
+  {
+    path: 'center-weight-auto-record',
+    loadChildren: () => import('./CenterWeight/CenterWeightAuto/center-weight-auto-record/center-weight-auto-record.module').then( m => m.CenterWeightAutoRecordPageModule)
+  },
  
-
- 
-
-
 ];
 
 @NgModule({

@@ -14,8 +14,7 @@ export class LoginPagePage implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
     route.params.subscribe(val => {
 
-     
-      
+
     });
 
   }
@@ -33,10 +32,10 @@ export class LoginPagePage implements OnInit {
   logintype: any;
   permission: any;
 
-  LocalOrgid: any
-  LocaluserName: any
-  Locallogintype: any
-  Localpermission: any
+  LocalOrgid: any;
+  LocaluserName: any;
+  Locallogintype: any;
+  Localpermission: any;
 
   login() {
 
@@ -149,7 +148,7 @@ export class LoginPagePage implements OnInit {
             }
 
             if (this.Localpermission == "AUTO") {
-              this.router.navigate(['/centerweight-auto-dashboard'])
+              this.router.navigate(['/center-weight-auto-record'])
             }
 
           }
