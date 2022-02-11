@@ -1,7 +1,27 @@
 <ion-content class="background">
 
+  <div class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  </div>
+  <div class="row">
+    <div *ngIf="onlineAlart" class="col-12 ion-text-right ">
+      <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
+        speed="1.5" style="width:25%; margin-left: 70%;" loop autoplay></lottie-player>
+        <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
+    </div>
+
+    <div *ngIf="offlineAlart" class="col-12 ion-text-right ">
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Offline</p> -->
+      <img style="width:25%; margin-left: 70%; border-radius: 55%;" src="assets/offline.gif" alt="">
+    </div>
+
+  </div>
+
   <!-----Title----->
-  <div class="title-wrap">
+  <div class="title-wrap" style="margin-top: -45px;">
     <h2 class="text-center welcome-back"><b>DASHBOARD</b></h2>
   </div>
 
@@ -36,4 +56,7 @@
       <p *ngIf="bluetoothconnected"><b> Bluetooth<br> Connected</b></p>
     </div>
   </div>
+
+  <button class="btn btn-primary" (click)="next()">next</button>
+
 </ion-content>

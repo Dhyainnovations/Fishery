@@ -3,6 +3,12 @@ import { Router } from '@angular/router';
 import { BluetoothSerial } from '@awesome-cordova-plugins/bluetooth-serial/ngx';
 import { AlertController } from '@ionic/angular';
 import { ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '../weighter/./../../../shared/http.service';
+import Swal from 'sweetalert2';
+import { NavController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +17,32 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef,private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private route: ActivatedRoute, private http: HttpService,) { 
+    route.params.subscribe(val => {
+      
+
+      window.addEventListener('offline', () => {
+        this.checkoffline = true;
+        this.offlineAlart = true
+        this.onlineAlart = false;
+       
+      });
+      window.addEventListener('online', () => {
+        
+        this.onlineAlart = true;
+        this.offlineAlart = false
+        this.checkonline = true;
+
+      });
+    });
+  }
+
+  disableSts: any = false;
+  checkoffline: any;
+  checkonline: any;
+  buttonDisabled: boolean;
+  onlineAlart: any = true;
+  offlineAlart: any = false
 
   ngOnInit() {
   }
@@ -93,10 +124,16 @@ export class DashboardPage implements OnInit {
   
   success = (data) => {
     alert("Successfully Connected");
+    this.bluetoothconnected = true;
     this.router.navigate(['/centerweight-auto-weighter']);
   }
   fail = (error) => {
     alert(error);
+    this.bluetoothnotconnected = true;
   }
 
+
+  next(){
+    this.router.navigate(['/centerweight-auto-weighter']);
+  }
 }
