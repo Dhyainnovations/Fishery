@@ -21,7 +21,7 @@ export class DashboardPage implements OnInit {
   // ChangeBluetoothConnection() {
   //   this.bluetoothconnected = !this.bluetoothconnected;
   //   this.bluetoothnotconnected = !this.bluetoothnotconnected;
-  //  
+  //   this.router.navigate(['/centerweight-auto-weighter'])
   // }
 
 
@@ -82,7 +82,7 @@ export class DashboardPage implements OnInit {
         {
           text: 'Connect',
           handler: () => {
-            this.bluetoothSerial.connect(id).subscribe(this.successconnection, this.failconnection);
+            this.bluetoothSerial.connect(id).subscribe(this.success, this.fail);
           }
         }
       ]
@@ -90,20 +90,13 @@ export class DashboardPage implements OnInit {
     await alert.present();
   }
 
-
+  
   success = (data) => {
     alert("Successfully Connected");
+    this.router.navigate(['/centerweight-auto-weighter']);
   }
   fail = (error) => {
     alert(error);
-  }
-
-  successconnection() {
-    this.router.navigate(['/centerweight-auto-weighter'])
-  }
-
-  failconnection() {
-    alert("Failed")
   }
 
 }
