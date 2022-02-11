@@ -90,21 +90,13 @@ export class WeighterPage implements OnInit {
     );
   }
 
+
+  backToPrivios() {
+    this.router.navigate(['/center-weight-manual-record'])
+  }
+  
   onlineApiCal() {
     console.log(this.category, this.place, this.type);
-  
-
-
-  
-
-
-
-
-    
-
-   
-  
-
     //console.log(formattedDate);
     const data = {
       quality: this.type,

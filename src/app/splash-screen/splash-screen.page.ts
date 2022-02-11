@@ -46,7 +46,7 @@ export class SplashScreenPage implements OnInit {
         }
 
         if (this.Localpermission == "AUTO") {
-          this.router.navigate(['/centerweight-auto-dashboard'])
+          this.router.navigate(['/center-weight-auto-record'])
         }
 
       }
