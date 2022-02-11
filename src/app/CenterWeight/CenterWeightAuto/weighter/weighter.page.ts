@@ -85,11 +85,15 @@ export class WeighterPage implements OnInit {
   }
   onDataReceive(dd) {
     var data = JSON.stringify(dd)
+    this.data = data;
+    this.dd = dd;
     var data1 = data.replace('\\r\\n', '')
     this._debug = data1;
     this.cdr.detectChanges(); // or here
   }
 
   _debug: any = "";
+  data: any = " ";
+  dd: any = " "
 
 }
