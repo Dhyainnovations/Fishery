@@ -194,6 +194,8 @@ export class DashboardPage implements OnInit {
   getList() {
     this.http.get('/list_price').subscribe((response: any) => {
       this.listQualityCategory = response.records;
+      console.log(response);
+      
     }, (error: any) => {
       console.log(error);
     }
