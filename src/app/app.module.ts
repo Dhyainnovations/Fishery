@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { DatePipe } from '@angular/common';
+import { BluetoothSerial } from '@awesome-cordova-plugins/bluetooth-serial/ngx';
 
 
 
@@ -15,7 +16,7 @@ import { DatePipe } from '@angular/common';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [HttpClientModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule],
-  providers: [Network,DatePipe,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  providers: [BluetoothSerial,Network,DatePipe,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   
  ],
   bootstrap: [AppComponent],
