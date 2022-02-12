@@ -85,7 +85,12 @@
     </div>
 
     <div class="col-12 ion-text-center">
-      <button   class="navigate-btn " (click)="dateBasedRecord()"><b>Submit</b></button>
+
+   
+      <ion-button (click)="dateBasedRecord()"  class="submit-button" color="transparent" expand="block"
+      style="background-color: #6863CC;width: 75%;margin: auto;" [disabled]="!fromdate || !todate " >
+      <b>SUBMIT</b>
+    </ion-button>
     </div>
   </div>
 

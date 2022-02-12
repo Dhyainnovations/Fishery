@@ -9,16 +9,16 @@ import { FormsModule } from '@angular/forms';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { DatePipe } from '@angular/common';
 import { BluetoothSerial } from '@awesome-cordova-plugins/bluetooth-serial/ngx';
-
-
+import { Device } from '@ionic-native/device/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [HttpClientModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule],
-  providers: [BluetoothSerial,Network,DatePipe,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  
- ],
+  imports: [
+    HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
+  providers: [BluetoothSerial, Network, DatePipe, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

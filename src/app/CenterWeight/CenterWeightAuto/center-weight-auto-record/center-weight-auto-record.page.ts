@@ -64,13 +64,6 @@ export class CenterWeightAutoRecordPage implements OnInit {
   onlineAlart: any = true;
   offlineAlart: any = false
 
-  dosomething(event) {
-    setTimeout(() => {
-      event.target.complete();
-      this.totalWeight()
-    }, 1500);
-  }
-
   fromdate: any;
   todate: any;
 
@@ -90,6 +83,13 @@ export class CenterWeightAutoRecordPage implements OnInit {
     localStorage.setItem("fromDate", this.fromdate)
     localStorage.setItem("toDate", this.todate)
 
+  }
+
+  dosomething(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.totalWeight()
+    }, 1500);
   }
 
   totalWeight() {
@@ -146,6 +146,7 @@ export class CenterWeightAutoRecordPage implements OnInit {
   
 
   navigateToNextPage() {
+    
     if(this.bluetoothSts == true){
       this.router.navigate(['/centerweight-auto-weighter'])
     }

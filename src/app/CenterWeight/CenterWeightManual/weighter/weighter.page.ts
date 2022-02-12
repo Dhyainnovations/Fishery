@@ -16,11 +16,6 @@ export class WeighterPage implements OnInit {
 
   constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
-
-     
-
-
-
       this.dropdownVisible = false
       this.onlineApiCal();
       this.getCategoryList()
@@ -129,6 +124,12 @@ export class WeighterPage implements OnInit {
 
   tdyDate: any;
 
+  formattedDate;
+   today = new Date().toLocaleDateString()
+
+  hr;
+  updateTime;
+
   onlineApiCal() {
     console.log(this.category, this.place, this.type);
     var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
@@ -152,10 +153,20 @@ export class WeighterPage implements OnInit {
     var year = parseInt(this.mdy[2]);
     console.log(time_status);
 
-    // Putting it all together
-    // var formattedDate = year + '-' + month + '-' + day + ' ' + time;
+   // Putting it all together
+   var formattedDate = year + '-' + month + '-' + day + ' ' ;
+   console.log(formattedDate);
 
-    //console.log(formattedDate);
+   //console.log(formattedDate);
+
+   let hours = new Date().getHours();
+   let minutes = new Date().getMinutes();
+   let seconds = new Date().getSeconds();
+   this.hr = hours + 12;
+
+   this.updateTime = formattedDate + ' ' + hours + ":" + minutes + ":" + seconds
+   console.log(this.updateTime);
+
     const data = {
       quality: this.type,
       type: "center",
@@ -164,7 +175,7 @@ export class WeighterPage implements OnInit {
       quantity: this.weight,
       isDeleted: "0",
       boxname: "box",
-      updatedAt: this.currentDateTime
+      updatedAt: this.updateTime
     }
 
 

@@ -49,17 +49,18 @@ export class CWMDateBasedRecordPage implements OnInit {
     this.LoadReadData()
     this.tableRecodrs = []
 
-    this.locFromDate = localStorage.getItem("fromDate",)
-    this.locToDate = localStorage.getItem("toDate",)
+    
 
     console.log(this.locFromDate, this.locToDate);
     
   }
 
+    locFromDate = localStorage.getItem("fromDate",)
+    locToDate = localStorage.getItem("toDate",)
+
   fromdate;
   todate;
-  locFromDate;
-  locToDate;
+  
   disableSts: any = false;
   checkoffline: any;
   checkonline: any;
@@ -77,8 +78,8 @@ export class CWMDateBasedRecordPage implements OnInit {
 
   records() {
     const data = {
-      from_date:this.fromdate,
-      to_date:this.todate
+      from_date:this.locFromDate,
+      to_date:this.locToDate
     }
 
     console.log(data);

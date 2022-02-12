@@ -101,19 +101,64 @@ export class WeighterPage implements OnInit {
     this.router.navigate(['/center-weight-auto-record'])
   }
   
+  tdyDate: any;
+
+  formattedDate;
+   today = new Date().toLocaleDateString()
+
+  hr;
+  updateTime;
+
   onlineApiCal() {
     console.log(this.category, this.place, this.type);
-    //console.log(formattedDate);
+    var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
+    this.tdyDate = date;
+    console.log(date);
+
+
+    // Now we can access our time at date[1], and monthdayyear @ date[0]
+    var time = date[1];
+    var time_status = date[2];
+    console.log(time_status);
+
+
+
+    this.mdy = date[0];
+
+    // We then parse  the mdy into parts
+    this.mdy = this.mdy.split('/');
+    var month = parseInt(this.mdy[0]);
+    var day = parseInt(this.mdy[1]);
+    var year = parseInt(this.mdy[2]);
+    console.log(time_status);
+
+   // Putting it all together
+   var formattedDate = year + '-' + month + '-' + day + ' ' ;
+   console.log(formattedDate);
+
+   //console.log(formattedDate);
+
+   let hours = new Date().getHours();
+   let minutes = new Date().getMinutes();
+   let seconds = new Date().getSeconds();
+   this.hr = hours + 12;
+
+   this.updateTime = formattedDate + ' ' + hours + ":" + minutes + ":" + seconds
+   console.log(this.updateTime);
+
     const data = {
       quality: this.type,
       type: "center",
       category: this.category,
       place: this.place,
-      quantity: this.recivedWeightValue,
+      quantity: this.weight,
       isDeleted: "0",
       boxname: "box",
-      updatedAt: this.currentDateTime
+      updatedAt: this.updateTime
     }
+
+    console.log(data);
+    
 
     console.log(data);
     
