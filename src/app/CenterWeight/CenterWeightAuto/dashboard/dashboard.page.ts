@@ -125,11 +125,14 @@ export class DashboardPage implements OnInit {
   success = (data) => {
     alert("Successfully Connected");
     this.bluetoothconnected = true;
+    this.bluetoothnotconnected = false;
+    localStorage.setItem("bluetoothStatus", this.bluetoothconnected)
     this.router.navigate(['/centerweight-auto-weighter']);
   }
   fail = (error) => {
     alert(error);
     this.bluetoothnotconnected = true;
+    this.bluetoothconnected = false;
   }
 
 

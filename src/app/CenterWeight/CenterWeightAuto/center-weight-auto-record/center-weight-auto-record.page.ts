@@ -37,17 +37,18 @@ export class CenterWeightAutoRecordPage implements OnInit {
     });
   }
 
-  disableSts: any = false;
-  checkoffline: any;
-  checkonline: any;
-  buttonDisabled: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
+  
 
 
   ngOnInit() {
     this.locationBasedWeightRecords()
+    this.user = localStorage.getItem("Fishery-username",)
+    this.bluetoothSts = localStorage.getItem("bluetoothStatus",)
+
   }
+
+  user: any;
+  bluetoothSts:any ;
   currentDateTime: any
   totalweight: any = '';
   tableRecodrs: any = []
@@ -56,7 +57,12 @@ export class CenterWeightAutoRecordPage implements OnInit {
   isVisible: any = false
   lastEntryisVisible: any = false
 
-
+  disableSts: any = false;
+  checkoffline: any;
+  checkonline: any;
+  buttonDisabled: boolean;
+  onlineAlart: any = true;
+  offlineAlart: any = false
 
   dosomething(event) {
     setTimeout(() => {
@@ -116,8 +122,15 @@ export class CenterWeightAutoRecordPage implements OnInit {
   }
 
 
+  
+
   navigateToNextPage() {
-    this.router.navigate(['/centerweight-auto-dashboard'])
+    if(this.bluetoothSts == true){
+      this.router.navigate(['/centerweight-auto-weighter'])
+    }
+    if(this.bluetoothSts == null || this.bluetoothSts == false){
+      this.router.navigate(['/centerweight-auto-dashboard'])
+    }
   }
 
 
@@ -180,4 +193,15 @@ export class CenterWeightAutoRecordPage implements OnInit {
     }
     );
   }
+
+
+
+  logout() {
+    localStorage.removeItem("orgid",)
+    localStorage.removeItem("Fishery-username",)
+    localStorage.removeItem("logintype",)
+    localStorage.removeItem("permission",)
+    this.router.navigate(['/loginpage'])
+  }
+ 
 }

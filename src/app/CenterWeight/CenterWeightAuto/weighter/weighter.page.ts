@@ -92,7 +92,7 @@ export class WeighterPage implements OnInit {
 
 
   backToPrivios() {
-    this.router.navigate(['/center-weight-manual-record'])
+    this.router.navigate(['/center-weight-auto-record'])
   }
   
   onlineApiCal() {
@@ -265,6 +265,7 @@ export class WeighterPage implements OnInit {
       });
     });
   }
+  
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = val;

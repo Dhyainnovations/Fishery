@@ -8,6 +8,8 @@
   </div>
   <div class="row">
 
+   
+
     <div *ngIf="onlineAlart" class="col-12 ion-text-right mt-2">
       <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
         speed="1.5" style="width:25%; margin-left: 70%;" loop autoplay></lottie-player>
@@ -21,6 +23,14 @@
 
   </div>
 
+  <div class=" col-12 dropdown toggle mt-3">
+    <input id="t1" type="checkbox">
+    <label for="t1">{{user}}</label>
+    <ul>
+      <!-- <li><a (click)="setting()">Settings</a></li> -->
+      <li><a (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
 
   <div class="row">
     <div class="col-12 ion-text-center">
