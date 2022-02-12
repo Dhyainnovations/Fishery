@@ -71,6 +71,27 @@ export class CenterWeightAutoRecordPage implements OnInit {
     }, 1500);
   }
 
+  fromdate: any;
+  todate: any;
+
+  fromDate(val) {
+    console.log(val);
+    this.fromdate = val
+
+  }
+
+  toDate(val) {
+    console.log(val);
+    this.todate = val
+  }
+
+  dateBasedRecord() {
+    this.router.navigate(['/cwa-date-based-record'],{ queryParams: { fromdate: this.fromdate, todate: this.todate } })
+    localStorage.setItem("fromDate", this.fromdate)
+    localStorage.setItem("toDate", this.todate)
+
+  }
+
   totalWeight() {
     this.http.get('/list_total_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;

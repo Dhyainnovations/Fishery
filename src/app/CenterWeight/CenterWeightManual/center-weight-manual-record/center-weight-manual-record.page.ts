@@ -26,10 +26,10 @@ export class CenterWeightManualRecordPage implements OnInit {
         this.checkoffline = true;
         this.offlineAlart = true
         this.onlineAlart = false;
-       
+
       });
       window.addEventListener('online', () => {
-        
+
         this.onlineAlart = true;
         this.offlineAlart = false
         this.checkonline = true;
@@ -38,6 +38,9 @@ export class CenterWeightManualRecordPage implements OnInit {
     });
   }
 
+
+  fromdate: any;
+  todate: any;
   disableSts: any = false;
   checkoffline: any;
   checkonline: any;
@@ -47,6 +50,8 @@ export class CenterWeightManualRecordPage implements OnInit {
 
 
   ngOnInit() {
+
+
     this.locationBasedWeightRecords()
   }
   currentDateTime: any
@@ -58,6 +63,24 @@ export class CenterWeightManualRecordPage implements OnInit {
   lastEntryisVisible: any = false
 
 
+
+  fromDate(val) {
+    console.log(val);
+    this.fromdate = val
+
+  }
+
+  toDate(val) {
+    console.log(val);
+    this.todate = val
+  }
+
+  dateBasedRecord() {
+    this.router.navigate(['/cwm-date-based-record'],{ queryParams: { fromdate: this.fromdate, todate: this.todate } })
+    localStorage.setItem("fromDate", this.fromdate)
+    localStorage.setItem("toDate", this.todate)
+
+  }
 
   dosomething(event) {
     setTimeout(() => {

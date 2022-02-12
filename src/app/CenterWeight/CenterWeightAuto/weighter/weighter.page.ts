@@ -39,8 +39,14 @@ export class WeighterPage implements OnInit {
     this.deviceConnected();
   }
 
+
+  dateTime(){
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+  }
+
   ngOnInit() {
 
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
 
     const start = Date.now();
     console.log(start);
@@ -113,6 +119,7 @@ export class WeighterPage implements OnInit {
     
     this.http.post('/manual_weight', data).subscribe((response: any) => {
       console.log(response);
+      this.dateTime()
       if (response.success == "true") {
         const Toast = Swal.mixin({
           toast: true,

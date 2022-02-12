@@ -17,7 +17,7 @@ export class WeighterPage implements OnInit {
   constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
 
-      this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+     
 
 
 
@@ -44,10 +44,13 @@ export class WeighterPage implements OnInit {
 
   }
 
+  dateTime(){
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+  }
 
   ngOnInit() {
 
-
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
     const start = Date.now();
     console.log(start);
 
@@ -151,7 +154,6 @@ export class WeighterPage implements OnInit {
 
     // Putting it all together
     // var formattedDate = year + '-' + month + '-' + day + ' ' + time;
-    console.log();
 
     //console.log(formattedDate);
     const data = {
@@ -166,6 +168,7 @@ export class WeighterPage implements OnInit {
     }
 
 
+    console.log(data);
     
     
 
@@ -180,6 +183,7 @@ export class WeighterPage implements OnInit {
 
     this.http.post('/manual_weight', data).subscribe((response: any) => {
       console.log(response);
+      this.dateTime()
       if (response.success == "true") {
         const Toast = Swal.mixin({
           toast: true,
@@ -199,6 +203,7 @@ export class WeighterPage implements OnInit {
         })
 
         this.weight = "";
+        
         this.records()
       }
 

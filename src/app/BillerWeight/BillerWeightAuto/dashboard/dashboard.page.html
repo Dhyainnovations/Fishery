@@ -14,9 +14,22 @@
       <h5 class="text-center bluetooth-status"><b>Bluetooth Status</b></h5>
     </div>
     <div class="col-1 mt-2">
-      <ion-toggle slot="end" color="tertiary" class="toggle-bluetooth" (click)="ChangeBluetoothConnection()"></ion-toggle>
+      <ion-toggle slot="end" color="tertiary" class="toggle-bluetooth" (click)="startScanning()">
+      </ion-toggle>
     </div>
   </div>
+
+  <!--Show Unpaired Device-->
+  
+  <ion-item *ngFor='let device of unpairedDevices'>
+    <span (click)="selectDevice(device.id)">
+      <p>Select a Device To Connect : </p>
+      {{device.name || device.address}}
+    </span>
+  </ion-item>
+  <ion-spinner name="crescent" *ngIf="gettingDevices"></ion-spinner>
+
+
   <div class="bluetooth-connection-message-wrap text-center mt-5 px-5">
     <div class="bluetooth-connection-message py-2 pt-3">
       <p *ngIf="bluetoothnotconnected"><b> Oops ! <br> Bluetooth Not Connected</b></p>

@@ -78,7 +78,26 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-6">
+      <p style="color: #6863CC;margin-left: 5px;"><b>From Date:</b></p>
+      <p style="color: #6863CC;margin-left: 5px;" ><b>To Date:</b></p>
+     
+    </div>
 
+    <div class="col-6" style="margin-left: -40px;">
+      <div >
+        <input  (change)="fromDate(fromdate)" [(ngModel)]="fromdate"  type="date">
+      </div>
+    <div class="mt-3">
+      <input  (change)="toDate(todate)" [(ngModel)]="todate"  type="date">
+    </div>
+    </div>
+
+    <div class="col-12 ion-text-center">
+      <button   class="navigate-btn " (click)="dateBasedRecord()"><b>Submit</b></button>
+    </div>
+  </div>
 
   <!-----card----->
 

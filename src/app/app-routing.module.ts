@@ -96,6 +96,18 @@ const routes: Routes = [
     path: 'center-weight-auto-record',
     loadChildren: () => import('./CenterWeight/CenterWeightAuto/center-weight-auto-record/center-weight-auto-record.module').then( m => m.CenterWeightAutoRecordPageModule)
   },
+  {
+    path: 'biller-auto-record',
+    loadChildren: () => import('./BillerWeight/BillerWeightAuto/biller-auto-record/biller-auto-record.module').then( m => m.BillerAutoRecordPageModule)
+  },
+  {
+    path: 'cwm-date-based-record',
+    loadChildren: () => import('./CenterWeight/CenterWeightManual/cwm-date-based-record/cwm-date-based-record.module').then( m => m.CWMDateBasedRecordPageModule)
+  },
+  {
+    path: 'cwa-date-based-record',
+    loadChildren: () => import('./CenterWeight/CenterWeightAuto/cwa-date-based-record/cwa-date-based-record.module').then( m => m.CWADateBasedRecordPageModule)
+  },
  
 ];
 
