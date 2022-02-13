@@ -17,7 +17,6 @@ export class WeighterPage implements OnInit {
   constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
       this.dropdownVisible = false
-      this.onlineApiCal();
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
@@ -189,11 +188,7 @@ console.log(this.myDate);
     }
 
     console.log(data);
-    return
-
-   
-    
-    
+     
 
     //----------If Offline----------//
     if (this.checkoffline = true) {

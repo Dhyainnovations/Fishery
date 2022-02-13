@@ -105,12 +105,14 @@
 
 
     <!-----Submit Button---->
-    <div (click)="onlineApiCal()" class="button-wrapper" class="px-5 mt-4">
-      <ion-button  class="submit-button" color="transparent" expand="block"
-        style="background-color: #6863CC;" [disabled]="!place || !type || !category || !weight || !onlineAlart || weight <='0'  " >
-        <b>SUBMIT</b>
-      </ion-button>
+     <div class="row">
+      <div  class="button-wrapper mt-2">
+     <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent" 
+       style="background-color: #6863CC;width: 100% !important;" [disabled]="!place || !type || !category ||  !onlineAlart  || weight <='0' ">
+       <b>SUBMIT</b>
+     </ion-button>
 
+   </div>
     </div>
 
   </div>
