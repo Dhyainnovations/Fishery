@@ -160,7 +160,6 @@ export class WeighterPage implements OnInit {
     console.log(data);
     
 
-    console.log(data);
     
     this.http.post('/manual_weight', data).subscribe((response: any) => {
       console.log(response);
