@@ -167,6 +167,15 @@ console.log(this.myDate);
 
     console.log(data);
     
+    
+    //----------If Offline----------//
+    if (this.checkoffline = true) {
+      this.setpushdata.push(data);
+      console.log(this.setpushdata);
+      var setdata = (JSON.stringify(this.setpushdata));
+      localStorage.setItem('added-items', setdata);
+    }
+    
 
     
     this.http.post('/manual_weight', data).subscribe((response: any) => {
