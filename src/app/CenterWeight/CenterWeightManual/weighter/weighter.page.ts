@@ -5,7 +5,7 @@ import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { DatePipe } from '@angular/common';
-
+import { DatePicker } from '@ionic-native/date-picker';
 
 @Component({
   selector: 'app-weighter',
@@ -37,8 +37,17 @@ export class WeighterPage implements OnInit {
       });
     });
 
+    this.myDate = new Date();
+
+    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+
+console.log(this.myDate);
+
   }
 
+  
+  
+  myDate;
   dateTime(){
     this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
   }
@@ -79,6 +88,7 @@ export class WeighterPage implements OnInit {
   offlineAlart: any = false
 
 
+  
 
   backToPrivios() {
     this.router.navigate(['/center-weight-manual-record'])
@@ -134,7 +144,7 @@ export class WeighterPage implements OnInit {
     console.log(this.category, this.place, this.type);
     var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
     this.tdyDate = date;
-    console.log(date);
+    console.log(this.tdyDate);
 
 
     // Now we can access our time at date[1], and monthdayyear @ date[0]
@@ -148,7 +158,7 @@ export class WeighterPage implements OnInit {
 
     // We then parse  the mdy into parts
     this.mdy = this.mdy.split('/');
-    var month = parseInt(this.mdy[0]);
+    var month = parseInt(this.mdy[1]);
     var day = parseInt(this.mdy[1]);
     var year = parseInt(this.mdy[2]);
     console.log(time_status);
@@ -164,7 +174,7 @@ export class WeighterPage implements OnInit {
    let seconds = new Date().getSeconds();
    this.hr = hours + 12;
 
-   this.updateTime = formattedDate + ' ' + hours + ":" + minutes + ":" + seconds
+   this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
    console.log(this.updateTime);
 
     const data = {
@@ -178,8 +188,10 @@ export class WeighterPage implements OnInit {
       updatedAt: this.updateTime
     }
 
-
     console.log(data);
+    return
+
+   
     
     
 

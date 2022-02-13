@@ -37,6 +37,12 @@ export class WeighterPage implements OnInit {
       });
     });
     this.deviceConnected();
+
+    this.myDate = new Date();
+
+    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+
+console.log(this.myDate);
   }
 
 
@@ -56,6 +62,8 @@ export class WeighterPage implements OnInit {
 
 
   }
+
+  myDate;
 
   user: any;
   dropdownVisible: any = false;
@@ -143,7 +151,7 @@ export class WeighterPage implements OnInit {
    let seconds = new Date().getSeconds();
    this.hr = hours + 12;
 
-   this.updateTime = formattedDate + ' ' + hours + ":" + minutes + ":" + seconds
+   this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
    console.log(this.updateTime);
 
     const data = {
