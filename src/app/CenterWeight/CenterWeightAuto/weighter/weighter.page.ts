@@ -64,55 +64,78 @@ console.log(this.myDate);
   }
 
   myDate;
-
   user: any;
   dropdownVisible: any = false;
-  currentDate = new Date();
 
-  categorylist: any = []
-  locationlist: any = []
-  typelist: any = []
+  // currentDate = new Date();
 
-  recivedWeightValue: any = " ";
-
-  category: any;
   currentDateTime: any;
   checkoffline: any;
   checkonline: any;
   setpushdata: any = [];
+  category: any;
   type: any;
   place: any;
   weight: any;
   mdy: any;
-  
+  categorylist: any = []
+  locationlist: any = []
+  typelist: any = []
 
   tableRecodrs: any = []
   buttonDisabled: boolean;
   onlineAlart: any = true;
-  offlineAlart: any = false;
+  offlineAlart: any = false
 
-
-
-  records() {
-    this.http.get('/list_manual_weight',).subscribe((response: any) => {
-      this.tableRecodrs = response.records;
-      console.log(response);
-
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
-  }
+  recivedWeightValue:any;
 
 
   backToPrivios() {
     this.router.navigate(['/center-weight-auto-record'])
   }
-  
+
+
+  offlineApiCall() {
+    if (this.checkonline = true) {
+
+      var Getdata = localStorage.getItem("added-items");
+      var Decodedata = (JSON.parse((Getdata)));
+      for (var i = 0; i < Decodedata.length; i++) {
+
+        var localtype = Decodedata[i].type;
+        var localcategory = Decodedata[i].category;
+        var localplace = Decodedata[i].place;
+        var localquantity = Decodedata[i].quantity;
+        var localisDeleted = "0";
+        var localboxname = "box"
+
+
+        const data = {
+          type: localtype,
+          category: localcategory,
+          place: localplace,
+          quantity: localquantity,
+          isDeleted: localisDeleted,
+          boxname: localboxname
+        }
+        this.http.post('/manual_weight', data).subscribe((response: any) => {
+          console.log(response);
+          if (response.success == "true") {
+
+          }
+        }, (error: any) => {
+          console.log(error);
+        }
+        );
+
+      }
+    }
+  }
+
   tdyDate: any;
 
   formattedDate;
-   today = new Date().toLocaleDateString()
+  today = new Date().toLocaleDateString()
 
   hr;
   updateTime;
@@ -121,7 +144,7 @@ console.log(this.myDate);
     console.log(this.category, this.place, this.type);
     var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
     this.tdyDate = date;
-    console.log(date);
+    console.log(this.tdyDate);
 
 
     // Now we can access our time at date[1], and monthdayyear @ date[0]
@@ -135,40 +158,48 @@ console.log(this.myDate);
 
     // We then parse  the mdy into parts
     this.mdy = this.mdy.split('/');
-    var month = parseInt(this.mdy[0]);
+    var month = parseInt(this.mdy[1]);
     var day = parseInt(this.mdy[1]);
     var year = parseInt(this.mdy[2]);
     console.log(time_status);
 
-   // Putting it all together
-   var formattedDate = year + '-' + month + '-' + day + ' ' ;
-   console.log(formattedDate);
+    // Putting it all together
+    var formattedDate = year + '-' + month + '-' + day + ' ';
+    console.log(formattedDate);
 
-   //console.log(formattedDate);
+    //console.log(formattedDate);
 
-   let hours = new Date().getHours();
-   let minutes = new Date().getMinutes();
-   let seconds = new Date().getSeconds();
-   this.hr = hours + 12;
+    let hours = new Date().getHours();
+    let minutes = new Date().getMinutes();
+    let seconds = new Date().getSeconds();
+    this.hr = hours + 12;
 
-   this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
-   console.log(this.updateTime);
+    this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    console.log(this.updateTime);
 
     const data = {
       quality: this.type,
       type: "center",
       category: this.category,
       place: this.place,
-      quantity: this.weight,
+      quantity: this.recivedWeightValue,
       isDeleted: "0",
       boxname: "box",
       updatedAt: this.updateTime
     }
 
     console.log(data);
-    
 
-    
+
+    //----------If Offline----------//
+    if (this.checkoffline = true) {
+      this.setpushdata.push(data);
+      console.log(this.setpushdata);
+      var setdata = (JSON.stringify(this.setpushdata));
+      localStorage.setItem('added-items', setdata);
+    }
+
+
     this.http.post('/manual_weight', data).subscribe((response: any) => {
       console.log(response);
       this.dateTime()
@@ -191,6 +222,7 @@ console.log(this.myDate);
         })
 
         this.weight = "";
+
         this.records()
       }
 
@@ -202,6 +234,49 @@ console.log(this.myDate);
 
   }
 
+
+  SelectType(data) {
+    const formdata = new FormData();
+    formdata.append("type", data.type);
+    this.type = data.type;
+  }
+
+  SelectLocation(data) {
+    const formdata = new FormData();
+    formdata.append("place", data.place);
+    this.place = data.place;
+  }
+
+  StoreTypeBasedOnCategory = [];
+  StoreTypeData = [];
+  SelectCategory(data) {
+    this.StoreTypeData = [];
+    const formdata = new FormData();
+    formdata.append("category", data.category);
+    console.log(data.category);
+    this.category = data.category;
+
+    var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
+    this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
+
+    for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
+      const listTypeBasedOnCategory = {
+        Categorypush: this.StoreTypeBasedOnCategory[i].category,
+        Typepush: this.StoreTypeBasedOnCategory[i].type
+      }
+      //console.log(listTypeBasedOnCategory);
+      if (this.category == listTypeBasedOnCategory.Categorypush) {
+
+        this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
+        console.log(this.StoreTypeData);
+
+      }
+
+    }
+    console.log(this.StoreTypeData);
+
+
+  }
 
   delete(id) {
     console.log(id);
@@ -259,78 +334,70 @@ console.log(this.myDate);
     );
   }
 
-  getCategoryList() {
-    this.http.get('/list_category',).subscribe((response: any) => {
-      this.categorylist = response.records;
+  records() {
+    this.http.get('/list_manual_weight',).subscribe((response: any) => {
+      this.tableRecodrs = response.records;
       console.log(response);
 
     }, (error: any) => {
       console.log(error);
     }
     );
-
   }
 
-  StoreTypeBasedOnCategory = [];
-  StoreTypeData = [];
-  SelectCategory(data) {
-    this.StoreTypeData = [];
-    const formdata = new FormData();
-    formdata.append("category", data.category);
-    console.log(data.category);
-    this.category = data.category;
 
-    var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
-    this.StoreTypeBasedOnCategory = (JSON.parse((GetTypeBasedOnCategory)));
 
-    for (var i = 0; i <= this.StoreTypeBasedOnCategory.length; i++) {
-      const listTypeBasedOnCategory = {
-        Categorypush: this.StoreTypeBasedOnCategory[i].category,
-        Typepush: this.StoreTypeBasedOnCategory[i].type
-      }
-      //console.log(listTypeBasedOnCategory);
-      if (this.category == listTypeBasedOnCategory.Categorypush) {
+  getCategoryList() {
+    var GetCategory = localStorage.getItem('SetCategory');
+    this.categorylist = (JSON.parse((GetCategory)));
+    //console.log(DisplayCategory);
+  }
 
-        this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
-        console.log(this.StoreTypeData);
-
-      }
-
-    }
-    console.log(this.StoreTypeData);
-
+  getTypeList() {
+    var GetType = localStorage.getItem('SetType');
+    this.typelist = (JSON.parse((GetType)));
 
   }
 
   getLocationList() {
-    this.http.get('/list_location',).subscribe((response: any) => {
-      this.locationlist = response.records;
-      console.log(response);
+    var GetLocation = localStorage.getItem('SetLocation');
+    this.locationlist = (JSON.parse((GetLocation)));
+  }
 
-    }, (error: any) => {
-      console.log(error);
-    }
-    );
+  dosomething(event) {
+    setTimeout(() => {
+      event.target.complete();
+
+      this.refresh()
+
+    }, 1500);
+  }
+
+  // value: any;
+
+  // NavigateTo() {
+  //   console.log(this.value);
+  //   if (this.value == "settings") {
+  //     this.router.navigate(['/settings'])
+  //   } else {
+  //     this.logout()
+  //   }
+
+
+  // }
+
+  checkboxsts: any = false
+
+  dropdownOpen() {
+    this.checkboxsts = true
+    console.log(this.checkboxsts);
 
   }
 
-
-
-  deviceConnected() {
-    this.bluetoothSerial.subscribeRawData().subscribe((dt) => {
-      this.bluetoothSerial.read().then((dd) => {
-        this.onDataReceive(dd);
-        this.cdr.detectChanges(); // either here
-      });
-    });
+  setting() {
+    this.router.navigate(['/settings'])
   }
-  
-  onDataReceive(val) {
-    var data = JSON.stringify(val)
-    this.recivedWeightValue = val;
-    var data1 = data.replace('\\r\\n', '')
-    this.cdr.detectChanges(); // or here
-  }
+
 
 
   refresh() {
@@ -373,15 +440,22 @@ console.log(this.myDate);
     // );
   }
 
-  dosomething(event) {
-    setTimeout(() => {
-      event.target.complete();
 
-      this.refresh()
-
-    }, 1500);
+  deviceConnected() {
+    this.bluetoothSerial.subscribeRawData().subscribe((dt) => {
+      this.bluetoothSerial.read().then((dd) => {
+        this.onDataReceive(dd);
+        this.cdr.detectChanges(); // either here
+      });
+    });
   }
-
+  
+  onDataReceive(val) {
+    var data = JSON.stringify(val)
+    this.recivedWeightValue = val;
+    var data1 = data.replace('\\r\\n', '')
+    this.cdr.detectChanges(); // or here
+  }
 
   logout() {
     this.dropdownVisible = false
@@ -391,7 +465,8 @@ console.log(this.myDate);
     localStorage.removeItem("permission",)
     this.router.navigate(['/loginpage'])
   }
- 
-  
+
+
+
 
 }

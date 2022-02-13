@@ -40,14 +40,14 @@ export class WeighterPage implements OnInit {
 
     this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
 
-console.log(this.myDate);
+    console.log(this.myDate);
 
   }
 
-  
-  
+
+
   myDate;
-  dateTime(){
+  dateTime() {
     this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
   }
 
@@ -87,7 +87,7 @@ console.log(this.myDate);
   offlineAlart: any = false
 
 
-  
+
 
   backToPrivios() {
     this.router.navigate(['/center-weight-manual-record'])
@@ -134,7 +134,7 @@ console.log(this.myDate);
   tdyDate: any;
 
   formattedDate;
-   today = new Date().toLocaleDateString()
+  today = new Date().toLocaleDateString()
 
   hr;
   updateTime;
@@ -162,19 +162,19 @@ console.log(this.myDate);
     var year = parseInt(this.mdy[2]);
     console.log(time_status);
 
-   // Putting it all together
-   var formattedDate = year + '-' + month + '-' + day + ' ' ;
-   console.log(formattedDate);
+    // Putting it all together
+    var formattedDate = year + '-' + month + '-' + day + ' ';
+    console.log(formattedDate);
 
-   //console.log(formattedDate);
+    //console.log(formattedDate);
 
-   let hours = new Date().getHours();
-   let minutes = new Date().getMinutes();
-   let seconds = new Date().getSeconds();
-   this.hr = hours + 12;
+    let hours = new Date().getHours();
+    let minutes = new Date().getMinutes();
+    let seconds = new Date().getSeconds();
+    this.hr = hours + 12;
 
-   this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
-   console.log(this.updateTime);
+    this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    console.log(this.updateTime);
 
     const data = {
       quality: this.type,
@@ -188,7 +188,7 @@ console.log(this.myDate);
     }
 
     console.log(data);
-     
+
 
     //----------If Offline----------//
     if (this.checkoffline = true) {
@@ -221,7 +221,7 @@ console.log(this.myDate);
         })
 
         this.weight = "";
-        
+
         this.records()
       }
 
@@ -437,7 +437,7 @@ console.log(this.myDate);
     //   console.log(error);
     // }
     // );
-  }
+  } 
 
   logout() {
     this.dropdownVisible = false
