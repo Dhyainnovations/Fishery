@@ -41,7 +41,7 @@
 
 
   <!-----Display Weight----->
-  <p class="text-center">{{dd}}</p>
+  <p class="text-center">{{recivedWeightValue}}</p>
 
   <!-- <p> weight is <b>267.70</b> kgs</p> -->
 
@@ -109,7 +109,7 @@
       <div class="container">
         <div class="row">
           <button (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
-            style="font-size: 13px;color: white;" [disabled]="!weight || !counter || !category || !type ">
+            style="font-size: 13px;color: white;" [disabled]=" recivedWeightValue <='0' || !counter || !category || !type || !onlineAlart">
             ADD ITEM
           </button>
         </div>

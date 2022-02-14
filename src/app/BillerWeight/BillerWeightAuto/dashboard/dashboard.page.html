@@ -23,10 +23,22 @@
     </div>
 
     <!-----Title----->
-    <div class="title-wrap" style="margin-top:-50px">
-      <h2 class="text-center welcome-back"><b>DASHBOARD</b></h2>
-    </div>
+    <div class="row">
 
+      <div style="margin-top:-50px" class="col-12 ion-text-center">
+        <b style="font-size: 25px;">DASHBOARD</b>
+      </div>
+  
+      <div class=" col-6 dropdown toggle mt-3">
+        <input id="t1" type="checkbox">
+        <label for="t1">{{user}}</label>
+        <ul>
+          <!-- <li><a (click)="setting()">Settings</a></li> -->
+          <li><a (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+  
+    </div>
     <!-----Sub-Title----->
     <h4 class="text-center connectivity mt-4"><b>CONNECTIVITY</b></h4>
     <div class="row text-center mt-4">

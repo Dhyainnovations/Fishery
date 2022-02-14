@@ -13,7 +13,7 @@
     <div *ngIf="onlineAlart" class="col-12 ion-text-right mt-2">
       <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
         speed="1.5" style="width:25%; margin-left: 70%;" loop autoplay></lottie-player>
-        <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
     </div>
 
     <div *ngIf="offlineAlart" class="col-12 ion-text-right ">
@@ -26,6 +26,15 @@
   <div class="row" style="margin-top: -45px;">
     <div class="col-12 ion-text-center">
       <button (click)="navigateToNextPage()" class="navigate-btn  mt-5"><b>Start Billing</b></button>
+    </div>
+    <div class="col-6"></div>
+    <div class=" col-6 dropdown toggle mt-3">
+      <input id="t1" type="checkbox">
+      <label for="t1">{{user}}</label>
+      <ul>
+        <!-- <li><a (click)="setting()">Settings</a></li> -->
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
     </div>
 
     <div class="col-12 ion-text-center mt-3">
@@ -95,7 +104,7 @@
               <b style="color: #6863CC;">Total Amount</b> : <br> <span style="color: #6863CC;">Rs.</span>
               {{record.totalamount}} /-
             </div>
-          
+
           </div>
         </div>
 

@@ -16,7 +16,8 @@ export class DashboardPage implements OnInit {
   constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef, route: ActivatedRoute,) {
     route.params.subscribe(val => {
 
-
+      this.user = localStorage.getItem("Fishery-username",)
+      console.log(this.user);
       window.addEventListener('offline', () => {
         this.checkoffline = true;
         this.offlineAlart = true
@@ -144,5 +145,16 @@ export class DashboardPage implements OnInit {
         alert("The user did not enable Bluetooth");
       }
     );
+  }
+
+
+  user: any = "";
+
+  logout() {
+    localStorage.removeItem("orgid",)
+    localStorage.removeItem("Fishery-username",)
+    localStorage.removeItem("logintype",)
+    localStorage.removeItem("permission",)
+    this.router.navigate(['/loginpage'])
   }
 }

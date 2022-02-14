@@ -332,10 +332,10 @@ export class WeighterPage implements OnInit {
   }
   onDataReceive(dd) {
     var data = JSON.stringify(dd)
-    this.dd = dd;
+    this.recivedWeightValue = dd;
     this.cdr.detectChanges(); // or here
   }
 
 
-  dd: any = " "
+  recivedWeightValue: any = " "
 }

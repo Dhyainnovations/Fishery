@@ -1,7 +1,7 @@
-<ion-content>
-  <img src="assets/bacground.png">
+<ion-content class="background">
 
-  <div style="margin-top: -145px;" class="row">
+
+  <div style="margin-top: 0px;" class="row">
     <div class="col-6 mt-4 ">
       <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()"
         name="arrow-back">
@@ -116,7 +116,7 @@
         <div class="row">
           <button (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
             style="font-size: 13px;color: white;" [disabled]="!weight || !counter || !category || !type ">
-            ADD  ITEM
+            ADD ITEM
           </button>
         </div>
       </div>
@@ -155,13 +155,13 @@
     <div class="container">
       <div class="row">
         <button (click)="generateBill()" class="submit-button px-2 py-2" color="transparent" style="font-size: 13px;"
-          [disabled]="CheckGenerateBillButton">
+          [disabled]="SetBillerAddItem.length<=0">
           GENERATE BILL
         </button>
       </div>
     </div>
   </div>
-  
+
 
 
 
