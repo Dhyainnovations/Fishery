@@ -1,9 +1,9 @@
 <ion-content>
   <img src="assets/bacground.png">
 
-  <div style="margin-top: -145px;" class="row">
+  <div style="margin-top: -105px;" class="row">
     <div class="col-6 mt-4 ">
-      <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()"
+      <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#918ed1" (click)="backToPrivios()"
         name="arrow-back">
       </ion-icon>
     </div>
@@ -41,13 +41,7 @@
 
 
   <!-----Display Weight----->
-  <div class="row">
-    <div class="col-12 ion-text-center mt-4">
-      <input [(ngModel)]="weight" type="number" placeholder="ENTER THE WEIGHT" class="text-center"
-        style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 14px;padding: 10px;">
-      KG
-    </div>
-  </div>
+  <p class="text-center">{{dd}}</p>
 
   <!-- <p> weight is <b>267.70</b> kgs</p> -->
 
@@ -116,7 +110,7 @@
         <div class="row">
           <button (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
             style="font-size: 13px;color: white;" [disabled]="!weight || !counter || !category || !type ">
-            ADD  ITEM
+            ADD ITEM
           </button>
         </div>
       </div>
@@ -161,7 +155,7 @@
       </div>
     </div>
   </div>
-  
+
 
 
 

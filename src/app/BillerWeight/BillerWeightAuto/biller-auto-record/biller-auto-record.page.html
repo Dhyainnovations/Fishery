@@ -1,9 +1,109 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>biller-auto-record</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="background">
 
-<ion-content>
+  <!-- <img src="assets/bacground.png"> -->
+
+  <div class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  </div>
+  <div class="row">
+
+    <div *ngIf="onlineAlart" class="col-12 ion-text-right mt-2">
+      <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
+        speed="1.5" style="width:25%; margin-left: 70%;" loop autoplay></lottie-player>
+        <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
+    </div>
+
+    <div *ngIf="offlineAlart" class="col-12 ion-text-right ">
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Offline</p> -->
+      <img style="width:25%; margin-left: 70%; border-radius: 55%;" src="assets/offline.gif" alt="">
+    </div>
+
+  </div>
+
+  <div class="row" style="margin-top: -45px;">
+    <div class="col-12 ion-text-center">
+      <button (click)="navigateToNextPage()" class="navigate-btn  mt-5"><b>Start Billing</b></button>
+    </div>
+
+    <div class="col-12 ion-text-center mt-3">
+      <p>Today's Total Weight = <span>{{totalweight | number}}KG</span></p>
+    </div>
+
+    <div class="col-12 ion-text-center mt-3">
+      <p style="font-size: 12px;">Today's Total collected amount = <span style="font-size: 15px;">Rs.{{totalCost}}
+          /-</span></p>
+    </div>
+
+
+
+    <!-----Table----->
+
+
+
+    <table class="table">
+
+
+
+      <thead style="background-color:#6863CC;" class="text-white">
+        <tr>
+          <th scope="col-3">S.No</th>
+          <th scope="col-2">Quality</th>
+          <th scope="col-2">Weight</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let record of manualBillList  let i=index; ">
+        <tr>
+          <td>{{i+1}} </td>
+          <td>{{record.billitems[i].quality}}</td>
+          <td>{{record.billitems[i].weight}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div *ngIf="isVisible" class=" col-12 ion-text-center mt-3 ">
+        <lottie-player src="https://assets8.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+          background="transparent" speed="1.5" style="width:65%;margin:auto" loop autoplay></lottie-player>
+        <h4 class="ion-text-center">No Records</h4>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-----card----->
+
+  <h4 *ngIf="lastEntryisVisible" class="mx-3">Last Entry:</h4>
+
+  <div style="font-size: 11px;">
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card mt-3" *ngFor="let record of displayCardDetails">
+          <div class="row">
+            <div class="col-6">
+              <b style="color: #6863CC;"> Date </b> : {{record.date }}<br>
+              <b style="color: #6863CC;"> Time </b> : {{record.time }}<br>
+
+            </div>
+
+            <div class="col-6">
+              <b style="color: #6863CC;">Bill No </b> : {{record.bilid}}<br>
+              <b style="color: #6863CC;">Total Amount</b> : <br> <span style="color: #6863CC;">Rs.</span>
+              {{record.totalamount}} /-
+            </div>
+          
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
 
 </ion-content>

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { BluetoothSerial } from '@awesome-cordova-plugins/bluetooth-serial/ngx';
 import { AlertController } from '@ionic/angular';
 import { ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,18 +13,38 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef, route: ActivatedRoute,) {
+    route.params.subscribe(val => {
+
+
+      window.addEventListener('offline', () => {
+        this.checkoffline = true;
+        this.offlineAlart = true
+        this.onlineAlart = false;
+      });
+      window.addEventListener('online', () => {
+        this.onlineAlart = true;
+        this.offlineAlart = false
+        this.checkonline = true;
+      });
+    });
+    this.CheckBluetoothIsConnected();
+  }
 
   ngOnInit() {
   }
   bluetoothconnected: any = false;
-  bluetoothnotconnected: any = true;
+  bluetoothnotconnected: any = false;
 
-  // ChangeBluetoothConnection() {
-  //   this.bluetoothconnected = !this.bluetoothconnected;
-  //   this.bluetoothnotconnected = !this.bluetoothnotconnected;
-  //   this.router.navigate(['/centerweight-auto-weighter'])
-  // }
+  onlineAlart: any = true;
+  checkonline: any;
+  offlineAlart: any = false;
+  checkoffline: any;
+
+
+  backToPrivios() {
+    this.router.navigate(['/biller-auto-record'])
+  }
 
 
   //ScanBluetoothDevice
@@ -90,13 +112,39 @@ export class DashboardPage implements OnInit {
     await alert.present();
   }
 
-  
+
   success = (data) => {
     alert("Successfully Connected");
     this.router.navigate(['/centerweight-auto-weighter']);
+   
   }
   fail = (error) => {
     alert(error);
   }
 
+
+  CheckBluetoothIsConnected() {
+    this.bluetoothSerial.isEnabled().then(
+      () => {
+        this.bluetoothconnected = true;
+        this.bluetoothnotconnected = false;
+      },
+      () => {
+        this.bluetoothconnected = false;
+        this.bluetoothnotconnected = true;
+      }
+    )
+  }
+
+
+  enablebluetooth() {
+    this.bluetoothSerial.enable().then(
+      () => {
+        alert("Bluetooth is enabled");
+        this.startScanning();
+            }, () => {
+        alert("The user did *not* enable Bluetooth");
+      }
+    );
+  }
 }

@@ -4,7 +4,6 @@ import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.page.html',

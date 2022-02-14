@@ -217,27 +217,6 @@ export class WeighterPage implements OnInit {
 
 
 
-  deviceConnected() {
-    this.bluetoothSerial.subscribeRawData().subscribe((dt) => {
-      this.bluetoothSerial.read().then((dd) => {
-        this.onDataReceive(dd);
-        this.cdr.detectChanges(); // either here
-      });
-    });
-  }
-  onDataReceive(dd) {
-    var data = JSON.stringify(dd)
-    this.data = data;
-    this.dd = dd;
-    var data1 = data.replace('\\r\\n', '')
-    this._debug = data1;
-    this.cdr.detectChanges(); // or here
-  }
-
-  _debug: any = "";
-  data: any = " ";
-  dd: any = " "
-
 
 
   dosomething(event) {
@@ -342,4 +321,21 @@ export class WeighterPage implements OnInit {
 
   }
 
+
+  deviceConnected() {
+    this.bluetoothSerial.subscribeRawData().subscribe((dt) => {
+      this.bluetoothSerial.read().then((dd) => {
+        this.onDataReceive(dd);
+        this.cdr.detectChanges(); // either here
+      });
+    });
+  }
+  onDataReceive(dd) {
+    var data = JSON.stringify(dd)
+    this.dd = dd;
+    this.cdr.detectChanges(); // or here
+  }
+
+
+  dd: any = " "
 }

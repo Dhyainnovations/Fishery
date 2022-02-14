@@ -64,7 +64,7 @@ export class BillerWeightManualRecordPage implements OnInit {
   
 
   totalWeight() {
-    this.http.get('/list_total_weight',).subscribe((response: any) => {
+    this.http.get('/list_total_bill_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
       console.log(response);
 
