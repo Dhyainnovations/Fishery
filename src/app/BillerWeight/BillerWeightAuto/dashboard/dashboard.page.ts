@@ -33,8 +33,7 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
   }
-  bluetoothconnected: any = false;
-  bluetoothnotconnected: any = false;
+
 
   onlineAlart: any = true;
   checkonline: any;
@@ -116,7 +115,7 @@ export class DashboardPage implements OnInit {
   success = (data) => {
     alert("Successfully Connected");
     this.router.navigate(['/centerweight-auto-weighter']);
-   
+
   }
   fail = (error) => {
     alert(error);
@@ -126,24 +125,23 @@ export class DashboardPage implements OnInit {
   CheckBluetoothIsConnected() {
     this.bluetoothSerial.isEnabled().then(
       () => {
-        this.bluetoothconnected = true;
-        this.bluetoothnotconnected = false;
+        this.bluetoothtoggle = true;
       },
       () => {
-        this.bluetoothconnected = false;
-        this.bluetoothnotconnected = true;
+        this.bluetoothtoggle = false;
       }
     )
   }
 
+  bluetoothtoggle: any = false;
 
   enablebluetooth() {
     this.bluetoothSerial.enable().then(
       () => {
         alert("Bluetooth is enabled");
         this.startScanning();
-            }, () => {
-        alert("The user did *not* enable Bluetooth");
+      }, () => {
+        alert("The user did not enable Bluetooth");
       }
     );
   }

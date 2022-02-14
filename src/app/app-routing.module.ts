@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'biller-auto-record',
+    redirectTo: 'splash-screen',
     pathMatch: 'full'
   },
   {

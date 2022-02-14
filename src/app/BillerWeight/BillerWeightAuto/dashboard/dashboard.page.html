@@ -36,7 +36,7 @@
         <h5 class="text-center bluetooth-status"><b>Bluetooth Status</b></h5>
       </div>
       <div class="col-1 mt-2">
-        <ion-toggle slot="end" color="tertiary" class="toggle-bluetooth" (click)="enablebluetooth()">
+        <ion-toggle slot="end" color="tertiary" class="toggle-bluetooth" (click)="enablebluetooth()" checked="{{bluetoothtoggle}}">
         </ion-toggle>
       </div>
     </div>
@@ -52,10 +52,5 @@
     <ion-spinner name="crescent" *ngIf="gettingDevices" style="margin-left: 50%;"></ion-spinner>
 
 
-    <div class="bluetooth-connection-message-wrap text-center mt-5 px-5">
-      <div class="bluetooth-connection-message py-2 pt-3">
-        <p *ngIf="bluetoothnotconnected"><b> Oops ! <br> Bluetooth Not Connected</b></p>
-        <p *ngIf="bluetoothconnected"><b> Bluetooth<br> Connected</b></p>
-      </div>
-    </div>
+  
   </ion-content>
