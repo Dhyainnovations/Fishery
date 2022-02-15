@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../shared/http.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { MenuController, Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login-page',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LoginPagePage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
+  constructor(private platform: Platform,private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
     route.params.subscribe(val => {
 
 
@@ -36,6 +37,8 @@ export class LoginPagePage implements OnInit {
   LocaluserName: any;
   Locallogintype: any;
   Localpermission: any;
+
+  backButtonSubscription: any;
 
   login() {
 
@@ -209,4 +212,11 @@ export class LoginPagePage implements OnInit {
 
 
   }
+
+  ngAfterViewInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      navigator['app'].exitApp();
+    });
+  }
+  ngOnDestroy() { };
 }

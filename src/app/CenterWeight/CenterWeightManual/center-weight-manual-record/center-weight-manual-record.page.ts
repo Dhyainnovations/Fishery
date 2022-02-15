@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy, AfterViewInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
-
+import { MenuController, Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-center-weight-manual-record',
@@ -15,7 +15,7 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class CenterWeightManualRecordPage implements OnInit {
 
-  constructor(private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor(private platform: Platform,private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
       this.totalWeight()
@@ -35,9 +35,19 @@ export class CenterWeightManualRecordPage implements OnInit {
         this.checkonline = true;
 
       });
+
+      this.myDate = new Date();
+
+    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.fromdate = this.myDate;
+    this.todate = this.myDate
+    
     });
+
+    
   }
 
+  myDate:any
 
   fromdate: any;
   todate: any;
@@ -48,12 +58,14 @@ export class CenterWeightManualRecordPage implements OnInit {
   onlineAlart: any = true;
   offlineAlart: any = false
 
-
+  backButtonSubscription: any;
   ngOnInit() {
-
+    this.user = localStorage.getItem("Fishery-username",)
 
     this.locationBasedWeightRecords()
   }
+
+  user:any
   currentDateTime: any
   totalweight: any = '';
   tableRecodrs: any = []
@@ -90,7 +102,7 @@ export class CenterWeightManualRecordPage implements OnInit {
   }
 
   totalWeight() {
-    this.http.get('/list_total_weight',).subscribe((response: any) => {
+    this.http.get('/list_total_manual_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
 
       if (response.records.total_weight == null) {
@@ -203,5 +215,22 @@ export class CenterWeightManualRecordPage implements OnInit {
 
     }
     );
+  }
+
+
+  ngAfterViewInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      navigator['app'].exitApp();
+    });
+  }
+  ngOnDestroy() { };
+
+
+  logout() {
+    localStorage.removeItem("orgid",)
+    localStorage.removeItem("Fishery-username",)
+    localStorage.removeItem("logintype",)
+    localStorage.removeItem("permission",)
+    this.router.navigate(['/loginpage'])
   }
 }

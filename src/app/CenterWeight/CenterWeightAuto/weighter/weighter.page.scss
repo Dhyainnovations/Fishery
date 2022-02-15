@@ -155,3 +155,30 @@ select {
   //     }
   // }
   
+
+
+.type-btn{
+  background-color: #655fcb;
+  color:#fff;
+  width: 95%;
+  margin: 15px 2px;
+  margin-left: 2px !important;
+ 
+}
+
+.list{
+  background-color: #7772d6!important;
+  color: rgb(219, 217, 217);
+  font-size: 15px;
+  margin: 18px -5px;
+}
+
+#sideMenuList .active{
+  color: #fff;
+  background-color: #655fcb !important;
+  font-weight: 700;
+}
+
+.selectDropdown{
+  border: 2px solid #655fcb;
+}

@@ -31,6 +31,15 @@ export class CWMDateBasedRecordPage implements OnInit {
 
       });
     });
+
+
+    this.LoadReadData()
+    this.tableRecodrs = []
+
+    
+    
+
+    console.log(this.locFromDate, this.locToDate);
   }
 
   LoadReadData() {
@@ -46,20 +55,15 @@ export class CWMDateBasedRecordPage implements OnInit {
 
 
   ngOnInit() {
-    this.LoadReadData()
-    this.tableRecodrs = []
-
-    
-
-    console.log(this.locFromDate, this.locToDate);
-    
+   
   }
 
     locFromDate = localStorage.getItem("fromDate",)
     locToDate = localStorage.getItem("toDate",)
 
-  fromdate;
-  todate;
+    todayDate:any;
+  fromdate:any;
+  todate:any  ;
   
   disableSts: any = false;
   checkoffline: any;
@@ -72,10 +76,23 @@ export class CWMDateBasedRecordPage implements OnInit {
   totalQuantity;
 
 
+
+
+
+  dosomething(event) {
+    setTimeout(() => {
+      event.target.complete();
+     
+    }, 1500);
+  }
+
+
   backToPrivios() {
     this.router.navigate(['/center-weight-manual-record'])
   }
 
+
+  
   records() {
     const data = {
       from_date:this.locFromDate,

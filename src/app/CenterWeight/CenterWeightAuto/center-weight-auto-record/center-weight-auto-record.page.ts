@@ -35,6 +35,12 @@ export class CenterWeightAutoRecordPage implements OnInit {
 
       });
     });
+
+    this.myDate = new Date();
+
+    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.fromdate = this.myDate;
+    this.todate = this.myDate
   }
 
   
@@ -46,6 +52,8 @@ export class CenterWeightAutoRecordPage implements OnInit {
     this.bluetoothSts = localStorage.getItem("bluetoothStatus",)
 
   }
+
+  myDate:any;
 
   user: any;
   bluetoothSts:any ;

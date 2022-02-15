@@ -6,18 +6,48 @@
       </ion-refresher-content>
     </ion-refresher>
   </div>
-  <div class="row">
 
+  <div class="row">
+   
 
     <div *ngIf="onlineAlart" class="col-12 ion-text-right mt-2">
       <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
-        speed="1.5" style="width:25%; margin-left: 70%;" loop autoplay></lottie-player>
+        speed="1.5" style="width:25%; margin-left: 80%; border-radius: 55%;" loop autoplay></lottie-player>
       <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
     </div>
 
     <div *ngIf="offlineAlart" class="col-12 ion-text-right ">
       <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Offline</p> -->
-      <img style="width:25%; margin-left: 70%; border-radius: 55%;" src="assets/offline.gif" alt="">
+      <img style="width:25%; margin-left: 80%; border-radius: 55%;" src="assets/offline.gif" alt="">
+    </div>
+
+  
+
+  </div>
+
+  <div class="row ">
+
+    <div style="margin-top:-45px" class="col-12 ion-text-center">
+      <b style="font-size: 18px;">WEIGHTER RECORDS</b>
+    </div>
+
+    <!-----Display Date----->
+
+    <div class="col-6 display-date mx-4 mt-4">
+      <b style="font-size: 13px;">Date: </b>
+      <p> <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
+    </div>
+
+
+
+
+    <div style="margin-top: -18%;" class=" col-7 dropdown toggle ">
+      <input id="t2" type="checkbox">
+      <label for="t2">{{user}}</label>
+      <ul>
+        <!-- <li><a (click)="setting()">Settings</a></li> -->
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
     </div>
 
   </div>
@@ -32,34 +62,16 @@
     </div>
 
 
+   
 
-    <!-----Table----->
-
-
-    <div class="row ">
-
-     
-  
-      <div class=" col-12 dropdown toggle mt-3">
-        <input id="t1" type="checkbox">
-        <label for="t1">{{user}}</label>
-        <ul>
-          <!-- <li><a (click)="setting()">Settings</a></li> -->
-          <li><a (click)="logout()">Logout</a></li>
-        </ul>
-      </div>
-  
-    </div>
-
+    <!-----location-wise weight Table----->
+    <h6 class="mx-2">Location-Wise:</h6>
     <table class="table">
-
-
-
       <thead style="background-color:#6863CC;" class="text-white">
         <tr>
           <th scope="col-3">S.No</th>
           <th scope="col-2">Location</th>
-          <th scope="col-2">Total Weight <br> (Kgs)</th>
+          <th scope="col-2">Total Weight <span style="font-size: 8px;">(Kgs)</span></th>
         </tr>
       </thead>
       <tbody *ngFor="let record of tableRecodrs   let i=index; ">
@@ -72,7 +84,7 @@
     </table>
 
     <div class="row">
-      <div *ngIf="isVisible" class=" col-12 ion-text-center mt-3 ">
+      <div *ngIf="isVisible" class=" col-12 ion-text-center  mb-3 ">
         <h4 class="ion-text-center mx-3">No Records</h4>
         <lottie-player src="https://assets8.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
           background="transparent" speed="1.5" style="width:65%;margin:auto" loop autoplay></lottie-player>
@@ -83,7 +95,7 @@
   </div>
 
 
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-6">
       <p style="color: #6863CC;margin-left: 5px;"><b>From Date:</b></p>
       <p style="color: #6863CC;margin-left: 5px;" ><b>To Date:</b></p>
@@ -108,6 +120,8 @@
     </ion-button>
     </div>
   </div>
+
+
 
 
   <!-----card----->
@@ -149,6 +163,72 @@
   </div>
 
 
+   <!-----stock Table----->
+   <h6 class="mx-2">Stock:</h6>
+   <table class="table">
+     <thead style="background-color:#6863CC;" class="text-white">
+       <tr>
+         <th scope="col-3">Type</th>
+         <th scope="col-2">Location</th>
+         <th scope="col-2">Category</th>
+         <th scope="col-2">Quality</th>
+         <th scope="col-2">Quantity</th>
+       </tr>
+     </thead>
+     <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+       <tr>
+         <td>{{i+1}} </td>
+         <td>{{record.location}}</td>
+         <td>{{record.location_total_weight}}</td>
+       </tr>
+     </tbody>
+   </table>
+
+    <!-----market Table----->
+    <h6 class="mx-2">Market:</h6>
+    <table class="table">
+      <thead style="background-color:#6863CC;" class="text-white">
+        <tr>
+          <th scope="col-3">Location</th>
+          <th scope="col-2">Place</th>
+          <th scope="col-2">Category </th>
+          <th scope="col-2">Quality </th>
+          <th scope="col-2">Quantity </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+        <tr>
+          <td>{{i+1}} </td>
+          <td>{{record.location}}</td>
+          <td>{{record.location_total_weight}}</td>
+          <td>{{record.location}}</td>
+          <td>{{record.location_total_weight}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+     <!-----merchent Table----->
+     <h6 class="mx-2">Merchant:</h6>
+     <table class="table">
+       <thead style="background-color:#6863CC;" class="text-white">
+         <tr>
+          <th scope="col-3">Shop</th>
+          <th scope="col-2">Place</th>
+          <th scope="col-2">Category </th>
+          <th scope="col-2">Quality </th>
+          <th scope="col-2">Quantity </th>
+         </tr>
+       </thead>
+       <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+         <tr>
+           <td>{{i+1}} </td>
+           <td>{{record.location}}</td>
+           <td>{{record.location_total_weight}}</td>
+           <td>{{record.location}}</td>
+           <td>{{record.location_total_weight}}</td>
+         </tr>
+       </tbody>
+     </table>
 
 
 </ion-content>

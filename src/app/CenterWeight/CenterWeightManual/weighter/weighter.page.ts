@@ -36,14 +36,14 @@ export class WeighterPage implements OnInit {
       });
     });
 
+    this.activeItem = "center"
+
     this.myDate = new Date();
-
     this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
-
-    console.log(this.myDate);
 
   }
 
+  activeItem:any;
 
 
   myDate;
@@ -93,6 +93,25 @@ export class WeighterPage implements OnInit {
     this.router.navigate(['/center-weight-manual-record'])
   }
 
+  center(val){
+    console.log(val);
+    
+    this.activeItem = "center"
+  }
+  
+  localsale(val){
+    this.activeItem = "localsale"
+    console.log(val);
+  }
+
+  market(val){
+    this.activeItem = "market"
+    console.log(val);
+  }
+  merchant(val){
+    this.activeItem = "merchant"
+    console.log(val);
+  }
 
   offlineApiCall() {
     if (this.checkonline = true) {

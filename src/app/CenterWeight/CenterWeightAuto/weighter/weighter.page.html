@@ -8,7 +8,8 @@
   <div class="row">
 
     <div class="col-6 mt-4 ">
-      <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()" name="arrow-back">
+      <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()"
+        name="arrow-back">
       </ion-icon>
     </div>
 
@@ -32,90 +33,117 @@
       <b style="font-size: 20px;">AUTO-WEIGHTER</b>
     </div>
 
-    <div class=" col-12 dropdown toggle mt-3">
-      <input id="t1" type="checkbox">
-      <label for="t1">{{user}}</label>
-      <ul>
-        <!-- <li><a (click)="setting()">Settings</a></li> -->
-        <li><a (click)="logout()">Logout</a></li>
-      </ul>
-    </div>
-
-  </div>
-
-
-  <!-----Display Weight----->
-  <div class="row">
-    <div class="col-12 ion-text-center mt-4">
-      <h1>{{recivedWeightValue}} <span style="font-size: 18px;">Kg</span></h1>
-      
-    </div>
-  </div>
-
-
-  <div class="container weighter-details-wrapper">
     <div class="row">
       <!-----Display Date----->
-      <div class="col-6 display-date">
+      <div class="col-6 display-date mx-4 mt-3">
         <b style="font-size: 13px;">Date: </b>
         <p> <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
       </div>
 
-
-      <!-----Fish category----->
-      <div class="col-6">
-        <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
-          <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
-          <select [(ngModel)]="category" placeholder="category" name="category">
-            <option value="" disabled selected>Category</option>
-            <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
-          </select>
-        </form>
+      <div style="margin-top:-45px" class=" col-6 dropdown toggle">
+        <input id="t1" type="checkbox">
+        <label for="t1">{{user}}</label>
+        <ul>
+          <!-- <li><a (click)="setting()">Settings</a></li> -->
+          <li><a (click)="logout()">Logout</a></li>
+        </ul>
       </div>
+
     </div>
 
-    <div class="row mt-3">
-      <!-----Fish quality----->
-      <div class="col-6">
-        <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
-          <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
-          <select [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;">
-            <option value="" disabled selected>Fish Type</option>
-            <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
-          </select>
-        </form>
-      </div>
 
-      <!-----FLocation----->
-      <div class="col-6">
-        <form (change)="SelectLocation(Selectlocation.value)" #Selectlocation="ngForm">
-          <p class="select-category" style="font-size: 13px;"><b><u>Select Location: </u></b></p>
-          <select [(ngModel)]="place" placeholder="place" name="place" style="width: 96%;">
-            <option value="" disabled selected hidden>Location</option>
-            <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
-          </select>
-        </form>
+    <!-----Display Weight----->
+    <div class="row">
+      <p class="select-category mx-4" style="font-size: 13px;"><b><u>Weight:</u></b></p>
+      <div class="col-12 ion-text-center mt-1">
+        <h1
+          style="border: 0.5px solid rgba(0, 0, 0, 0.164);  box-shadow: 1px 1px 8px 1px #6863CC;width: 85%;margin: auto;">
+          {{recivedWeightValue}} <span style="font-size: 17px;">Kg</span></h1>
+
       </div>
     </div>
 
 
-     <!-----Submit Button---->
-     <div class="row">
-       <div  class="button-wrapper mt-2">
-      <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent" 
-        style="background-color: #6863CC;width: 100% !important;" [disabled]="!place || !type || !category ||  !onlineAlart  || weight <='0' ">
-        <b>SUBMIT</b>
-      </ion-button>
+
+    <div class="container weighter-details-wrapper">
+      <div class="row">
+
+        <!-----Fish category----->
+        <div class="col-6">
+          <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
+            <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
+            <select class="selectDropdown" [(ngModel)]="category" placeholder="category" name="category">
+              <option value="" disabled selected>Category</option>
+              <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
+            </select>
+          </form>
+        </div>
+
+        <!-----Fish quality----->
+        <div class="col-6">
+          <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
+            <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
+            <select class="selectDropdown" [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;">
+              <option value="" disabled selected>Fish Type</option>
+              <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
+            </select>
+          </form>
+        </div>
+
+        <div id="sideMenuList" class="col-6">
+          <button [class]="activeItem == 'center' ? 'active list': 'list' " (click)="center('center')"
+            class="btn btn-primary type-btn">Center</button>
+        </div>
+        <div id="sideMenuList" class="col-6">
+          <button [class]="activeItem == 'localsale' ? 'active list': 'list' " (click)="localsale('localsale')"
+            class="btn btn-primary type-btn">Local Sale</button>
+        </div>
+        <div id="sideMenuList" class="col-6">
+          <button [class]="activeItem == 'market' ? 'active list': 'list' " (click)="market('market')"
+            class="btn btn-primary type-btn">Market</button>
+        </div>
+        <div id="sideMenuList" class="col-6">
+          <button [class]="activeItem == 'merchant' ? 'active list': 'list' " (click)="merchant('merchant')"
+            class="btn btn-primary type-btn">Merchant</button>
+        </div>
+
+      </div>
+
+
+
+      <div class="row mt-1">
+        <!-----FLocation----->
+        <div class="col-12 ion-text-center">
+          <form (change)="SelectLocation(Selectlocation.value)" #Selectlocation="ngForm">
+            <p class="select-category" style="font-size: 13px;"><b><u>Select Location: </u></b></p>
+            <select class="selectDropdown" [(ngModel)]="place" placeholder="place" name="place" style="width: 93%;">
+              <option value="" disabled selected hidden>Location</option>
+              <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
+            </select>
+          </form>
+        </div>
+      </div>
 
     </div>
-     </div>
+
+
+    <!-----Submit Button---->
+    <div class="row ion-text-center">
+      <div class="button-wrapper mt-2 mx-2 ">
+        <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent"
+          style="background-color: #6863CC;width: 100% !important;"
+          [disabled]="!place || !type || !category ||  !onlineAlart  || recivedWeightValue <='0' ">
+          <b>SUBMIT</b>
+        </ion-button>
+      </div>
+    </div>
 
   </div>
 
 
-   <!-----card----->
+  <!-----card----->
 
-   <div style="font-size: 12px;">
+  <div style="font-size: 12px;">
     <div class="row">
       <div class="col-12">
         <div class="card mt-3" *ngFor="let record of tableRecodrs">

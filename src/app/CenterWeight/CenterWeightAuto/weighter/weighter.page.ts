@@ -52,6 +52,7 @@ console.log(this.myDate);
 
   ngOnInit() {
 
+    this.activeItem = "center"
     this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
 
     const start = Date.now();
@@ -87,11 +88,33 @@ console.log(this.myDate);
   onlineAlart: any = true;
   offlineAlart: any = false
 
-  recivedWeightValue:any;
+  recivedWeightValue:any ;
 
+  activeItem:any;
 
   backToPrivios() {
     this.router.navigate(['/center-weight-auto-record'])
+  }
+
+
+  center(val){
+    console.log(val);
+    
+    this.activeItem = "center"
+  }
+  
+  localsale(val){
+    this.activeItem = "localsale"
+    console.log(val);
+  }
+
+  market(val){
+    this.activeItem = "market"
+    console.log(val);
+  }
+  merchant(val){
+    this.activeItem = "merchant"
+    console.log(val);
   }
 
 
