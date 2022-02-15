@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
-import { Printer, PrintOptions } from '@awesome-cordova-plugins/printer/ngx';
+//import { Printer, PrintOptions } from '@awesome-cordova-plugins/printer/ngx';
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.page.html',
@@ -11,7 +11,7 @@ import { Printer, PrintOptions } from '@awesome-cordova-plugins/printer/ngx';
 })
 export class BillPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private printer: Printer) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.GetBillDataFromLocalStorage();
 
@@ -52,20 +52,20 @@ export class BillPage implements OnInit {
 
     this.http.post('/manual_bill', data).subscribe((response: any) => {
       console.log(response);
-      if (response.success == "true") {
-        this.printer.isAvailable().then(this.onSuccess, this.onError);
+      // if (response.success == "true") {
+      //   this.printer.isAvailable().then(this.onSuccess, this.onError);
 
-        let options: PrintOptions = {
-          name: 'MyDocument',
-          duplex: true,
-          orientation: 'landscape',
-          monochrome: true
-        }
-        let content = document.getElementById('print-section').innerHTML;
-        this.printer.print(content, options).then(this.onSuccess, this.onError);
+      //   let options: PrintOptions = {
+      //     name: 'MyDocument',
+      //     duplex: true,
+      //     orientation: 'landscape',
+      //     monochrome: true
+      //   }
+      //   let content = document.getElementById('print-section').innerHTML;
+      //   this.printer.print(content, options).then(this.onSuccess, this.onError);
 
 
-      }
+      // }
     }, (error: any) => {
       console.log(error);
     }
