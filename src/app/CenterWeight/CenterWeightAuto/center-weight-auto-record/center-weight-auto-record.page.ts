@@ -101,7 +101,7 @@ export class CenterWeightAutoRecordPage implements OnInit {
   }
 
   totalWeight() {
-    this.http.get('/list_total_weight',).subscribe((response: any) => {
+    this.http.get('/list_total_manual_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
 
       if (response.records.total_weight == null) {
@@ -116,7 +116,7 @@ export class CenterWeightAutoRecordPage implements OnInit {
 
 
   locationBasedWeightRecords() {
-    this.http.get('/location_weight',).subscribe((response: any) => {
+    this.http.get('/location_manual_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
       console.log(response);
 

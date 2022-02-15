@@ -167,10 +167,9 @@ export class LoginPagePage implements OnInit {
             if (this.Localpermission == "MANUAL") {
               this.router.navigate(['/biller-weight-manual-record'])
             }
-
-            // if (this.userdetails.permission == "AUTO") {
-            //   this.router.navigate(['/centerweight-auto-dashboard'])
-            // }
+            if (this.Localpermission == "AUTO") {
+              this.router.navigate(['/biller-auto-record'])
+            }
           }
 
           //-------admin login check----------//

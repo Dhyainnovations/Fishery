@@ -29,8 +29,8 @@
     </div>
 
     <div class=" col-6 dropdown toggle mt-3">
-      <input id="t1" type="checkbox">
-      <label for="t1">{{user}}</label>
+      <input id="t3" type="checkbox">
+      <label for="t3">{{user}}</label>
       <ul>
         <!-- <li><a (click)="setting()">Settings</a></li> -->
         <li><a (click)="logout()">Logout</a></li>
@@ -134,7 +134,7 @@
         <td style="margin: 15px;">{{record.quality}}</td>
         <td style="margin: 5px;">{{record.weight}}Kg</td>
         <td style="margin: 5px;"> Rs.{{record.cost}}</td>
-        <td style="margin: 5px;">Rs.{{record.cost}}</td>
+        <td style="margin: 5px;">Rs.{{record.totalcost}}</td>
         <td><svg (click)="delete(record.id)" [value]="record.id" xmlns="http://www.w3.org/2000/svg" width="14"
             height="16" fill="#6863CC" class="bi bi-trash3" viewBox="0 0 16 16">
             <path fill-rule="evenodd"

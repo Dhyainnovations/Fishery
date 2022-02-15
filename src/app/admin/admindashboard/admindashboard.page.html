@@ -1,6 +1,54 @@
 <ion-content class="background">
+
+  <div class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  </div>
+
+  <div class="row">
+
+    <div *ngIf="onlineAlart" class="col-12 ion-text-right mt-2">
+      <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
+        speed="1.5" style="width:30%; margin-left: 70%;" loop autoplay></lottie-player>
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
+    </div>
+
+    <div *ngIf="offlineAlart" class="col-12 ion-text-right ">
+      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Offline</p> -->
+      <img style="width:30%; margin-left: 70%; border-radius: 55%;" src="assets/offline.gif" alt="">
+    </div>
+
+  </div>
+
   <!-----Title----->
-  <h2 class="text-center weighter"><b>WEIGHTER</b></h2>
+  <h2 class="text-center weighter"><b>DASHBOARD</b></h2>
+
+
+  <div class="row ">
+
+
+    <!-----Display Date----->
+
+    <div class="col-6 display-date mx-4 mt-4">
+      <b style="font-size: 13px;">Date: </b>
+      <p> <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
+    </div>
+
+
+
+
+    <div style="margin-top: -15%;" class=" col-6 dropdown toggle">
+      <input id="t2" type="checkbox">
+      <label for="t2">{{user}}</label>
+      <ul>
+        <!-- <li><a (click)="setting()">Settings</a></li> -->
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+
+  </div>
 
 
   <!-----Display Weight----->

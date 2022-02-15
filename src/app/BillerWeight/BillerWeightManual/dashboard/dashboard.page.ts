@@ -247,7 +247,8 @@ export class DashboardPage implements OnInit {
       userid: this.userId,
       isDeleted: "0",
       purchaseddate: this.currentDateTime,
-      cost: this.cost
+      cost: this.cost,
+      totalcost : this.cost + this.weight
     }
 
     console.log(data);

@@ -117,7 +117,7 @@ export class CenterWeightManualRecordPage implements OnInit {
 
 
   locationBasedWeightRecords() {
-    this.http.get('/location_weight',).subscribe((response: any) => {
+    this.http.get('/location_manual_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
       console.log(response);
 
