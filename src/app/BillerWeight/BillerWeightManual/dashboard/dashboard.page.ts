@@ -32,16 +32,13 @@ export class DashboardPage implements OnInit {
       });
 
       this.generateId();
+   
 
     });
 
   }
 
   ngOnInit() {
-
-
-
-
     this.userId = localStorage.getItem("orgid",)
     this.user = localStorage.getItem("Fishery-username",)
     this.http.get('/list_type_manual').subscribe((response: any) => {
@@ -195,7 +192,7 @@ export class DashboardPage implements OnInit {
     this.http.get('/list_price').subscribe((response: any) => {
       this.listQualityCategory = response.records;
       console.log(response);
-      
+
     }, (error: any) => {
       console.log(error);
     }
@@ -278,6 +275,7 @@ export class DashboardPage implements OnInit {
     })
 
     this.weight = ''
+
   }
 
   generateBill() {

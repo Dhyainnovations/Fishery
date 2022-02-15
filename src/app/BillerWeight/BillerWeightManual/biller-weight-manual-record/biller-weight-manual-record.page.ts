@@ -13,21 +13,22 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class BillerWeightManualRecordPage implements OnInit {
 
-  constructor(private network: Network,public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor(private network: Network, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.totalWeight()
       this.totalAmount()
       this.records();
       this.list_manual_bill();
-
-     window.addEventListener('offline', () => {
+      this.user = localStorage.getItem("Fishery-username",)
+      console.log(this.user);
+      window.addEventListener('offline', () => {
         this.checkoffline = true;
         this.offlineAlart = true
         this.onlineAlart = false;
-       
+
       });
       window.addEventListener('online', () => {
-        
+
         this.onlineAlart = true;
         this.offlineAlart = false
         this.checkonline = true;
@@ -39,7 +40,7 @@ export class BillerWeightManualRecordPage implements OnInit {
   ngOnInit() {
 
   }
-
+  user: any;
   checkoffline: any;
   checkonline: any;
   buttonDisabled: boolean;
@@ -53,7 +54,13 @@ export class BillerWeightManualRecordPage implements OnInit {
   isVisible: any = false
   lastEntryisVisible: any = false
 
-
+  logout() {
+    localStorage.removeItem("orgid",)
+    localStorage.removeItem("Fishery-username",)
+    localStorage.removeItem("logintype",)
+    localStorage.removeItem("permission",)
+    this.router.navigate(['/loginpage'])
+  }
 
   dosomething(event) {
     setTimeout(() => {
@@ -61,10 +68,10 @@ export class BillerWeightManualRecordPage implements OnInit {
 
     }, 1500);
   }
-  
+
 
   totalWeight() {
-    this.http.get('/list_total_weight',).subscribe((response: any) => {
+    this.http.get('/list_total_bill_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
       console.log(response);
 
@@ -114,7 +121,7 @@ export class BillerWeightManualRecordPage implements OnInit {
     );
   }
 
-  manualBillList:any = []
+  manualBillList: any = []
 
   todayBillList() {
     this.http.get('/list_today_manual_bill',).subscribe((response: any) => {
@@ -154,7 +161,7 @@ export class BillerWeightManualRecordPage implements OnInit {
     }
 
     this.http.post('/delete_manual_bill', data).subscribe((response: any) => {
-     
+
       console.log(response);
       if (response.success == "true") {
         const Toast = Swal.mixin({
