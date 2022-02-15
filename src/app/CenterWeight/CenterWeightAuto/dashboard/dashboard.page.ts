@@ -139,4 +139,29 @@ export class DashboardPage implements OnInit {
   next(){
     this.router.navigate(['/centerweight-auto-weighter']);
   }
+
+
+  CheckBluetoothIsConnected() {
+    this.bluetoothSerial.isEnabled().then(
+      () => {
+        this.bluetoothtoggle = true;
+      },
+      () => {
+        this.bluetoothtoggle = false;
+      }
+    )
+  }
+
+  bluetoothtoggle: any = false;
+
+  enablebluetooth() {
+    this.bluetoothSerial.enable().then(
+      () => {
+        alert("Bluetooth is enabled");
+        this.startScanning();
+      }, () => {
+        alert("The user did not enable Bluetooth");
+      }
+    );
+  }
 }
