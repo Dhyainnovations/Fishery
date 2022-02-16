@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CWADateBasedRecordPage } from './cwa-date-based-record.page';
+import { BillerReportPage } from './biller-report.page';
 
-describe('CWADateBasedRecordPage', () => {
-  let component: CWADateBasedRecordPage;
-  let fixture: ComponentFixture<CWADateBasedRecordPage>;
+describe('BillerReportPage', () => {
+  let component: BillerReportPage;
+  let fixture: ComponentFixture<BillerReportPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CWADateBasedRecordPage ],
+      declarations: [ BillerReportPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CWADateBasedRecordPage);
+    fixture = TestBed.createComponent(BillerReportPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

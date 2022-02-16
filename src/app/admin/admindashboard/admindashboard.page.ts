@@ -30,12 +30,27 @@ export class AdmindashboardPage implements OnInit {
 
 
     this.user = localStorage.getItem("Fishery-username",)
+
+    this.myDate = new Date();
+
+    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.fromdate = this.myDate;
+    this.todate = this.myDate
     });
 
   }
 
   ngOnInit() {
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
   }
+
+  myDate:any
+
+  fromdate: any;
+  todate: any;
+
+  currentDateTime: any;
+
 
   user: any;
 
@@ -56,6 +71,17 @@ export class AdmindashboardPage implements OnInit {
   
   userCreationPage(){
     this.router.navigate(['/admin-usercreation'])
+  }
+
+
+  weighterReportPage(){
+    this.router.navigate(['/weighter-report'])
+
+  }
+
+  billerReportPage(){
+    this.router.navigate(['/biller-report'])
+
   }
 
   logout() {

@@ -1,12 +1,14 @@
 <ion-content class="background">
+  <!-------refresher--------->
   <div class="ion-padding">
     <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
       <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
       </ion-refresher-content>
     </ion-refresher>
   </div>
-  <div class="row">
 
+  <!-------- online offline alert----------->
+  <div class="row">
     <div class="col-6 mt-4 ">
       <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()"
         name="arrow-back">
@@ -25,24 +27,20 @@
     </div>
 
   </div>
+
   <!-----Title----->
-
   <div class="row ">
-
     <div style="margin-top:-45px" class="col-12 ion-text-center">
       <b style="font-size: 25px;">WEIGHTER</b>
     </div>
 
     <!-----Display Date----->
-
     <div class="col-6 display-date mx-4 mt-4">
       <b style="font-size: 13px;">Date: </b>
       <p> <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
     </div>
 
-
-
-
+    <!----- login dropdown----->
     <div style="margin-top: -15%;" class=" col-6 dropdown toggle">
       <input id="t2" type="checkbox">
       <label for="t2">{{user}}</label>
@@ -54,13 +52,9 @@
 
   </div>
 
-
-
-
- 
   <div class="row">
 
- <!-----Display Weight----->
+    <!-----Display Weight----->
     <div class="col-12 ion-text-center mt-4">
       <input [(ngModel)]="weight" type="number" placeholder="ENTER THE WEIGHT" class="text-center"
         style="border: 0.5px solid rgba(0, 0, 0, 0.164);  box-shadow: 1px 1px 8px 1px #6863CC;;font-size: 16px;padding: 5px;margin-left: 10px;margin-right: 10px">
@@ -77,14 +71,14 @@
       <div class="col-6">
         <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
           <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
-          <select class="selectDropdown" [(ngModel)]="category" placeholder="category" name="category">
+          <select class="selectDropdown" [(ngModel)]="category" placeholder="category" style="width: 96%;"  name="category">
             <option value="" disabled selected>Category</option>
             <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
           </select>
         </form>
       </div>
 
-       <!-----Fish quality----->
+      <!-----Fish quality----->
       <div class="col-6">
         <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
           <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
@@ -95,18 +89,22 @@
         </form>
       </div>
 
-      <div id="sideMenuList"  class="col-6">
-       <button  [class]="activeItem == 'center' ? 'active list': 'list' " (click)="center('center')"  class="btn btn-primary type-btn">Center</button>
+      <div id="sideMenuList" class="col-6">
+        <button [class]="activeItem == 'center' ? 'active list': 'list' " (click)="center('center')"
+          class="btn btn-primary type-btn">Center</button>
       </div>
       <div id="sideMenuList" class="col-6">
-        <button [class]="activeItem == 'localsale' ? 'active list': 'list' " (click)="localsale('localsale')" class="btn btn-primary type-btn">Local Sale</button>
-       </div>  
-       <div id="sideMenuList" class="col-6">
-        <button [class]="activeItem == 'market' ? 'active list': 'list' " (click)="market('market')" class="btn btn-primary type-btn">Market</button>
-       </div> 
-       <div id="sideMenuList" class="col-6">
-        <button [class]="activeItem == 'merchant' ? 'active list': 'list' " (click)="merchant('merchant')" class="btn btn-primary type-btn">Merchant</button>
-       </div> 
+        <button [class]="activeItem == 'localsale' ? 'active list': 'list' " (click)="localsale('localsale')"
+          class="btn btn-primary type-btn">Local Sale</button>
+      </div>
+      <div id="sideMenuList" class="col-6">
+        <button [class]="activeItem == 'market' ? 'active list': 'list' " (click)="market('market')"
+          class="btn btn-primary type-btn">Market</button>
+      </div>
+      <div id="sideMenuList" class="col-6">
+        <button [class]="activeItem == 'merchant' ? 'active list': 'list' " (click)="merchant('merchant')"
+          class="btn btn-primary type-btn">Merchant</button>
+      </div>
 
     </div>
 
@@ -114,14 +112,13 @@
 
     <div class="row mt-3">
       <!-----FLocation----->
-      <div class="col-12 ion-text-center">
-        <form (change)="SelectLocation(Selectlocation.value)" #Selectlocation="ngForm">
-          <p class="select-category" style="font-size: 13px;"><b><u>Select Location: </u></b></p>
-          <select class="selectDropdown" [(ngModel)]="place" placeholder="place" name="place" style="width: 96%;">
+      <div   class="col-12 ion-text-center">
+       
+          <p  class="select-category" style="font-size: 13px;"><b><u>Select Location: </u></b></p>
+          <select  (click)="SelectLocation(location.place,location.location)" class="selectDropdown" [(ngModel)]="place" placeholder="place" name="place" style="width: 96%;">
             <option value="" disabled selected hidden>Location</option>
-            <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}</option>
+            <option *ngFor="let location of locationlist" [value]="location.place">{{location.place}}-{{location.location}}</option>
           </select>
-        </form>
       </div>
     </div>
 
@@ -157,7 +154,7 @@
               <b style="color: #6863CC;">Time</b> : {{record.time}}<br>
               <b style="color: #6863CC;">Type</b> : {{record.quality}} <br>
               <b style="color: #6863CC;">Location</b> : {{record.place}}<br>
-              
+
 
             </div>
             <div class="col-2 ion-text-left mt-2">
@@ -175,8 +172,5 @@
       </div>
     </div>
   </div>
-
-
-
 
 </ion-content>

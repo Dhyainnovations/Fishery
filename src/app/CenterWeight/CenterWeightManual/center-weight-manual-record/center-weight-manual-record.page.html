@@ -94,6 +94,74 @@
     </div>
   </div>
 
+   <!-----stock Table----->
+   <h6 class="mx-2">Stock:</h6>
+   <table class="table">
+     <thead style="background-color:#6863CC;" class="text-white">
+       <tr>
+         <th scope="col-3">Type</th>
+         <th scope="col-2">Location</th>
+         <th scope="col-2">Category</th>
+         <th scope="col-2">Quality</th>
+         <th scope="col-2">Quantity</th>
+       </tr>
+     </thead>
+     <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+       <tr>
+         <td>{{i+1}} </td>
+         <td>{{record.location}}</td>
+         <td>{{record.location_total_weight}}</td>
+       </tr>
+     </tbody>
+   </table>
+
+    <!-----market Table----->
+    <h6 class="mx-2">Market:</h6>
+    <table class="table">
+      <thead style="background-color:#6863CC;" class="text-white">
+        <tr>
+          <th scope="col-3">Location</th>
+          <th scope="col-2">Place</th>
+          <th scope="col-2">Category </th>
+          <th scope="col-2">Quality </th>
+          <th scope="col-2">Quantity </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+        <tr>
+          <td>{{i+1}} </td>
+          <td>{{record.location}}</td>
+          <td>{{record.location_total_weight}}</td>
+          <td>{{record.location}}</td>
+          <td>{{record.location_total_weight}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+     <!-----merchent Table----->
+     <h6 class="mx-2">Merchant:</h6>
+     <table class="table">
+       <thead style="background-color:#6863CC;" class="text-white">
+         <tr>
+          <th scope="col-3">Shop</th>
+          <th scope="col-2">Place</th>
+          <th scope="col-2">Category </th>
+          <th scope="col-2">Quality </th>
+          <th scope="col-2">Quantity </th>
+         </tr>
+       </thead>
+       <tbody *ngFor="let record of tableRecodrs   let i=index; ">
+         <tr>
+           <td>{{i+1}} </td>
+           <td>{{record.location}}</td>
+           <td>{{record.location_total_weight}}</td>
+           <td>{{record.location}}</td>
+           <td>{{record.location_total_weight}}</td>
+         </tr>
+       </tbody>
+     </table>
+
+
 
   <div class="row mt-4">
     <div class="col-6">
@@ -163,72 +231,6 @@
   </div>
 
 
-   <!-----stock Table----->
-   <h6 class="mx-2">Stock:</h6>
-   <table class="table">
-     <thead style="background-color:#6863CC;" class="text-white">
-       <tr>
-         <th scope="col-3">Type</th>
-         <th scope="col-2">Location</th>
-         <th scope="col-2">Category</th>
-         <th scope="col-2">Quality</th>
-         <th scope="col-2">Quantity</th>
-       </tr>
-     </thead>
-     <tbody *ngFor="let record of tableRecodrs   let i=index; ">
-       <tr>
-         <td>{{i+1}} </td>
-         <td>{{record.location}}</td>
-         <td>{{record.location_total_weight}}</td>
-       </tr>
-     </tbody>
-   </table>
-
-    <!-----market Table----->
-    <h6 class="mx-2">Market:</h6>
-    <table class="table">
-      <thead style="background-color:#6863CC;" class="text-white">
-        <tr>
-          <th scope="col-3">Location</th>
-          <th scope="col-2">Place</th>
-          <th scope="col-2">Category </th>
-          <th scope="col-2">Quality </th>
-          <th scope="col-2">Quantity </th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let record of tableRecodrs   let i=index; ">
-        <tr>
-          <td>{{i+1}} </td>
-          <td>{{record.location}}</td>
-          <td>{{record.location_total_weight}}</td>
-          <td>{{record.location}}</td>
-          <td>{{record.location_total_weight}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-     <!-----merchent Table----->
-     <h6 class="mx-2">Merchant:</h6>
-     <table class="table">
-       <thead style="background-color:#6863CC;" class="text-white">
-         <tr>
-          <th scope="col-3">Shop</th>
-          <th scope="col-2">Place</th>
-          <th scope="col-2">Category </th>
-          <th scope="col-2">Quality </th>
-          <th scope="col-2">Quantity </th>
-         </tr>
-       </thead>
-       <tbody *ngFor="let record of tableRecodrs   let i=index; ">
-         <tr>
-           <td>{{i+1}} </td>
-           <td>{{record.location}}</td>
-           <td>{{record.location_total_weight}}</td>
-           <td>{{record.location}}</td>
-           <td>{{record.location_total_weight}}</td>
-         </tr>
-       </tbody>
-     </table>
-
+  
 
 </ion-content>

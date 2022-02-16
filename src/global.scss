@@ -34,7 +34,7 @@
 .weight-display{
     background-color: #6863CC;
     color: white;
-    border-radius: 5px;
+    border-radius: 2px;
     padding-top: 3px;
 }
 
@@ -134,7 +134,20 @@ ion-content.background{
 }
 
 
+.card{
+    
+    border:1px solid #fff;
+    box-shadow:3px 3px 16px 4px #ccc;
+    margin: auto;
+    width: 100%;
+    background-color: #fff !important;
+    border-radius: 2px;
+}
 
+
+.selectDropdown{
+    border: 2px solid #655fcb;
+  }
 
 
 

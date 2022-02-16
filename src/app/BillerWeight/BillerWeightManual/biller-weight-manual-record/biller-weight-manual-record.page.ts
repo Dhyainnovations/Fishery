@@ -34,6 +34,8 @@ export class BillerWeightManualRecordPage implements OnInit {
         this.checkonline = true;
 
       });
+
+      this.todayBillList()
     });
   }
 
@@ -88,7 +90,7 @@ export class BillerWeightManualRecordPage implements OnInit {
 
   totalCost: any;
   totalAmount() {
-    this.http.get('/total_amount',).subscribe((response: any) => {
+    this.http.get('/bill_total_amount',).subscribe((response: any) => {
       this.totalCost = response.records.total_amount;
       console.log(response);
       if (response.records.total_amount == null) {
@@ -124,7 +126,7 @@ export class BillerWeightManualRecordPage implements OnInit {
   manualBillList: any = []
 
   todayBillList() {
-    this.http.get('/list_today_manual_bill',).subscribe((response: any) => {
+    this.http.get('/total_quality_bill_weight',).subscribe((response: any) => {
       this.manualBillList = response.records;
       console.log(response);
 

@@ -88,7 +88,7 @@ export class CenterWeightManualRecordPage implements OnInit {
   }
 
   dateBasedRecord() {
-    this.router.navigate(['/cwm-date-based-record'],{ queryParams: { fromdate: this.fromdate, todate: this.todate } })
+    this.router.navigate(['/weighter-report'],{ queryParams: { fromdate: this.fromdate, todate: this.todate } })
     localStorage.setItem("fromDate", this.fromdate)
     localStorage.setItem("toDate", this.todate)
 

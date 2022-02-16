@@ -21,14 +21,19 @@
 
   </div>
   <!-----Title----->
-
-  <div class="row">
-
-    <div style="margin-top:-50px" class="col-12 ion-text-center">
+  <div class="row ">
+    <div style="margin-top:-45px" class="col-12 ion-text-center">
       <b style="font-size: 25px;">BILLER</b>
     </div>
 
-    <div class=" col-6 dropdown toggle mt-3">
+    <!-----Display Date----->
+    <div class="col-6 display-date mx-4 mt-5">
+      <b style="font-size: 13px;">Date: </b>
+      <p> <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
+    </div>
+
+    <!----- login dropdown----->
+    <div style="margin-top: -15%;" class=" col-6 dropdown toggle">
       <input id="t2" type="checkbox">
       <label for="t2">{{user}}</label>
       <ul>
@@ -44,7 +49,7 @@
   <div class="row">
     <div class="col-12 ion-text-center mt-4">
       <input [(ngModel)]="weight" type="number" placeholder="ENTER THE WEIGHT" class="text-center"
-        style="border: 0.5px solid rgba(0, 0, 0, 0.164); box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;font-size: 14px;padding: 10px;">
+        style="border: 0.5px solid rgba(0, 0, 0, 0.164);  box-shadow: 1px 1px 8px 1px #6863CC;;font-size: 16px;padding: 5px;margin-left: 10px;margin-right: 10px">
       KG
     </div>
   </div>
@@ -54,11 +59,7 @@
 
   <div class="container weighter-details-wrapper">
     <div class="row">
-      <!-----Display Date----->
-      <div class="col-6 display-date">
-        <b style="font-size: 13px;">Date: </b>
-        <b>{{currentDate | date:'dd-MM-yyyy'}}</b>
-      </div>
+
 
       <div class="col-6 display-date">
 
@@ -67,7 +68,10 @@
           <div class="row">
             <div class="col-12">
               <p class="select-category"><b><u>Select Counter: </u></b></p>
-              <select [(ngModel)]="counter" placeholder="counter" name="counter"
+
+              <!-----  select counter----->
+
+              <select class="selectDropdown" [(ngModel)]="counter" placeholder="counter" name="counter"
                 style="width: 100%;font-size: 13px;padding: 2px;">
                 <option value="" disabled selected hidden>Price</option>
                 <option [value]="1">1</option>
@@ -84,10 +88,11 @@
 
 
       <!-----Fish Category----->
-      <div class="col-6 mt-3">
+      <div class="col-6">
         <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
           <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
-          <select [(ngModel)]="category" placeholder="category" name="category">
+          <select class="selectDropdown" [(ngModel)]="category" placeholder="category" style="width: 100%;"
+            name="category">
             <option value="" disabled selected>Category</option>
             <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
           </select>
@@ -97,30 +102,26 @@
 
 
       <!-----Fish quality----->
-      <div class="col-6 mt-3">
+      <div class="col-6 mt-2">
         <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
           <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
-          <select [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;">
+          <select class="selectDropdown" [(ngModel)]="type" placeholder="type" name="type" style="width: 100%;">
             <option value="" disabled selected>Fish Type</option>
             <option *ngFor="let quality of qualityList" [value]="quality.type">{{quality.type}}</option>
           </select>
         </form>
       </div>
 
-
-
-
-    </div>
-    <div class="button-wrapper p-4">
-      <div class="container">
-        <div class="row">
-          <button (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
-            style="font-size: 13px;color: white;" [disabled]="!weight || !counter || !category || !type ">
-            ADD ITEM
-          </button>
-        </div>
+      <div style="margin-top: 13%;" class=" col-6">
+        <button  (click)="addItem()" class="submit-button px-4 py-2 " color="transparent"
+          style="font-size: 13px;color: white;width: 100%;" [disabled]="!weight || !counter || !category || !type ">
+          ADD ITEM
+        </button>
       </div>
+
+
     </div>
+
   </div>
 
 

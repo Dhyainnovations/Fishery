@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CWMDateBasedRecordPage } from './cwm-date-based-record.page';
+import { WeighterReportPage } from './weighter-report.page';
 
-describe('CWMDateBasedRecordPage', () => {
-  let component: CWMDateBasedRecordPage;
-  let fixture: ComponentFixture<CWMDateBasedRecordPage>;
+describe('WeighterReportPage', () => {
+  let component: WeighterReportPage;
+  let fixture: ComponentFixture<WeighterReportPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CWMDateBasedRecordPage ],
+      declarations: [ WeighterReportPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CWMDateBasedRecordPage);
+    fixture = TestBed.createComponent(WeighterReportPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

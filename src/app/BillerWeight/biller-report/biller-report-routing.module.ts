@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CWADateBasedRecordPage } from './cwa-date-based-record.page';
+import { BillerReportPage } from './biller-report.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CWADateBasedRecordPage
+    component: BillerReportPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CWADateBasedRecordPageRoutingModule {}
+export class BillerReportPageRoutingModule {}

@@ -67,6 +67,11 @@ export class WeighterPage implements OnInit {
   dropdownVisible: any = false;
 
   // currentDate = new Date();
+  tdyDate: any;
+  formattedDate;
+  today = new Date().toLocaleDateString()
+  hr:any;
+  updateTime:any;
 
   currentDateTime: any;
   checkoffline: any;
@@ -75,6 +80,7 @@ export class WeighterPage implements OnInit {
   category: any;
   type: any;
   place: any;
+  location: any;
   weight: any;
   mdy: any;
   categorylist: any = []
@@ -94,23 +100,60 @@ export class WeighterPage implements OnInit {
   }
 
   center(val){
-    console.log(val);
-    
     this.activeItem = "center"
+
+    this.http.get('/list_center_place',).subscribe((response: any) => {
+      this.locationlist = response.records;
+      console.log(response);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  
+
+
   }
   
   localsale(val){
     this.activeItem = "localsale"
     console.log(val);
+    this.http.get('/list_localsale_place',).subscribe((response: any) => {
+      this.locationlist = response.records;
+      console.log(response);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  
   }
 
   market(val){
     this.activeItem = "market"
     console.log(val);
+    this.http.get('/list_market',).subscribe((response: any) => {
+      this.locationlist = response.records;
+      console.log(response);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  
   }
   merchant(val){
     this.activeItem = "merchant"
     console.log(val);
+    this.http.get('/list_merchant',).subscribe((response: any) => {
+      this.locationlist = response.records;
+      console.log(response);
+
+    }, (error: any) => {
+      console.log(error);
+    }
+    );
+  
   }
 
   offlineApiCall() {
@@ -150,13 +193,7 @@ export class WeighterPage implements OnInit {
     }
   }
 
-  tdyDate: any;
-
-  formattedDate;
-  today = new Date().toLocaleDateString()
-
-  hr;
-  updateTime;
+ 
 
   onlineApiCal() {
     console.log(this.category, this.place, this.type);
@@ -200,6 +237,7 @@ export class WeighterPage implements OnInit {
       type: "center",
       category: this.category,
       place: this.place,
+      location:this.location,
       quantity: this.weight,
       isDeleted: "0",
       boxname: "box",
@@ -207,6 +245,8 @@ export class WeighterPage implements OnInit {
     }
 
     console.log(data);
+
+    
 
 
     //----------If Offline----------//
@@ -259,10 +299,18 @@ export class WeighterPage implements OnInit {
     this.type = data.type;
   }
 
-  SelectLocation(data) {
-    const formdata = new FormData();
-    formdata.append("place", data.place);
-    this.place = data.place;
+  SelectLocation(place,location) {
+    alert(location)
+    console.log("hello");
+    alert("jhfj")
+    
+    console.log(place,location);
+
+    this.location = location
+    
+    // const formdata = new FormData();
+    // formdata.append("place", data.place);
+    // this.place = data.place;
   }
 
   StoreTypeBasedOnCategory = [];
@@ -391,18 +439,7 @@ export class WeighterPage implements OnInit {
     }, 1500);
   }
 
-  // value: any;
-
-  // NavigateTo() {
-  //   console.log(this.value);
-  //   if (this.value == "settings") {
-  //     this.router.navigate(['/settings'])
-  //   } else {
-  //     this.logout()
-  //   }
-
-
-  // }
+ 
 
   checkboxsts: any = false
 
@@ -445,17 +482,6 @@ export class WeighterPage implements OnInit {
       console.log(error);
     });
 
-
-    //----------- Set Type Based On Category Local Storage --------------//
-
-    // this.http.get('/list_type_manual').subscribe((response: any) => {
-    //   var SetTypeBasedOnCategory = (JSON.stringify(response.records));
-    //   localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
-
-    // }, (error: any) => {
-    //   console.log(error);
-    // }
-    // );
   } 
 
   logout() {

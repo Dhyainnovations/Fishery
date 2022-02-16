@@ -2,13 +2,10 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'splash-screen',
-    loadChildren: () => import('./splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
-  },
+
   {
     path: '',
-    redirectTo: 'splash-screen',
+    redirectTo: 'loginpage',
     pathMatch: 'full'
   },
   {
@@ -101,12 +98,12 @@ const routes: Routes = [
     loadChildren: () => import('./BillerWeight/BillerWeightAuto/biller-auto-record/biller-auto-record.module').then( m => m.BillerAutoRecordPageModule)
   },
   {
-    path: 'cwm-date-based-record',
-    loadChildren: () => import('./CenterWeight/CenterWeightManual/cwm-date-based-record/cwm-date-based-record.module').then( m => m.CWMDateBasedRecordPageModule)
+    path: 'weighter-report',
+    loadChildren: () => import('./CenterWeight/weighter-report/weighter-report.module').then( m => m.WeighterReportPageModule)
   },
   {
-    path: 'cwa-date-based-record',
-    loadChildren: () => import('./CenterWeight/CenterWeightAuto/cwa-date-based-record/cwa-date-based-record.module').then( m => m.CWADateBasedRecordPageModule)
+    path: 'biller-report',
+    loadChildren: () => import('./BillerWeight/biller-report/biller-report.module').then( m => m.BillerReportPageModule)
   },
  
 ];
