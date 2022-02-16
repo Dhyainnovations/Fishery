@@ -129,6 +129,7 @@ export class WeighterPage implements OnInit {
   
   }
 
+  mergesdLocationList:any = []
   market(val){
     this.activeItem = "market"
     console.log(val);
@@ -299,12 +300,8 @@ export class WeighterPage implements OnInit {
     this.type = data.type;
   }
 
-  SelectLocation(place,location) {
-    alert(location)
-    console.log("hello");
-    alert("jhfj")
-    
-    console.log(place,location);
+  SelectLocation(place) {
+    console.log(place);
 
     this.location = location
     
